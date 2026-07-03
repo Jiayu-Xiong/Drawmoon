@@ -1,3 +1,17 @@
+> [!IMPORTANT]
+> **Disclaimer**
+>
+> - **No provider endorsement.** The model/API providers shown in the demos and
+>   templates (DeepSeek, Kuaipao, OpenAI-compatible gateways, image APIs, etc.) are
+>   only working examples. The author does **not** recommend or endorse any specific
+>   provider — pick your own and read their terms.
+> - **The ICLR demo is synthetic and testing-only.** Every number, result, and claim in
+>   `demos/iclr-audiorwkv/` was **randomly generated during testing**. This paper has
+>   **not** been submitted or published on any platform, and the author will **not**
+>   submit it. Do **not** plagiarize or steal these outputs, and **do not** submit any
+>   generated result — from this or any run — to a conference, journal, or other venue
+>   as real work.
+
 <p align="center">
   <img src="logo.png" alt="Drawmoon" width="200" />
 </p>
@@ -27,8 +41,33 @@ CLIs (KIRO, Codex, Copilot) inside a single run, with per-node token accounting.
 - **Any provider** — API keys or auto-detected local CLIs, chosen per node.
 - **Real artifacts** — Markdown, LaTeX/PDF, and images produced on disk.
 
+## Why Drawmoon?
+
+Single-agent chat breaks down on large, multi-step deliverables — a paper, a book, a
+codebase. You hit context limits, one model is rarely best at everything, parallel
+sub-tasks collide on the same files, and there is no clean way to pause for human
+review or to make the result reproducible. Stitching this together with ad-hoc scripts
+means re-plumbing prompts, file paths, retries, and provider quirks every time.
+
+Drawmoon turns that ad-hoc glue into a **first-class, visual workflow**:
+
+- **Beat the context wall** — split work across many nodes, each with its own scoped
+  context (`fresh` / `summary` / `artifacts` / `fork`) instead of one giant thread.
+- **Right model per step** — bind any provider per node; a cheap model drafts, a strong
+  model reviews, a CLI edits files, an image model renders figures — in one run.
+- **Parallelism without collisions** — the IO planner allocates the file tree up front
+  so fan-out workers never overwrite each other, then migrates outputs to final paths.
+- **Human-in-the-loop** — gates pause for approval and planners can ask clarifying
+  questions, all resumable across restarts.
+- **Reproducible & auditable** — deterministic wave scheduling, per-node token
+  accounting, and every artifact persisted to disk.
+
+If a task is too big for one prompt and needs several agents, tools, and a human check
+to cooperate on real files, that is the problem Drawmoon solves.
+
 ## Table of contents
 
+- [Why Drawmoon?](#why-drawmoon)
 - [Screenshots](#screenshots)
 - [Applications](#applications)
 - [Requirements](#requirements)
@@ -40,6 +79,11 @@ CLIs (KIRO, Codex, Copilot) inside a single run, with per-node token accounting.
   - [Agent Mode structure](#agent-mode-structure)
   - [LLM API binding structure](#llm-api-binding-structure)
   - [The IO Planner](#the-io-planner)
+- [Console capabilities](#console-capabilities)
+  - [Custom Agent Modes](#custom-agent-modes)
+  - [Generate workflows with an LLM](#generate-workflows-with-an-llm)
+  - [Skills, MCP & tools](#skills-mcp--tools)
+  - [Context sharing & isolation](#context-sharing--isolation)
 - [Templates](#templates)
 - [Demos](#demos)
 - [Roadmap](#roadmap)
@@ -368,6 +412,90 @@ runtime creates `folders` → each worker writes its **flat** staging file → t
 runtime deterministically **migrates flat → dest** and validates every declared
 file exists. This removes path collisions between parallel workers and makes the
 final layout predictable regardless of what each agent decides to name things.
+
+## Console capabilities
+
+The JSON above is the storage format; in practice you drive everything from the
+console. These are the pieces you touch most.
+
+### Custom Agent Modes
+
+An Agent Mode is a reusable executor profile. The console lets you **derive** a new
+mode from a base (e.g. mirror OpenCode's chat/plan/build, or start from `direct-api`),
+override just the prompt, tools, iteration and retry policy, and lock the rest with
+`fieldPolicy`. Because every executor — CLI agents *and* direct API calls — is an
+Agent Mode, a node's provider is chosen entirely by which mode it binds.
+
+<p align="center">
+  <img src="docs/screenshots/console-agent-modes.png" alt="Custom Agent Modes" width="90%" />
+</p>
+
+The per-node inspector shows the resolved binding (agent mode + model) and lets you
+swap the mode without touching the graph:
+
+<p align="center">
+  <img src="docs/screenshots/node-inspector.png" alt="Node inspector — agent mode binding" width="42%" />
+</p>
+
+### Generate workflows with an LLM
+
+Authoring a large graph by hand is tedious, so the console can **generate a workflow
+from a description**. Pick a drafting Agent Mode and LLM API, write a brief (goal,
+stages, node count, CLI-vs-API, parallel-vs-serial, shared context), and Drawmoon
+produces a validated workflow JSON and saves it under
+`~/.drawmoon/templates/workflows`. "Refine existing" feeds a current template back in
+for targeted edits.
+
+<p align="center">
+  <img src="docs/screenshots/template-gen.png" alt="LLM workflow template generator" width="90%" />
+</p>
+
+### Skills, MCP & tools
+
+Nodes act through **tools**. Drawmoon unifies three sources into one catalog:
+
+- **System tools** — built-ins and OpenCode-mapped tools (`read_file`, `edit_file`,
+  `latex_build`, `pdf_audit`, `grep`, …), each with its runtime and parameters.
+- **Skills** — reusable prompt/skill packs (e.g. `humanizer`, `drawio-grid-figures`).
+- **MCP servers** and **custom tools** — added from the Tools app (paste a skill body,
+  an MCP JSON config, or a custom tool spec) and stored in `~/.drawmoon/library`.
+
+<p align="center">
+  <img src="docs/screenshots/tools-library.png" alt="Tools library — system tools, skills, MCP, custom tools" width="92%" />
+</p>
+
+**Per-node isolation.** A node does not automatically get everything. In its Tools
+inspector you set a **scope** for skills and MCP servers independently:
+
+- `inherit` — use the Agent Mode's defaults;
+- `force only` — run with *exactly* the listed skills/servers (hard isolation);
+- `allow only` — restrict to a whitelist.
+
+This keeps an image node from loading paper-writing skills, stops a reviewer from
+editing files, and makes each node's capability surface explicit and reproducible.
+
+<p align="center">
+  <img src="docs/screenshots/node-tools.png" alt="Per-node tool and skill/MCP isolation" width="42%" />
+</p>
+
+### Context sharing & isolation
+
+The **Sessions** view lays the graph out as conversation threads: each column is one
+shared thread, and anything left in the *Isolated* column starts fresh. This is where
+you decide, visually, which nodes talk to each other and which stay independent.
+
+<p align="center">
+  <img src="docs/screenshots/context-sessions.png" alt="Session columns — shared vs isolated context" width="92%" />
+</p>
+
+**Why it matters (and why it ties to tool selection).** Nodes that share a thread reuse
+each other's context — cheaper and more coherent — but they should share the *same*
+CLI/API binding, or the reused history becomes meaningless (or unsafe) across
+providers. So context sharing and per-node tool/model selection go together: a shared
+session is only sound when its members agree on their executor and tools. The
+per-node **Policy** (`fresh` / `shared` / `inherit` / `fork` / `summary` / `artifacts`)
+plus the tool scope above are what make a wave of parallel workers cooperate without
+leaking state or clobbering files.
 
 ## Templates
 
