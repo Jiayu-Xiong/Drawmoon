@@ -160,8 +160,6 @@ read from `~/.drawmoon/api` or the repo root). **No keys are committed here.**
 | Variable | Purpose |
 |----------|---------|
 | `DEEPSEEK_API_KEY` | DeepSeek chat/reasoning models |
-| `KUAIPAO_API_KEY` | Kuaipao-compatible OpenAI gateway (chat) |
-| `KUAIPAO_CDK_1_API_KEY` | Kuaipao image models (e.g. GPT Image 2) |
 
 Local CLIs (KIRO / Codex / Copilot) are auto-detected from `PATH`; no key needed.
 
