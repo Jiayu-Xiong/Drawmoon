@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "license": "MIT",
+  "license": "CC-BY-NC-4.0",
   "scripts": {
     "typecheck": "tsgo --noEmit"
   },

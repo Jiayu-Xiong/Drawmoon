@@ -1,0 +1,86 @@
+Drawmoon
+Copyright (c) 2026 Jiayu Xiong <https://github.com/Jiayu-Xiong>
+
+Except for the vendored third-party code described at the bottom of this file,
+Drawmoon (all original source code, workflow/agent/LLM templates, documentation,
+and image assets) is licensed under the
+
+    Creative Commons Attribution-NonCommercial 4.0 International License
+    (CC BY-NC 4.0)
+
+SPDX-License-Identifier: CC-BY-NC-4.0
+
+--------------------------------------------------------------------------------
+SUMMARY OF YOUR RIGHTS AND OBLIGATIONS
+--------------------------------------------------------------------------------
+
+You are free to:
+
+  * Share  — copy and redistribute the material in any medium or format.
+  * Adapt  — remix, transform, and build upon the material.
+
+The licensor cannot revoke these freedoms as long as you follow the license
+terms below.
+
+Under the following terms:
+
+  * Attribution (redistribution must credit the source) — If you share this
+    material (in original OR modified form), you MUST give appropriate credit
+    ("Drawmoon by Jiayu Xiong"), include this copyright notice, provide a link
+    to this repository (https://github.com/Jiayu-Xiong/Drawmoon) and to the
+    license, and indicate if changes were made. You may do so in any reasonable
+    manner, but not in any way that suggests the author endorses you or your use.
+
+  * NonCommercial (no commercial use) — You may NOT use the material for
+    commercial purposes. "Commercial" means any use primarily intended for or
+    directed toward commercial advantage or monetary compensation. Commercial
+    use requires a separate written license from the author (see below).
+
+  * No additional restrictions — You may not apply legal terms or technological
+    measures that legally restrict others from doing anything the license
+    permits.
+
+--------------------------------------------------------------------------------
+FULL LEGAL TEXT
+--------------------------------------------------------------------------------
+
+This summary is not a substitute for the license. The complete, legally binding
+terms of CC BY-NC 4.0 are published by Creative Commons at:
+
+    Full legal code : https://creativecommons.org/licenses/by-nc/4.0/legalcode
+    Deed (summary)  : https://creativecommons.org/licenses/by-nc/4.0/
+
+By exercising any rights to the material, you accept and agree to be bound by the
+full terms of that license.
+
+--------------------------------------------------------------------------------
+COMMERCIAL LICENSING
+--------------------------------------------------------------------------------
+
+To use Drawmoon for commercial purposes, please contact the author via
+https://github.com/Jiayu-Xiong to obtain a separate commercial license.
+
+--------------------------------------------------------------------------------
+THIRD-PARTY / VENDORED CODE
+--------------------------------------------------------------------------------
+
+This repository vendors upstream OpenCode under:
+
+    backend/opencode/vendor/opencode/
+
+Those files remain under their own original licenses (see the license files
+inside that directory). The CC BY-NC 4.0 terms above apply ONLY to Drawmoon's
+own original code, templates, documentation, and assets — not to the vendored
+upstream project.
+
+--------------------------------------------------------------------------------
+DISCLAIMER
+--------------------------------------------------------------------------------
+
+THE MATERIAL IS PROVIDED "AS-IS" AND "AS-AVAILABLE", WITHOUT WARRANTIES OF ANY
+KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHER, INCLUDING WITHOUT LIMITATION
+WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+NON-INFRINGEMENT. TO THE EXTENT POSSIBLE, IN NO EVENT WILL THE AUTHOR BE LIABLE
+FOR ANY LOSSES, COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THE USE OF THE
+MATERIAL. SEE THE FULL LICENSE TEXT FOR THE COMPLETE DISCLAIMER AND LIMITATION
+OF LIABILITY.

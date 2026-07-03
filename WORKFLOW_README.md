@@ -84,4 +84,5 @@ See [GITHUB_UPLOAD.md](GITHUB_UPLOAD.md) for what to include, exclude, and verif
 
 ## License
 
-MIT — see package licenses. Upstream OpenCode components retain their respective licenses.
+Drawmoon is licensed under **CC BY-NC 4.0** (non-commercial, attribution required) —
+see [LICENSE](LICENSE). Vendored upstream OpenCode components retain their respective licenses.
