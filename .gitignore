@@ -53,3 +53,18 @@ backend/opencode/vendor/opencode/.turbo
 
 # Log files
 *.log
+
+# Internal dev/debug docs — kept locally, not published
+/agent.md
+/GITHUB_UPLOAD.md
+/STYLES_FRONTEND_REFERENCE.md
+/WORKFLOW_README.md
+/WORKFLOW_README.zh-CN.md
+**/TODO.md
+custom/AGENTS.md
+custom/PERFORMANCE-OPTIMIZATION.md
+custom/REFACTOR-SUMMARY.md
+custom/README.md
+custom/docs/
+custom/examples/README.md
+backend/opencode/README.md

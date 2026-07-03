@@ -165,8 +165,7 @@ read from `~/.drawmoon/api` or the repo root). **No keys are committed here.**
 
 Local CLIs (KIRO / Codex / Copilot) are auto-detected from `PATH`; no key needed.
 
-Full setup, environment, and tests: [WORKFLOW_README.md](WORKFLOW_README.md)
-(中文：[WORKFLOW_README.zh-CN.md](WORKFLOW_README.zh-CN.md)).
+How it all fits together — processes, execution model, and data flow: [arch.md](arch.md).
 
 ## `~/.drawmoon` data directory
 
