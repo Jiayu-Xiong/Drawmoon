@@ -1,0 +1,131 @@
+{
+  "runId": "01KVTQYJAP524R3XKZVYRFW9TZ",
+  "templateId": "opencode-xuanhuan-novel-4ch-image",
+  "status": "completed",
+  "createdAt": "2026-06-23T17:20:20.309Z",
+  "finishedAt": "2026-06-23T17:33:04.703Z",
+  "nodeCount": 7,
+  "totals": {
+    "inputTokens": 175573,
+    "outputTokens": 48570,
+    "cacheReadTokens": 723456,
+    "cacheWriteTokens": 0,
+    "totalTokens": 947599
+  },
+  "nodes": [
+    {
+      "id": "master-plan",
+      "label": "Book Plan",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "gpt-5.5",
+      "llmApiTemplateId": "kuaipao-gpt-5-5",
+      "agentMode": "opencode-plan",
+      "archetype": "plan",
+      "usage": {
+        "inputTokens": 2847,
+        "outputTokens": 4858,
+        "cacheReadTokens": 9216,
+        "totalTokens": 16921
+      }
+    },
+    {
+      "id": "chapter-1",
+      "label": "Chapter 1",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-chat",
+      "archetype": "agent-mode",
+      "usage": {
+        "inputTokens": 11051,
+        "outputTokens": 4279,
+        "cacheReadTokens": 17920,
+        "totalTokens": 33250
+      }
+    },
+    {
+      "id": "chapter-2",
+      "label": "Chapter 2",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-chat",
+      "archetype": "agent-mode",
+      "usage": {
+        "inputTokens": 19978,
+        "outputTokens": 8706,
+        "cacheReadTokens": 110720,
+        "totalTokens": 139404
+      }
+    },
+    {
+      "id": "chapter-3",
+      "label": "Chapter 3",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-chat",
+      "archetype": "agent-mode",
+      "usage": {
+        "inputTokens": 26535,
+        "outputTokens": 13247,
+        "cacheReadTokens": 321152,
+        "totalTokens": 360934
+      }
+    },
+    {
+      "id": "chapter-4",
+      "label": "Chapter 4",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-chat",
+      "archetype": "agent-mode",
+      "usage": {
+        "inputTokens": 27082,
+        "outputTokens": 8130,
+        "cacheReadTokens": 264448,
+        "totalTokens": 299660
+      }
+    },
+    {
+      "id": "final-review",
+      "label": "Final Review + Image Prompt",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "gpt-5.5",
+      "llmApiTemplateId": "kuaipao-gpt-5-5",
+      "agentMode": "opencode-default-agent",
+      "archetype": "verify",
+      "usage": {
+        "inputTokens": 88080,
+        "outputTokens": 9350,
+        "cacheReadTokens": 0,
+        "totalTokens": 97430
+      }
+    },
+    {
+      "id": "generate-cover",
+      "label": "Generate Cover",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "custom",
+      "model": "gpt-image-2",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "agentMode": "direct-api",
+      "archetype": "llm-step",
+      "usage": null
+    }
+  ]
+}

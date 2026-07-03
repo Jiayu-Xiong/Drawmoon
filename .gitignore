@@ -1,0 +1,55 @@
+.DS_Store
+node_modules
+.worktrees
+.sst
+.env
+.env.local
+.idea
+.vscode
+.codex
+*~
+playground
+tmp
+dist
+ts-dist
+.turbo
+**/.serena
+.serena/
+/result
+refs
+Session.vim
+/opencode.json
+a.out
+target
+.scripts
+.direnv/
+
+# Local dev files
+opencode-dev
+UPCOMING_CHANGELOG.md
+logs/
+*.bun-build
+tsconfig.tsbuildinfo
+
+# Large assets
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Local runtime data & secrets
+backend/opencode/data/
+../../api
+../../paper/
+../../.drawmoon/
+../../workflow-output/
+
+# Vendored upstream OpenCode tree
+backend/opencode/vendor/opencode/node_modules
+backend/opencode/vendor/opencode/**/node_modules
+backend/opencode/vendor/opencode/.sst
+backend/opencode/vendor/opencode/.turbo
+
+
+# Log files
+*.log

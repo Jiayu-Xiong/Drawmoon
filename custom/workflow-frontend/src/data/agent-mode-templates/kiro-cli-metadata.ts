@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const kiroCliMetadataTemplate = new PlainAgentModeTemplate({
+  id: "kiro-cli-metadata",
+  name: "KIRO Default CLI Strategy",
+  description: "Default KIRO CLI strategy. Execution behavior is owned by the CLI.",
+  provider: "kiro",
+  cliTemplateId: "kiro-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "review",
+  model: "kiro/configured",
+  contextMode: "fresh",
+  defaultSystemPromptFile: "kiro://promptless-cli",
+  defaultSystemPrompt: "",
+  allowSystemPromptOverride: false,
+  allowedTools: [],
+  outputKinds: ["json", "markdown"],
+  maxIterations: 1,
+  timeoutMs: 120000,
+  allowFileWrites: false,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: true },
+})

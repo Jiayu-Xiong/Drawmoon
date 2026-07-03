@@ -1,0 +1,1649 @@
+{
+  "id": "icml-to-tmm-sinkhorn",
+  "name": "ICML → TMM (Sinkhorn InfoNCE)",
+  "description": "Plan → parallel sections → layout/length → dual figures → round1 PDF → human gate → 3 reviews → intersection → one revision.",
+  "workingDirectory": "paper",
+  "defaultAgentId": "agent-paper",
+  "defaultAgentModeTemplateId": "custom-io-planner",
+  "defaultLlmApiTemplateId": "deepseek-deepseek-v4-flash",
+  "agentModeTemplateIds": [
+    "custom-io-planner",
+    "opencode-paper-section",
+    "opencode-paper-compile",
+    "opencode-paper-reviewer",
+    "opencode-build",
+    "kiro-cli-review"
+  ],
+  "llmApiTemplateIds": [
+    "kuaipao-gpt-5-5",
+    "deepseek-deepseek-v4-flash",
+    "deepseek-deepseek-v4-pro",
+    "kuaipao-gpt-image-2"
+  ],
+  "stages": [
+    {
+      "id": "icml-to-tmm-sinkhorn-stage",
+      "name": "ICML → TMM",
+      "color": "rgb(140,197,223)",
+      "columnIds": [
+        "icml-to-tmm-sinkhorn-c-plan",
+        "icml-to-tmm-sinkhorn-c-sections",
+        "icml-to-tmm-sinkhorn-c-audit",
+        "icml-to-tmm-sinkhorn-c-figures",
+        "icml-to-tmm-sinkhorn-c-merge",
+        "icml-to-tmm-sinkhorn-c-inquiry",
+        "icml-to-tmm-sinkhorn-c-gate",
+        "icml-to-tmm-sinkhorn-c-reviews",
+        "icml-to-tmm-sinkhorn-c-intersect",
+        "icml-to-tmm-sinkhorn-c-revise"
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "id": "icml-to-tmm-sinkhorn-c-plan",
+      "name": "Architect",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-plan",
+          "name": "plan",
+          "nodeIds": [
+            "architect-plan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-sections",
+      "name": "Parallel Sections",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-section-intro-related",
+          "name": "section-intro-related",
+          "nodeIds": [
+            "section-intro-related"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-section-methodology",
+          "name": "section-methodology",
+          "nodeIds": [
+            "section-methodology"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-section-theory",
+          "name": "section-theory",
+          "nodeIds": [
+            "section-theory"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-section-experiments",
+          "name": "section-experiments",
+          "nodeIds": [
+            "section-experiments"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-section-conclusion",
+          "name": "section-conclusion",
+          "nodeIds": [
+            "section-conclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-audit",
+      "name": "Audit",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-layout",
+          "name": "layout",
+          "nodeIds": [
+            "layout-audit"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-length",
+          "name": "length",
+          "nodeIds": [
+            "length-audit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-figures",
+      "name": "Figures",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-fig1",
+          "name": "fig1",
+          "nodeIds": [
+            "figure-prompt-1",
+            "figure-render-1"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-fig2",
+          "name": "fig2",
+          "nodeIds": [
+            "figure-prompt-2",
+            "figure-render-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-merge",
+      "name": "Round 1",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-merge",
+          "name": "merge",
+          "nodeIds": [
+            "round1-merge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-inquiry",
+      "name": "Inquiry",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-inquiry",
+          "name": "inquiry",
+          "nodeIds": [
+            "draft-inquiry"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-gate",
+      "name": "Human Gate",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-gate",
+          "name": "gate",
+          "nodeIds": [
+            "submit-review-gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-reviews",
+      "name": "Peer Review",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-kiro",
+          "name": "kiro",
+          "nodeIds": [
+            "kiro-review"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-ds",
+          "name": "deepseek",
+          "nodeIds": [
+            "deepseek-pro-review"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-gpt",
+          "name": "gpt55",
+          "nodeIds": [
+            "gpt55-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-intersect",
+      "name": "Intersection",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-intersect",
+          "name": "intersect",
+          "nodeIds": [
+            "review-intersection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-c-revise",
+      "name": "Revision",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "lanes": [
+        {
+          "id": "icml-to-tmm-sinkhorn-l-plan",
+          "name": "plan",
+          "nodeIds": [
+            "revision-plan"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-major",
+          "name": "major",
+          "nodeIds": [
+            "revision-major"
+          ]
+        },
+        {
+          "id": "icml-to-tmm-sinkhorn-l-final",
+          "name": "final",
+          "nodeIds": [
+            "final-pdf"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "architect-plan",
+      "name": "Architect Plan",
+      "kind": "plan",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-plan",
+      "laneId": "icml-to-tmm-sinkhorn-l-plan",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "custom-io-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "plan",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Architect Plan",
+      "promptPreview": "You are the lead architect converting an ICML 2026 submission into an IEEE Transactions on Multimedia (TMM) journal manuscript.\n\nWorking directory layout:\n- Source: icml2026/example_paper.tex (+ .bib, figures)\n- Target tree: paper/tmm/ (IEEEtran class)\n\nMethod rewrite (mandatory):\n- Replace the original \"modal distance\" framing with **Sinkhorn iterative InfoNCE**:\n  - Row-normalized transport plan P(b|a) from Sinkhorn iterations on a cost matrix\n  - Contrastive InfoNCE objective tied to the transport plan (not static OT marginals alone)\n  - Explicit baselines: Entropic OT and static Schrödinger Bridge with dual marginal constraints\n\nDeliverables (write files, not chat-only):\n1. journal-architecture.md — ICML section → TMM section map, naming, notation deltas, figure list, 10-page budget table\n2. tmm/main.tex — IEEEtran skeleton with \\input{} for sections/\n3. tmm/sections/*.tex — empty shells with correct \\section titles matching the map\n4. tmm/references.bib — copy/adapt from ICML bib\n5. method-rewrite-notes.md — bullet plan for Sinkhorn-InfoNCE equations and experiment wording\n\nRead icml2026/example_paper.tex first. Output Markdown plans; do not draft full section prose here.\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.",
+      "outputContract": "IO planner: TMM skeleton + Sinkhorn-InfoNCE allocation JSON",
+      "artifacts": [
+        {
+          "id": "journal-architecture",
+          "label": "journal-architecture.md",
+          "kind": "markdown",
+          "path": "journal-architecture.md",
+          "href": ""
+        },
+        {
+          "id": "method-notes",
+          "label": "method-rewrite-notes.md",
+          "kind": "markdown",
+          "path": "method-rewrite-notes.md",
+          "href": ""
+        }
+      ],
+      "x": 120,
+      "y": 240,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "architect-plan",
+        "turnOrder": 1
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "planner",
+        "maxIterations": 12,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      }
+    },
+    {
+      "id": "section-intro-related",
+      "name": "Introduction & Related Work",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-sections",
+      "laneId": "icml-to-tmm-sinkhorn-l-section-intro-related",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Introduction & Related Work",
+      "promptPreview": "You are a TMM section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Introduction & Related Work\nICML source mapping: Introduction + Related Work\nOutput file: tmm/sections/01-intro-related.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md and method-rewrite-notes.md; read matching ICML sections in icml2026/example_paper.tex\n2. Draft LaTeX body into tmm/sections/01-intro-related.tex (use \\input-friendly fragments, no \\documentclass)\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. For Methodology/Theory: implement Sinkhorn iterative InfoNCE per method-rewrite-notes.md\n5. Keep IEEE TMM tone; mark uncertain claims explicitly\n\nWrite LaTeX only to the target file; short completion note in chat.",
+      "outputContract": "DeepSeek Flash section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-intro-related-tex",
+          "label": "tmm/sections/01-intro-related.tex",
+          "kind": "latex",
+          "path": "tmm/sections/01-intro-related.tex",
+          "href": ""
+        }
+      ],
+      "x": 360,
+      "y": 40,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-intro-related",
+        "turnOrder": 2
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ]
+      }
+    },
+    {
+      "id": "section-methodology",
+      "name": "Methodology",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-sections",
+      "laneId": "icml-to-tmm-sinkhorn-l-section-methodology",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Methodology",
+      "promptPreview": "You are a TMM section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Methodology\nICML source mapping: Methodology\nOutput file: tmm/sections/02-methodology.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md and method-rewrite-notes.md; read matching ICML sections in icml2026/example_paper.tex\n2. Draft LaTeX body into tmm/sections/02-methodology.tex (use \\input-friendly fragments, no \\documentclass)\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. For Methodology/Theory: implement Sinkhorn iterative InfoNCE per method-rewrite-notes.md\n5. Keep IEEE TMM tone; mark uncertain claims explicitly\n\nWrite LaTeX only to the target file; short completion note in chat.",
+      "outputContract": "DeepSeek Flash section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-methodology-tex",
+          "label": "tmm/sections/02-methodology.tex",
+          "kind": "latex",
+          "path": "tmm/sections/02-methodology.tex",
+          "href": ""
+        }
+      ],
+      "x": 360,
+      "y": 140,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-methodology",
+        "turnOrder": 3
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ]
+      }
+    },
+    {
+      "id": "section-theory",
+      "name": "Theoretical Framework",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-sections",
+      "laneId": "icml-to-tmm-sinkhorn-l-section-theory",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Theoretical Framework",
+      "promptPreview": "You are a TMM section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Theoretical Framework\nICML source mapping: Theoretical Framework\nOutput file: tmm/sections/03-theory.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md and method-rewrite-notes.md; read matching ICML sections in icml2026/example_paper.tex\n2. Draft LaTeX body into tmm/sections/03-theory.tex (use \\input-friendly fragments, no \\documentclass)\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. For Methodology/Theory: implement Sinkhorn iterative InfoNCE per method-rewrite-notes.md\n5. Keep IEEE TMM tone; mark uncertain claims explicitly\n\nWrite LaTeX only to the target file; short completion note in chat.",
+      "outputContract": "DeepSeek Flash section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-theory-tex",
+          "label": "tmm/sections/03-theory.tex",
+          "kind": "latex",
+          "path": "tmm/sections/03-theory.tex",
+          "href": ""
+        }
+      ],
+      "x": 360,
+      "y": 240,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-theory",
+        "turnOrder": 4
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ]
+      }
+    },
+    {
+      "id": "section-experiments",
+      "name": "Experiments",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-sections",
+      "laneId": "icml-to-tmm-sinkhorn-l-section-experiments",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Experiments",
+      "promptPreview": "You are a TMM section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Experiments\nICML source mapping: Experiments\nOutput file: tmm/sections/04-experiments.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md and method-rewrite-notes.md; read matching ICML sections in icml2026/example_paper.tex\n2. Draft LaTeX body into tmm/sections/04-experiments.tex (use \\input-friendly fragments, no \\documentclass)\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. For Methodology/Theory: implement Sinkhorn iterative InfoNCE per method-rewrite-notes.md\n5. Keep IEEE TMM tone; mark uncertain claims explicitly\n\nWrite LaTeX only to the target file; short completion note in chat.",
+      "outputContract": "DeepSeek Flash section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-experiments-tex",
+          "label": "tmm/sections/04-experiments.tex",
+          "kind": "latex",
+          "path": "tmm/sections/04-experiments.tex",
+          "href": ""
+        }
+      ],
+      "x": 360,
+      "y": 340,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-experiments",
+        "turnOrder": 5
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ]
+      }
+    },
+    {
+      "id": "section-conclusion",
+      "name": "Conclusion",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-sections",
+      "laneId": "icml-to-tmm-sinkhorn-l-section-conclusion",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Conclusion",
+      "promptPreview": "You are a TMM section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Conclusion\nICML source mapping: Conclusion\nOutput file: tmm/sections/05-conclusion.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md and method-rewrite-notes.md; read matching ICML sections in icml2026/example_paper.tex\n2. Draft LaTeX body into tmm/sections/05-conclusion.tex (use \\input-friendly fragments, no \\documentclass)\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. For Methodology/Theory: implement Sinkhorn iterative InfoNCE per method-rewrite-notes.md\n5. Keep IEEE TMM tone; mark uncertain claims explicitly\n\nWrite LaTeX only to the target file; short completion note in chat.",
+      "outputContract": "DeepSeek Flash section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-conclusion-tex",
+          "label": "tmm/sections/05-conclusion.tex",
+          "kind": "latex",
+          "path": "tmm/sections/05-conclusion.tex",
+          "href": ""
+        }
+      ],
+      "x": 360,
+      "y": 440,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-conclusion",
+        "turnOrder": 6
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ]
+      }
+    },
+    {
+      "id": "layout-audit",
+      "name": "Layout Audit",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-audit",
+      "laneId": "icml-to-tmm-sinkhorn-l-layout",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Layout Audit",
+      "promptPreview": "Layout auditor: compile the TMM draft (fresh session — not the architect chat).\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\n1. Ensure tmm/main.tex includes all section inputs and figures/\n2. Run latex build to tmm/build/draft.pdf\n3. Write tmm/build/layout-audit.md listing overfull boxes, missing refs, figure placement issues\n4. Patch critical LaTeX errors only",
+      "outputContract": "Build draft PDF + layout audit",
+      "artifacts": [
+        {
+          "id": "layout-audit",
+          "label": "layout-audit.md",
+          "kind": "markdown",
+          "path": "tmm/build/layout-audit.md",
+          "href": ""
+        },
+        {
+          "id": "draft-pdf",
+          "label": "draft.pdf",
+          "kind": "pdf",
+          "path": "tmm/build/draft.pdf",
+          "href": ""
+        }
+      ],
+      "x": 600,
+      "y": 180,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "layout-audit"
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      }
+    },
+    {
+      "id": "length-audit",
+      "name": "Length Audit (~10pp)",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-audit",
+      "laneId": "icml-to-tmm-sinkhorn-l-length",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Length Audit (~10pp)",
+      "promptPreview": "Length auditor for IEEE TMM (~10 pages main text excluding references).\n\n1. Read tmm/build/draft.pdf (or rebuild if missing)\n2. If body exceeds ~10 pages, trim redundancy in tmm/sections/*.tex (prose first, not equations)\n3. Write tmm/build/length-audit.md with page count, cuts made, remaining risks\n4. Rebuild draft.pdf after edits",
+      "outputContract": "Trim to TMM page budget",
+      "artifacts": [
+        {
+          "id": "length-audit",
+          "label": "length-audit.md",
+          "kind": "markdown",
+          "path": "tmm/build/length-audit.md",
+          "href": ""
+        }
+      ],
+      "x": 600,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "length-audit"
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      }
+    },
+    {
+      "id": "figure-prompt-1",
+      "name": "Figure 1 Prompt",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-figures",
+      "laneId": "icml-to-tmm-sinkhorn-l-fig1",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Figure 1 Prompt",
+      "promptPreview": "Figure prompt engineer (#1).\n\nRole: Sinkhorn-InfoNCE pipeline overview\nUse the **drawio-grid-figures** skill workflow to produce tmm/figures/prompts/fig1-prompt.md:\n- Grid-first draw.io / matplotlib SVG tile plan per skill references\n- Tie visuals to Sinkhorn-InfoNCE method story (not legacy modal distance)\n- Include alt text, color palette, and LaTeX \\includegraphics path targets under tmm/figures/\n\nDo not render raster finals here; only prompt + composition spec.",
+      "outputContract": "Method overview prompt (drawio skill)",
+      "artifacts": [
+        {
+          "id": "fig1-prompt",
+          "label": "fig1-prompt.md",
+          "kind": "markdown",
+          "path": "tmm/figures/prompts/fig1-prompt.md",
+          "href": ""
+        }
+      ],
+      "x": 600,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "figure-prompt-1"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "drawio-grid-figures"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      }
+    },
+    {
+      "id": "figure-prompt-2",
+      "name": "Figure 2 Prompt",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-figures",
+      "laneId": "icml-to-tmm-sinkhorn-l-fig2",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Figure 2 Prompt",
+      "promptPreview": "Figure prompt engineer (#2).\n\nRole: Main result / ablation teaser\nUse the **drawio-grid-figures** skill workflow to produce tmm/figures/prompts/fig2-prompt.md:\n- Grid-first draw.io / matplotlib SVG tile plan per skill references\n- Tie visuals to Sinkhorn-InfoNCE method story (not legacy modal distance)\n- Include alt text, color palette, and LaTeX \\includegraphics path targets under tmm/figures/\n\nDo not render raster finals here; only prompt + composition spec.",
+      "outputContract": "Experiment teaser prompt (drawio skill)",
+      "artifacts": [
+        {
+          "id": "fig2-prompt",
+          "label": "fig2-prompt.md",
+          "kind": "markdown",
+          "path": "tmm/figures/prompts/fig2-prompt.md",
+          "href": ""
+        }
+      ],
+      "x": 600,
+      "y": 520,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "figure-prompt-2"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "drawio-grid-figures"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      }
+    },
+    {
+      "id": "figure-render-1",
+      "name": "Figure 1 Render",
+      "kind": "llm-step",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-figures",
+      "laneId": "icml-to-tmm-sinkhorn-l-fig1",
+      "agentId": "agent-kuaipao",
+      "executionMode": "llm-api",
+      "modality": "image",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Figure 1 Render",
+      "promptPreview": "Generate publication figure 1 from tmm/figures/prompts/fig1-prompt.md.\n\nOutput: tmm/figures/fig1.png (and optional .pdf if vector export exists).\nNo watermarks, no UI chrome, readable axis labels, colorblind-safe palette.",
+      "outputContract": "GPT Image 2 figure render from upstream prompt.",
+      "artifacts": [
+        {
+          "id": "fig1-png",
+          "label": "fig1.png",
+          "kind": "image",
+          "path": "tmm/figures/fig1.png",
+          "href": ""
+        }
+      ],
+      "x": 860,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "workingDirectory": "paper",
+        "model": "gpt-image-2",
+        "responseFormat": "text",
+        "readRunFiles": [
+          "tmm/figures/prompts/fig1-prompt.md"
+        ],
+        "archetype": "media",
+        "intent": "handoff"
+      }
+    },
+    {
+      "id": "figure-render-2",
+      "name": "Figure 2 Render",
+      "kind": "llm-step",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-figures",
+      "laneId": "icml-to-tmm-sinkhorn-l-fig2",
+      "agentId": "agent-kuaipao",
+      "executionMode": "llm-api",
+      "modality": "image",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Figure 2 Render",
+      "promptPreview": "Generate publication figure 2 from tmm/figures/prompts/fig2-prompt.md.\n\nOutput: tmm/figures/fig2.png (and optional .pdf if vector export exists).\nNo watermarks, no UI chrome, readable axis labels, colorblind-safe palette.",
+      "outputContract": "GPT Image 2 figure render from upstream prompt.",
+      "artifacts": [
+        {
+          "id": "fig2-png",
+          "label": "fig2.png",
+          "kind": "image",
+          "path": "tmm/figures/fig2.png",
+          "href": ""
+        }
+      ],
+      "x": 860,
+      "y": 520,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "workingDirectory": "paper",
+        "model": "gpt-image-2",
+        "responseFormat": "text",
+        "readRunFiles": [
+          "tmm/figures/prompts/fig2-prompt.md"
+        ],
+        "archetype": "media",
+        "intent": "handoff"
+      }
+    },
+    {
+      "id": "round1-merge",
+      "name": "Round 1 Merge",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-merge",
+      "laneId": "icml-to-tmm-sinkhorn-l-merge",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Round 1 Merge",
+      "promptPreview": "Round-1 merge and compile.\n\n**Figure inclusion (mandatory — do not skip):**\n1. Copy raster renders into the tex tree:\n   - `figure-render-1.png` (or `figure-render-1-1.png`) → `tmm/figures/fig1.png`\n   - `figure-render-2.png` (or `figure-render-2-1.png`) → `tmm/figures/fig2.png`\n2. In `tmm/sections/02-methodology.tex`, ensure a `figure*` environment with:\n   `\\includegraphics[width=\\linewidth]{fig1.png}` (method overview from image render).\n3. In `tmm/sections/04-experiments.tex`, ensure a `figure*` environment with:\n   `\\includegraphics[width=\\linewidth]{fig2.png}` (results teaser from image render).\n4. Keep existing vector figures (`pipeline.pdf`, `teaser.pdf`) only if they do not duplicate the raster figures; prefer the raster PNGs for round-1 review.\n5. Verify both PNG files exist on disk before compiling; if missing, stop and report paths checked.\n\n**Merge steps:**\n1. Merge section tex, figures, and bibliography into `tmm/main.tex`\n2. Resolve duplicate labels/refs across sections\n3. Build **`tmm/build/round1.pdf`** (human review artifact)\n4. Write `tmm/build/round1-merge.md` with: figures copied (paths), \\includegraphics lines added, page count, missing refs",
+      "outputContract": "Merge tex + compile round1.pdf",
+      "artifacts": [
+        {
+          "id": "round1-pdf",
+          "label": "round1.pdf",
+          "kind": "pdf",
+          "path": "tmm/build/round1.pdf",
+          "href": ""
+        },
+        {
+          "id": "round1-merge-md",
+          "label": "round1-merge.md",
+          "kind": "markdown",
+          "path": "tmm/build/round1-merge.md",
+          "href": ""
+        }
+      ],
+      "x": 1080,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "round1-merge"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md"
+        ]
+      }
+    },
+    {
+      "id": "draft-inquiry",
+      "name": "Draft Clarification",
+      "kind": "condition",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-inquiry",
+      "laneId": "icml-to-tmm-sinkhorn-l-inquiry",
+      "agentId": "agent-editor",
+      "executionMode": "inquiry",
+      "promptTitle": "Draft inquiry",
+      "promptPreview": "Draft clarification — merged manuscript\n\nReview **tmm/build/round1.pdf** and **round1-merge.md** in the artifacts panel.\nReply with any clarifications on method wording, figures, or length; your reply is injected into downstream review and revision context.\nIf nothing to add, reply \"No additions\" and continue.",
+      "outputContract": "User clarification injected before submit review.",
+      "artifacts": [
+        {
+          "id": "round1-pdf",
+          "label": "Round 1 Manuscript PDF",
+          "kind": "pdf",
+          "path": "tmm/build/round1.pdf",
+          "href": ""
+        },
+        {
+          "id": "round1-merge-md",
+          "label": "Round 1 merge notes",
+          "kind": "markdown",
+          "path": "tmm/build/round1-merge.md",
+          "href": ""
+        }
+      ],
+      "x": 1150,
+      "y": 300,
+      "state": "waiting",
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "gate"
+      }
+    },
+    {
+      "id": "submit-review-gate",
+      "name": "Human Review — Submit?",
+      "kind": "condition",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-gate",
+      "laneId": "icml-to-tmm-sinkhorn-l-gate",
+      "agentId": "agent-editor",
+      "executionMode": "human-gate",
+      "promptTitle": "Human review gate",
+      "promptPreview": "Human review gate — submit for peer review?\n\nOpen **tmm/build/round1.pdf** in the artifacts panel (round-1 merged draft).\nWhen Sinkhorn-InfoNCE method rewrite, length, and figures look correct, click **Continue** to submit.\nThe workflow will run three parallel reviews (KIRO, DeepSeek Pro, GPT-5.5), intersect must-fix items, then one revision pass.",
+      "outputContract": "Pause until user continues to submit for peer review.",
+      "artifacts": [
+        {
+          "id": "round1-pdf",
+          "label": "Round 1 Manuscript PDF",
+          "kind": "pdf",
+          "path": "tmm/build/round1.pdf",
+          "href": ""
+        },
+        {
+          "id": "round1-merge-md",
+          "label": "Round 1 merge notes",
+          "kind": "markdown",
+          "path": "tmm/build/round1-merge.md",
+          "href": ""
+        }
+      ],
+      "x": 1230,
+      "y": 300,
+      "state": "waiting",
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "gate"
+      }
+    },
+    {
+      "id": "kiro-review",
+      "name": "KIRO Review",
+      "kind": "verify",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-reviews",
+      "laneId": "icml-to-tmm-sinkhorn-l-kiro",
+      "agentId": "agent-kiro-cli",
+      "executionMode": "cli",
+      "cliTemplateId": "kiro-cli",
+      "agentModeTemplateId": "kiro-cli-review",
+      "runtimeMode": "review",
+      "promptTitle": "KIRO Review",
+      "promptPreview": "Independent peer review (KIRO). **Fresh isolated session.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nRead tmm/build/round1.pdf only (use tmm/main.tex + sections only if PDF missing).\nWrite reviews/kiro-review.md with sections: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nFocus on novelty of Sinkhorn-InfoNCE vs OT/SB baselines and multimedia relevance for TMM.",
+      "outputContract": "KIRO CLI independent review, fresh session.",
+      "artifacts": [
+        {
+          "id": "kiro-review",
+          "label": "kiro-review.md",
+          "kind": "markdown",
+          "path": "reviews/kiro-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1380,
+      "y": 120,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "kiro-review"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "workingDirectory": "paper",
+        "model": "qwen3-coder-next",
+        "customCommand": "kiro-cli",
+        "customArgs": [
+          "chat",
+          "--no-interactive",
+          "--wrap",
+          "never",
+          "--trust-tools=fs_read",
+          "--agent",
+          "kiro_default",
+          "{{prompt}}"
+        ],
+        "archetype": "reviewer",
+        "intent": "review"
+      }
+    },
+    {
+      "id": "deepseek-pro-review",
+      "name": "DeepSeek Pro Review",
+      "kind": "verify",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-reviews",
+      "laneId": "icml-to-tmm-sinkhorn-l-ds",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "review",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "promptTitle": "DeepSeek Pro Review",
+      "promptPreview": "Independent peer review (DeepSeek Pro). **Fresh isolated session.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nRead **only** tmm/build/round1.pdf (manuscript under review). Do not read other reviewers' notes or bulk tex trees.\nWrite reviews/deepseek-pro-review.md with: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nBe strict on empirical evidence, ablations, and clarity of transport-contrastive objective.",
+      "outputContract": "OpenCode objective reviewer + DeepSeek Pro",
+      "artifacts": [
+        {
+          "id": "ds-review",
+          "label": "deepseek-pro-review.md",
+          "kind": "markdown",
+          "path": "reviews/deepseek-pro-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1380,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "deepseek-pro-review"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-pro",
+        "responseFormat": "markdown",
+        "contextFiles": []
+      }
+    },
+    {
+      "id": "gpt55-review",
+      "name": "GPT-5.5 Review",
+      "kind": "verify",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-reviews",
+      "laneId": "icml-to-tmm-sinkhorn-l-gpt",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "review",
+      "llmApiTemplateId": "kuaipao-gpt-5-5",
+      "promptTitle": "GPT-5.5 Review",
+      "promptPreview": "Independent meta-review (GPT-5.5). **Fresh isolated session.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (tmm/..., reviews/..., tmm/build/...). Never write to the workspace root. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY under the workflow working directory (`paper/` tree). Never read C:\\, user home, or paths outside the run workspace. Use relative paths from cwd; do not glob the filesystem root.\n\nRead **only** tmm/build/round1.pdf. Do not read reviews/ or other markdown notes — source manuscript only.\nWrite reviews/gpt55-review.md with: Summary, Strengths, Weaknesses, Must-fix, Nice-to-have, Score.\nEmphasize structure, related work positioning, and reproducibility.",
+      "outputContract": "OpenCode objective reviewer + GPT-5.5",
+      "artifacts": [
+        {
+          "id": "gpt-review",
+          "label": "gpt55-review.md",
+          "kind": "markdown",
+          "path": "reviews/gpt55-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1380,
+      "y": 480,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "gpt55-review"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "gpt-5.5",
+        "responseFormat": "markdown",
+        "contextFiles": []
+      }
+    },
+    {
+      "id": "review-intersection",
+      "name": "Review Intersection",
+      "kind": "verify",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-intersect",
+      "laneId": "icml-to-tmm-sinkhorn-l-intersect",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "agent",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Review Intersection",
+      "promptPreview": "Review intersection agent — **fresh context** (read files from disk only).\n\nRead:\n- reviews/kiro-review.md\n- reviews/deepseek-pro-review.md\n- reviews/gpt55-review.md\n\nWrite reviews/review-intersection.md containing ONLY items that appear as Must-fix (or equivalent severity) in **all three** reviews.\nFormat:\n## Consensus must-fix\n1. ...\n## Consensus themes (optional)\n- ...\n## Dropped (single-reviewer only)\n- ...\n\nAlso write reviews/review-intersection.json as { \"mustFix\": string[], \"themes\": string[] }",
+      "outputContract": "Consensus must-fix across three reviews",
+      "artifacts": [
+        {
+          "id": "intersection-md",
+          "label": "review-intersection.md",
+          "kind": "markdown",
+          "path": "reviews/review-intersection.md",
+          "href": ""
+        },
+        {
+          "id": "intersection-json",
+          "label": "review-intersection.json",
+          "kind": "json",
+          "path": "reviews/review-intersection.json",
+          "href": ""
+        }
+      ],
+      "x": 1620,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "review-intersection"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "maxIterations": 4,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "reviews/kiro-review.md",
+          "reviews/deepseek-pro-review.md",
+          "reviews/gpt55-review.md"
+        ]
+      }
+    },
+    {
+      "id": "revision-plan",
+      "name": "Revision Plan",
+      "kind": "plan",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-revise",
+      "laneId": "icml-to-tmm-sinkhorn-l-plan",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "plan",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Revision Plan",
+      "promptPreview": "Revision planner — **fresh isolated context** (no upstream chat).\n\nRead from disk:\n- journal-architecture.md\n- method-rewrite-notes.md\n- reviews/review-intersection.md\n- tmm/build/round1-merge.md\n- tmm/main.tex and section files under tmm/sections/\n\nWrite tmm/build/revision-plan.md:\n- Numbered edit tasks with target file paths\n- Map each task to consensus review items\n- Preserve Sinkhorn-InfoNCE method story; do not replan architecture",
+      "outputContract": "Fresh planner: draft + intersected reviews",
+      "artifacts": [
+        {
+          "id": "revision-plan",
+          "label": "revision-plan.md",
+          "kind": "markdown",
+          "path": "tmm/build/revision-plan.md",
+          "href": ""
+        }
+      ],
+      "x": 1860,
+      "y": 180,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "revision-plan"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "planner",
+        "maxIterations": 12,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md",
+          "reviews/review-intersection.md",
+          "tmm/build/round1-merge.md"
+        ]
+      }
+    },
+    {
+      "id": "revision-major",
+      "name": "Major Revision",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-revise",
+      "laneId": "icml-to-tmm-sinkhorn-l-major",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Major Revision",
+      "promptPreview": "Major revision pass — **fresh context** + **humanizer** skill.\n\nRead tmm/build/revision-plan.md and execute every task once on LaTeX sources.\nApply humanizer to narrative prose (not equations).\nWrite tmm/build/revision-major-log.md listing task → action taken.\nDo not start a second revision round.",
+      "outputContract": "Fresh major pass + humanizer",
+      "artifacts": [
+        {
+          "id": "revision-major-log",
+          "label": "revision-major-log.md",
+          "kind": "markdown",
+          "path": "tmm/build/revision-major-log.md",
+          "href": ""
+        }
+      ],
+      "x": 1860,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "revision-major"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "tmm/build/revision-plan.md"
+        ]
+      }
+    },
+    {
+      "id": "final-pdf",
+      "name": "Final PDF",
+      "kind": "agent-mode",
+      "stageId": "icml-to-tmm-sinkhorn-stage",
+      "columnId": "icml-to-tmm-sinkhorn-c-revise",
+      "laneId": "icml-to-tmm-sinkhorn-l-final",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Final PDF",
+      "promptPreview": "Final PDF build — **fresh isolated context**.\n\nCompile tmm/build/final.pdf from the current tex tree.\nWrite tmm/build/final-build.md with page count, missing refs, and figure inclusion checklist.\nNo prose rewriting — build/audit only.",
+      "outputContract": "Fresh final PDF build",
+      "artifacts": [
+        {
+          "id": "final-pdf",
+          "label": "final.pdf",
+          "kind": "pdf",
+          "path": "tmm/build/final.pdf",
+          "href": ""
+        },
+        {
+          "id": "final-build",
+          "label": "final-build.md",
+          "kind": "markdown",
+          "path": "tmm/build/final-build.md",
+          "href": ""
+        }
+      ],
+      "x": 1860,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "final-pdf"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown",
+        "readRunFiles": [
+          "tmm/main.tex"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "icml-to-tmm-sinkhorn-e1",
+      "from": "architect-plan",
+      "to": "section-intro-related",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e2",
+      "from": "architect-plan",
+      "to": "section-methodology",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e3",
+      "from": "architect-plan",
+      "to": "section-theory",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e4",
+      "from": "architect-plan",
+      "to": "section-experiments",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e5",
+      "from": "architect-plan",
+      "to": "section-conclusion",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e6",
+      "from": "section-intro-related",
+      "to": "layout-audit",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e7",
+      "from": "section-methodology",
+      "to": "layout-audit",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e8",
+      "from": "section-theory",
+      "to": "layout-audit",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e9",
+      "from": "section-experiments",
+      "to": "layout-audit",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e10",
+      "from": "section-conclusion",
+      "to": "layout-audit",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e11",
+      "from": "layout-audit",
+      "to": "length-audit",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e12",
+      "from": "length-audit",
+      "to": "figure-prompt-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e13",
+      "from": "length-audit",
+      "to": "figure-prompt-2",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e14",
+      "from": "figure-prompt-1",
+      "to": "figure-render-1",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e15",
+      "from": "figure-prompt-2",
+      "to": "figure-render-2",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e16",
+      "from": "length-audit",
+      "to": "round1-merge",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e17",
+      "from": "figure-render-1",
+      "to": "round1-merge",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e18",
+      "from": "figure-render-2",
+      "to": "round1-merge",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e19",
+      "from": "round1-merge",
+      "to": "draft-inquiry",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e20",
+      "from": "draft-inquiry",
+      "to": "submit-review-gate",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e21",
+      "from": "submit-review-gate",
+      "to": "kiro-review",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e22",
+      "from": "submit-review-gate",
+      "to": "deepseek-pro-review",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e23",
+      "from": "submit-review-gate",
+      "to": "gpt55-review",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e24",
+      "from": "kiro-review",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e25",
+      "from": "deepseek-pro-review",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e26",
+      "from": "gpt55-review",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e27",
+      "from": "review-intersection",
+      "to": "revision-plan",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e28",
+      "from": "revision-plan",
+      "to": "revision-major",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-e29",
+      "from": "revision-major",
+      "to": "final-pdf",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    }
+  ],
+  "loopEdges": [],
+  "branchGroups": [
+    {
+      "id": "icml-to-tmm-sinkhorn-b-sections",
+      "from": "architect-plan",
+      "to": [
+        "section-intro-related",
+        "section-methodology",
+        "section-theory",
+        "section-experiments",
+        "section-conclusion"
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-b-figures",
+      "from": "length-audit",
+      "to": [
+        "figure-prompt-1",
+        "figure-prompt-2"
+      ]
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-b-reviews",
+      "from": "submit-review-gate",
+      "to": [
+        "kiro-review",
+        "deepseek-pro-review",
+        "gpt55-review"
+      ]
+    }
+  ],
+  "mergeGroups": [
+    {
+      "id": "icml-to-tmm-sinkhorn-m-sections",
+      "from": [
+        "section-intro-related",
+        "section-methodology",
+        "section-theory",
+        "section-experiments",
+        "section-conclusion"
+      ],
+      "to": "layout-audit"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-m-round1",
+      "from": [
+        "length-audit",
+        "figure-render-1",
+        "figure-render-2"
+      ],
+      "to": "round1-merge"
+    },
+    {
+      "id": "icml-to-tmm-sinkhorn-m-reviews",
+      "from": [
+        "kiro-review",
+        "deepseek-pro-review",
+        "gpt55-review"
+      ],
+      "to": "review-intersection"
+    }
+  ],
+  "sharedSessions": [],
+  "sessionGroups": {}
+}

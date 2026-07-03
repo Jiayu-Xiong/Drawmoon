@@ -1,0 +1,407 @@
+{
+  "runId": "01KWHKSGYZ8PBFD918BPH93YR3",
+  "templateId": "audiorwkv-iclr-pyramid",
+  "status": "completed",
+  "createdAt": "2026-07-02T14:30:12.702Z",
+  "finishedAt": "2026-07-03T01:21:17.018Z",
+  "nodeCount": 25,
+  "totals": {
+    "inputTokens": 540683,
+    "outputTokens": 128210,
+    "cacheReadTokens": 5752704,
+    "cacheWriteTokens": 0,
+    "totalTokens": 6421597
+  },
+  "nodes": [
+    {
+      "id": "architect-plan",
+      "label": "Architect Plan",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-pro",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "agentMode": "custom-io-planner",
+      "archetype": "planner",
+      "usage": {
+        "inputTokens": 77818,
+        "outputTokens": 35890,
+        "cacheReadTokens": 680320,
+        "totalTokens": 794028
+      }
+    },
+    {
+      "id": "figure-prompt-1",
+      "label": "Method Figure Prompt",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-build",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 10893,
+        "outputTokens": 4158,
+        "cacheReadTokens": 20864,
+        "totalTokens": 35915
+      }
+    },
+    {
+      "id": "figure-render-1",
+      "label": "Method Figure Render",
+      "status": "completed",
+      "executionMode": "llm-api",
+      "provider": "custom",
+      "model": "gpt-image-2",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "agentMode": "direct-api",
+      "archetype": "media",
+      "usage": null
+    },
+    {
+      "id": "experiment-figure-prompt",
+      "label": "Experiment Figure Prompt",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-build",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 11682,
+        "outputTokens": 3606,
+        "cacheReadTokens": 21376,
+        "totalTokens": 36664
+      }
+    },
+    {
+      "id": "experiment-figure-render",
+      "label": "Experiment Figure Render",
+      "status": "completed",
+      "executionMode": "llm-api",
+      "provider": "custom",
+      "model": "gpt-image-2",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "agentMode": "direct-api",
+      "archetype": "media",
+      "usage": null
+    },
+    {
+      "id": "teaser-figure-prompt",
+      "label": "Teaser Prompt",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-build",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 10792,
+        "outputTokens": 2577,
+        "cacheReadTokens": 19456,
+        "totalTokens": 32825
+      }
+    },
+    {
+      "id": "teaser-figure-render",
+      "label": "Teaser Render",
+      "status": "completed",
+      "executionMode": "llm-api",
+      "provider": "custom",
+      "model": "gpt-image-2",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "agentMode": "direct-api",
+      "archetype": "media",
+      "usage": null
+    },
+    {
+      "id": "section-intro",
+      "label": "Introduction",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 16316,
+        "outputTokens": 1651,
+        "cacheReadTokens": 54784,
+        "totalTokens": 72751
+      }
+    },
+    {
+      "id": "section-related-work",
+      "label": "Related Work",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 27263,
+        "outputTokens": 2294,
+        "cacheReadTokens": 100480,
+        "totalTokens": 130037
+      }
+    },
+    {
+      "id": "section-methodology",
+      "label": "Methodology",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 20679,
+        "outputTokens": 3385,
+        "cacheReadTokens": 81920,
+        "totalTokens": 105984
+      }
+    },
+    {
+      "id": "section-experiments",
+      "label": "Experiments",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 28380,
+        "outputTokens": 4545,
+        "cacheReadTokens": 149248,
+        "totalTokens": 182173
+      }
+    },
+    {
+      "id": "section-conclusion",
+      "label": "Conclusion",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 18219,
+        "outputTokens": 944,
+        "cacheReadTokens": 52992,
+        "totalTokens": 72155
+      }
+    },
+    {
+      "id": "body-text",
+      "label": "Body Integration",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 42096,
+        "outputTokens": 4343,
+        "cacheReadTokens": 474112,
+        "totalTokens": 520551
+      }
+    },
+    {
+      "id": "round1-merge",
+      "label": "Round 1 Merge",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-compile",
+      "archetype": "merger",
+      "usage": {
+        "inputTokens": 61687,
+        "outputTokens": 13655,
+        "cacheReadTokens": 1040768,
+        "totalTokens": 1116110
+      }
+    },
+    {
+      "id": "submit-review-gate",
+      "label": "Human Review — Submit?",
+      "status": "completed",
+      "executionMode": "human-gate",
+      "provider": "custom",
+      "model": "",
+      "llmApiTemplateId": "",
+      "agentMode": "",
+      "archetype": "gate",
+      "usage": null
+    },
+    {
+      "id": "layout-audit",
+      "label": "Layout Audit",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-compile",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 50695,
+        "outputTokens": 2244,
+        "cacheReadTokens": 248960,
+        "totalTokens": 301899
+      }
+    },
+    {
+      "id": "length-audit",
+      "label": "Length Audit",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-compile",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 32400,
+        "outputTokens": 21691,
+        "cacheReadTokens": 1355520,
+        "totalTokens": 1409611
+      }
+    },
+    {
+      "id": "kiro-review-ds",
+      "label": "KIRO Review (DeepSeek)",
+      "status": "completed",
+      "executionMode": "cli",
+      "provider": "kiro",
+      "model": "deepseek-3.2",
+      "llmApiTemplateId": "",
+      "agentMode": "kiro-cli-review",
+      "archetype": "reviewer",
+      "usage": null
+    },
+    {
+      "id": "kiro-review-mm",
+      "label": "KIRO Review (MiniMax)",
+      "status": "completed",
+      "executionMode": "cli",
+      "provider": "kiro",
+      "model": "minimax-m2.5",
+      "llmApiTemplateId": "",
+      "agentMode": "kiro-cli-review",
+      "archetype": "reviewer",
+      "usage": null
+    },
+    {
+      "id": "kiro-review-qwen",
+      "label": "KIRO Review (Qwen)",
+      "status": "completed",
+      "executionMode": "cli",
+      "provider": "kiro",
+      "model": "qwen3-coder-next",
+      "llmApiTemplateId": "",
+      "agentMode": "kiro-cli-review",
+      "archetype": "reviewer",
+      "usage": null
+    },
+    {
+      "id": "deepseek-pro-review",
+      "label": "DeepSeek Pro Review",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-pro",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "agentMode": "opencode-paper-reviewer",
+      "archetype": "reviewer",
+      "usage": {
+        "inputTokens": 11132,
+        "outputTokens": 2662,
+        "cacheReadTokens": 41088,
+        "totalTokens": 54882
+      }
+    },
+    {
+      "id": "review-intersection",
+      "label": "Review Intersection",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-planner",
+      "archetype": "merger",
+      "usage": {
+        "inputTokens": 11283,
+        "outputTokens": 1152,
+        "cacheReadTokens": 44288,
+        "totalTokens": 56723
+      }
+    },
+    {
+      "id": "revision-plan",
+      "label": "Revision Plan",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-pro",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "agentMode": "opencode-paper-planner",
+      "archetype": "planner",
+      "usage": {
+        "inputTokens": 22537,
+        "outputTokens": 6857,
+        "cacheReadTokens": 53120,
+        "totalTokens": 82514
+      }
+    },
+    {
+      "id": "revision-major",
+      "label": "Major Revision",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-section",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 22441,
+        "outputTokens": 11766,
+        "cacheReadTokens": 214400,
+        "totalTokens": 248607
+      }
+    },
+    {
+      "id": "final-pdf",
+      "label": "Final PDF",
+      "status": "completed",
+      "executionMode": "agent-mode",
+      "provider": "opencode",
+      "model": "deepseek-v4-flash",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "agentMode": "opencode-paper-compile",
+      "archetype": "worker",
+      "usage": {
+        "inputTokens": 64370,
+        "outputTokens": 4790,
+        "cacheReadTokens": 1099008,
+        "totalTokens": 1168168
+      }
+    }
+  ]
+}

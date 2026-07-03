@@ -1,0 +1,28 @@
+{
+  "id": "opencode-chat-starter",
+  "name": "OpenCode Chat (starter)",
+  "description": "Minimal OpenCode chat agent mode. Bind a workflow node's LLM API (e.g. deepseek-v4-flash-starter) at runtime.",
+  "provider": "opencode",
+  "cliTemplateId": "opencode-cli",
+  "strategyKind": "cli",
+  "controlSurface": "customizable",
+  "origin": "custom",
+  "mode": "chat",
+  "model": "workflow-selected",
+  "contextMode": "fresh",
+  "defaultSystemPromptFile": "opencode://chat",
+  "defaultSystemPrompt": "Use OpenCode chat mode to answer the workflow node objective directly.",
+  "allowSystemPromptOverride": true,
+  "allowedTools": ["read_file", "artifact_link"],
+  "outputKinds": ["markdown"],
+  "maxIterations": 4,
+  "timeoutMs": 300000,
+  "allowFileWrites": false,
+  "cacheFiles": [],
+  "contextFiles": [],
+  "retryPolicy": {
+    "attempts": 1,
+    "backoffMs": 0,
+    "continueOnPartialFailure": true
+  }
+}

@@ -1,0 +1,574 @@
+{
+  "id": "opencode-xuanhuan-novel-4ch-image",
+  "name": "OpenCode Xuanhuan Four-Chapter Novel + Cover",
+  "description": "Plan(GPT-5.5) -> 4 chapter chats(DeepSeek v4 Flash) -> final review(GPT-5.5 agent) -> cover image API.",
+  "workingDirectory": "workflow-output",
+  "defaultAgentId": "agent-paper",
+  "defaultAgentModeTemplateId": "opencode-plan",
+  "defaultLlmApiTemplateId": "kuaipao-gpt-5-5",
+  "agentModeTemplateIds": [
+    "opencode-plan",
+    "opencode-chat",
+    "opencode-default-agent"
+  ],
+  "llmApiTemplateIds": [
+    "kuaipao-gpt-5-5",
+    "deepseek-deepseek-v4-flash",
+    "kuaipao-gpt-image-2"
+  ],
+  "stages": [
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-stage",
+      "name": "OpenCode Xuanhuan Four-Chapter Novel + Cover",
+      "color": "rgb(140,197,223)",
+      "columnIds": [
+        "opencode-xuanhuan-novel-4ch-image-c-plan",
+        "opencode-xuanhuan-novel-4ch-image-c-chapters",
+        "opencode-xuanhuan-novel-4ch-image-c-review",
+        "opencode-xuanhuan-novel-4ch-image-c-image"
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-c-plan",
+      "name": "Plan",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "lanes": [
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-plan",
+          "name": "plan",
+          "nodeIds": [
+            "master-plan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-c-chapters",
+      "name": "Parallel Chapters",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "lanes": [
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-ch1",
+          "name": "chapter 1",
+          "nodeIds": [
+            "chapter-1"
+          ]
+        },
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-ch2",
+          "name": "chapter 2",
+          "nodeIds": [
+            "chapter-2"
+          ]
+        },
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-ch3",
+          "name": "chapter 3",
+          "nodeIds": [
+            "chapter-3"
+          ]
+        },
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-ch4",
+          "name": "chapter 4",
+          "nodeIds": [
+            "chapter-4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-c-review",
+      "name": "Final Review",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "lanes": [
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-review",
+          "name": "review",
+          "nodeIds": [
+            "final-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-c-image",
+      "name": "Cover API",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "lanes": [
+        {
+          "id": "opencode-xuanhuan-novel-4ch-image-l-image",
+          "name": "image",
+          "nodeIds": [
+            "generate-cover"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "master-plan",
+      "name": "Book Plan",
+      "kind": "plan",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-plan",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-plan",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-plan",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "plan",
+      "llmApiTemplateId": "kuaipao-gpt-5-5",
+      "promptTitle": "Book Plan",
+      "promptPreview": "You are the lead planner for an original eastern xuanhuan novel.\n\nWrite in Simplified Chinese. Produce a Markdown plan only, not prose chapters.\n\nHard constraints:\n- Four chapters, total target under 20000 Chinese characters.\n- Genre: eastern xuanhuan with a cultivation system, faction conflict, mystery, and protagonist growth arc.\n- The four chapter nodes will fork this planner context and use it as canon.\n\nInclude: book title, one-sentence hook, worldbuilding, cultivation system, protagonist, antagonist, key supporting characters, four chapter outlines, foreshadowing/reveal table, tone guide, and cover-image keyword draft.",
+      "outputContract": "OpenCode Plan + GPT-5.5, writes master-plan.md",
+      "artifacts": [
+        {
+          "id": "master-plan-md",
+          "label": "master-plan.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/master-plan.md",
+          "href": "/workflow-output/runs/{runId}/master-plan.md"
+        }
+      ],
+      "x": 120,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "shared",
+        "sessionKey": "opencode-xuanhuan-book-plan",
+        "turnOrder": 1
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "gpt-5.5",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-plan",
+      "llmId": "kuaipao-gpt-5-5",
+      "strategyId": "plan"
+    },
+    {
+      "id": "chapter-1",
+      "name": "Chapter 1",
+      "kind": "agent-mode",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-chapters",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-ch1",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-chat",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "chat",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Chapter 1",
+      "promptPreview": "You are a chapter writer continuing from the planner context.\n\nWrite chapter 1 in Simplified Chinese. Use this chapter title hint: Dust Oath Awakening.\n\nRequirements:\n- Output chapter prose only.\n- About 3500-5200 Chinese characters.\n- Follow the plan, character names, power system, tone, and foreshadowing.\n- First line must be a Markdown H1 chapter title in Chinese.\n- End with a hook for the next chapter.\n- Do not add explanations, bullet notes, metadata, or planning commentary.",
+      "outputContract": "OpenCode Chat + DeepSeek v4 Flash, forks planner context",
+      "artifacts": [
+        {
+          "id": "chapter-1-md",
+          "label": "chapter-1.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/chapter-1.md",
+          "href": "/workflow-output/runs/{runId}/chapter-1.md"
+        }
+      ],
+      "x": 360,
+      "y": 60,
+      "state": "waiting",
+      "session": {
+        "policy": "fork",
+        "sessionKey": "opencode-xuanhuan-book-plan",
+        "bindsToNodeId": "master-plan",
+        "turnOrder": 2
+      },
+      "runtimeOverrides": {
+        "contextMode": "fork",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-chat",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "chat"
+    },
+    {
+      "id": "chapter-2",
+      "name": "Chapter 2",
+      "kind": "agent-mode",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-chapters",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-ch2",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-chat",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "chat",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Chapter 2",
+      "promptPreview": "You are a chapter writer continuing from the planner context.\n\nWrite chapter 2 in Simplified Chinese. Use this chapter title hint: Secret Trial Blade.\n\nRequirements:\n- Output chapter prose only.\n- About 3500-5200 Chinese characters.\n- Follow the plan, character names, power system, tone, and foreshadowing.\n- First line must be a Markdown H1 chapter title in Chinese.\n- End with a hook for the next chapter.\n- Do not add explanations, bullet notes, metadata, or planning commentary.",
+      "outputContract": "OpenCode Chat + DeepSeek v4 Flash, forks planner context",
+      "artifacts": [
+        {
+          "id": "chapter-2-md",
+          "label": "chapter-2.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/chapter-2.md",
+          "href": "/workflow-output/runs/{runId}/chapter-2.md"
+        }
+      ],
+      "x": 360,
+      "y": 180,
+      "state": "waiting",
+      "session": {
+        "policy": "fork",
+        "sessionKey": "opencode-xuanhuan-book-plan",
+        "bindsToNodeId": "master-plan",
+        "turnOrder": 3
+      },
+      "runtimeOverrides": {
+        "contextMode": "fork",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-chat",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "chat"
+    },
+    {
+      "id": "chapter-3",
+      "name": "Chapter 3",
+      "kind": "agent-mode",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-chapters",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-ch3",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-chat",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "chat",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Chapter 3",
+      "promptPreview": "You are a chapter writer continuing from the planner context.\n\nWrite chapter 3 in Simplified Chinese. Use this chapter title hint: Sect Shadow Tide.\n\nRequirements:\n- Output chapter prose only.\n- About 3500-5200 Chinese characters.\n- Follow the plan, character names, power system, tone, and foreshadowing.\n- First line must be a Markdown H1 chapter title in Chinese.\n- End with a hook for the next chapter.\n- Do not add explanations, bullet notes, metadata, or planning commentary.",
+      "outputContract": "OpenCode Chat + DeepSeek v4 Flash, forks planner context",
+      "artifacts": [
+        {
+          "id": "chapter-3-md",
+          "label": "chapter-3.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/chapter-3.md",
+          "href": "/workflow-output/runs/{runId}/chapter-3.md"
+        }
+      ],
+      "x": 360,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fork",
+        "sessionKey": "opencode-xuanhuan-book-plan",
+        "bindsToNodeId": "master-plan",
+        "turnOrder": 4
+      },
+      "runtimeOverrides": {
+        "contextMode": "fork",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-chat",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "chat"
+    },
+    {
+      "id": "chapter-4",
+      "name": "Chapter 4",
+      "kind": "agent-mode",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-chapters",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-ch4",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-chat",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "chat",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Chapter 4",
+      "promptPreview": "You are a chapter writer continuing from the planner context.\n\nWrite chapter 4 in Simplified Chinese. Use this chapter title hint: Mandate Returns.\n\nRequirements:\n- Output chapter prose only.\n- About 3500-5200 Chinese characters.\n- Follow the plan, character names, power system, tone, and foreshadowing.\n- First line must be a Markdown H1 chapter title in Chinese.\n- End with a hook for the next chapter.\n- Do not add explanations, bullet notes, metadata, or planning commentary.",
+      "outputContract": "OpenCode Chat + DeepSeek v4 Flash, forks planner context",
+      "artifacts": [
+        {
+          "id": "chapter-4-md",
+          "label": "chapter-4.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/chapter-4.md",
+          "href": "/workflow-output/runs/{runId}/chapter-4.md"
+        }
+      ],
+      "x": 360,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fork",
+        "sessionKey": "opencode-xuanhuan-book-plan",
+        "bindsToNodeId": "master-plan",
+        "turnOrder": 5
+      },
+      "runtimeOverrides": {
+        "contextMode": "fork",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "deepseek-v4-flash",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-chat",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "chat"
+    },
+    {
+      "id": "final-review",
+      "name": "Final Review + Image Prompt",
+      "kind": "verify",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-review",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-review",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-default-agent",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "agent",
+      "llmApiTemplateId": "kuaipao-gpt-5-5",
+      "promptTitle": "Final Review + Image Prompt",
+      "promptPreview": "You are the final editor working in an isolated context.\n\nRead master-plan.md, chapter-1.md, chapter-2.md, chapter-3.md, and chapter-4.md from the current working directory before writing.\n\nWrite in Simplified Chinese. Output in this exact order:\n\n[IMAGE_PROMPT]\nOne Chinese paragraph of 100-200 characters for a vertical xuanhuan novel cover. It must be derived from the book title, protagonist, worldbuilding, central conflict, and ending mood. Include protagonist appearance, scene, colors, composition, and key visual symbols. Make it suitable for an image model.\n\n# Final Manuscript\nMerge the four chapters into a coherent final manuscript. Keep chapter titles. Unify names, setting details, foreshadowing, and tone. Do not summarize or omit chapters.",
+      "outputContract": "OpenCode Agent + GPT-5.5, isolated context, writes MD/HTML/PDF",
+      "artifacts": [
+        {
+          "id": "final-review-md",
+          "label": "final-novel.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/final-novel.md",
+          "href": "/workflow-output/runs/{runId}/final-novel.md"
+        },
+        {
+          "id": "final-review-html",
+          "label": "final-novel.html",
+          "kind": "other",
+          "path": "runs/{runId}/final-novel.html",
+          "href": "/workflow-output/runs/{runId}/final-novel.html"
+        },
+        {
+          "id": "final-review-pdf",
+          "label": "final-novel.pdf",
+          "kind": "pdf",
+          "path": "runs/{runId}/final-novel.pdf",
+          "href": "/workflow-output/runs/{runId}/final-novel.pdf"
+        }
+      ],
+      "x": 640,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "maxIterations": 2,
+        "workingDirectory": "workflow-output",
+        "model": "gpt-5.5",
+        "responseFormat": "markdown"
+      },
+      "executorId": "opencode-default-agent",
+      "llmId": "kuaipao-gpt-5-5",
+      "strategyId": "agent"
+    },
+    {
+      "id": "generate-cover",
+      "name": "Generate Cover",
+      "kind": "llm-step",
+      "stageId": "opencode-xuanhuan-novel-4ch-image-stage",
+      "columnId": "opencode-xuanhuan-novel-4ch-image-c-image",
+      "laneId": "opencode-xuanhuan-novel-4ch-image-l-image",
+      "agentId": "agent-kuaipao",
+      "executionMode": "agent-mode",
+      "modality": "image",
+      "runtimeMode": "chat",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Generate Cover",
+      "promptPreview": "Use the [IMAGE_PROMPT] section from the upstream final-review output to generate one valid vertical xuanhuan novel cover image.\n\nThe image must reflect the protagonist, setting, central visual symbol, color palette, and mood from the book information. Keep it symbolic and non-violent: no gore, blood, wounds, dismemberment, active fighting, text, logos, watermarks, UI, or screenshots.",
+      "outputContract": "LLM API image generation from the final review image prompt.",
+      "artifacts": [
+        {
+          "id": "generate-cover-img",
+          "label": "generate-cover-1.png",
+          "kind": "image",
+          "path": "runs/{runId}/generate-cover-1.png",
+          "href": "/workflow-output/runs/{runId}/generate-cover-1.png"
+        },
+        {
+          "id": "generate-cover-prompt",
+          "label": "cover-prompt.md",
+          "kind": "markdown",
+          "path": "runs/{runId}/cover-prompt.md",
+          "href": "/workflow-output/runs/{runId}/cover-prompt.md"
+        }
+      ],
+      "x": 940,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh"
+      },
+      "runtimeOverrides": {
+        "contextMode": "summary",
+        "maxIterations": 1,
+        "workingDirectory": "workflow-output",
+        "model": "gpt-image-2",
+        "responseFormat": "text"
+      },
+      "agentModeTemplateId": "direct-api",
+      "executorId": "direct-api",
+      "llmId": "kuaipao-gpt-image-2",
+      "strategyId": "chat",
+      "cliTemplateId": "direct-api-cli"
+    }
+  ],
+  "edges": [
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e1",
+      "from": "master-plan",
+      "to": "chapter-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "fork",
+      "contextMode": "fork"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e2",
+      "from": "master-plan",
+      "to": "chapter-2",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "fork",
+      "contextMode": "fork"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e3",
+      "from": "master-plan",
+      "to": "chapter-3",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "fork",
+      "contextMode": "fork"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e4",
+      "from": "master-plan",
+      "to": "chapter-4",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "fork",
+      "contextMode": "fork"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e5",
+      "from": "chapter-1",
+      "to": "final-review",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e6",
+      "from": "chapter-2",
+      "to": "final-review",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e7",
+      "from": "chapter-3",
+      "to": "final-review",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e8",
+      "from": "chapter-4",
+      "to": "final-review",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-e9",
+      "from": "final-review",
+      "to": "generate-cover",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "summary",
+      "contextMode": "summary"
+    }
+  ],
+  "loopEdges": [],
+  "branchGroups": [
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-b1",
+      "from": "master-plan",
+      "to": [
+        "chapter-1",
+        "chapter-2",
+        "chapter-3",
+        "chapter-4"
+      ]
+    }
+  ],
+  "mergeGroups": [
+    {
+      "id": "opencode-xuanhuan-novel-4ch-image-m1",
+      "from": [
+        "chapter-1",
+        "chapter-2",
+        "chapter-3",
+        "chapter-4"
+      ],
+      "to": "final-review"
+    }
+  ],
+  "sharedSessions": [
+    {
+      "key": "opencode-xuanhuan-book-plan",
+      "label": "Book Plan",
+      "anchorNodeId": "master-plan",
+      "nodeIds": [
+        "master-plan",
+        "chapter-1",
+        "chapter-2",
+        "chapter-3",
+        "chapter-4"
+      ]
+    }
+  ],
+  "sessionGroups": {},
+  "defaultLlmId": "kuaipao-gpt-5-5",
+  "defaultExecutorId": "opencode-plan"
+}

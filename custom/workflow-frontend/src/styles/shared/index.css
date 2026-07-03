@@ -1,0 +1,7 @@
+@import "../theme.css";
+@import "../../ui-kit/tokens/yuzu.css";
+@import "../../ui-kit/button/button.css";
+@import "../../ui-kit/panel/panel.css";
+@import "../../ui-kit/item/item.css";
+@import "../../ui-kit/motion/motion.css";
+@import "../console/index.css";

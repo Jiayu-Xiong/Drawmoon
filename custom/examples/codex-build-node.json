@@ -1,0 +1,25 @@
+{
+  "name": "Codex Build Node",
+  "description": "A workflow node that uses codex to build a feature based on a prompt file.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "build-1",
+        "label": "Codex Build",
+        "config": {
+          "provider": "opencode",
+          "mode": "build",
+          "cwd": "/path/to/project",
+          "prompt": "Implement a user authentication module with JWT tokens. Include login, register, and token refresh endpoints.",
+          "contextMode": "fresh",
+          "systemPromptFile": "./prompts/system.md",
+          "buildPromptFile": "./prompts/build.md",
+          "maxIterations": 15,
+          "timeoutMs": 600000,
+          "allowFileWrites": true
+        }
+      }
+    ],
+    "edges": []
+  }
+}

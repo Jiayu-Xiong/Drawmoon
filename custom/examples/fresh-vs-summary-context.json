@@ -1,0 +1,54 @@
+{
+  "name": "Fresh vs Summary Context Comparison",
+  "description": "Demonstrates the difference between fresh and summary context modes in a two-node workflow.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "research",
+        "label": "Research",
+        "config": {
+          "provider": "opencode",
+          "mode": "agent",
+          "cwd": "/path/to/project",
+          "prompt": "Research and document the current state of our authentication system. List all auth-related files, describe the flow, and note any security concerns.",
+          "contextMode": "fresh",
+          "maxIterations": 8,
+          "timeoutMs": 180000,
+          "allowFileWrites": false
+        }
+      },
+      {
+        "id": "summary-child",
+        "label": "Summary-Based Task",
+        "config": {
+          "provider": "opencode",
+          "mode": "agent",
+          "cwd": "/path/to/project",
+          "prompt": "Based on the research findings, create a plan to address the top 3 security concerns identified.",
+          "contextMode": "summary",
+          "maxIterations": 10,
+          "timeoutMs": 300000,
+          "allowFileWrites": true
+        }
+      },
+      {
+        "id": "fresh-child",
+        "label": "Fresh Context Task",
+        "config": {
+          "provider": "opencode",
+          "mode": "agent",
+          "cwd": "/path/to/project",
+          "prompt": "Independently audit the authentication system for security issues. Do not rely on previous analysis.",
+          "contextMode": "fresh",
+          "maxIterations": 10,
+          "timeoutMs": 300000,
+          "allowFileWrites": false
+        }
+      }
+    ],
+    "edges": [
+      { "from": "research", "to": "summary-child", "contextMode": "summary" },
+      { "from": "research", "to": "fresh-child", "contextMode": "fresh" }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const claudeCodeBuildTemplate = new PlainAgentModeTemplate({
+  id: "claude-code-build",
+  name: "Claude Code Build",
+  description: "Default Claude Code (claude) CLI build strategy.",
+  provider: "custom",
+  cliTemplateId: "claude-code-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "build",
+  model: "claude-code/configured",
+  contextMode: "inherit",
+  defaultSystemPromptFile: "claude-code://default",
+  defaultSystemPrompt: "Use the local Claude Code CLI for implementation tasks.",
+  allowSystemPromptOverride: true,
+  allowedTools: ["read_file", "write_file", "edit_file", "shell_metadata"],
+  outputKinds: ["markdown", "json", "directory"],
+  maxIterations: 25,
+  timeoutMs: 900_000,
+  allowFileWrites: true,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: false },
+})

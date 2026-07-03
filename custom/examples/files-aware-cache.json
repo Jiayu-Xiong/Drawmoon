@@ -1,0 +1,26 @@
+{
+  "name": "Files-Aware Cache Example",
+  "description": "Demonstrates files-aware cache mode. Cache keys include hashes of referenced files.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "codegen",
+        "label": "Code Generation",
+        "config": {
+          "provider": "opencode",
+          "mode": "build",
+          "cwd": "/path/to/project",
+          "prompt": "Generate API client code based on the OpenAPI spec.",
+          "contextMode": "fresh",
+          "systemPromptFile": "./prompts/api-codegen.md",
+          "cacheFiles": ["./specs/openapi.yaml", "./prompts/api-codegen.md"],
+          "maxIterations": 10,
+          "timeoutMs": 300000,
+          "allowFileWrites": true
+        }
+      }
+    ],
+    "edges": []
+  },
+  "notes": "When cacheFiles include './specs/openapi.yaml', any change to that file will invalidate the cache and trigger a regeneration. This is useful for code generation workflows where the output depends on input specifications."
+}

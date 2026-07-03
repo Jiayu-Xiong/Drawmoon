@@ -1,0 +1,2085 @@
+{
+  "id": "audiorwkv-iclr-pyramid",
+  "name": "AudioRWKV → ICLR",
+  "description": "IO planner → parallel sections + 3 figures → round1 merge (LaTeX + PDF with all figs) → layout/length audit → reviews.",
+  "workingDirectory": "workflow/audiorwkv-iclr",
+  "defaultAgentId": "agent-paper",
+  "defaultAgentModeTemplateId": "custom-io-planner",
+  "defaultLlmApiTemplateId": "deepseek-deepseek-v4-flash",
+  "agentModeTemplateIds": [
+    "custom-io-planner",
+    "opencode-paper-planner",
+    "opencode-paper-section",
+    "opencode-paper-compile",
+    "opencode-paper-reviewer",
+    "opencode-build",
+    "direct-api",
+    "kiro-cli-review"
+  ],
+  "llmApiTemplateIds": [
+    "kuaipao-openai-chat",
+    "kuaipao-openai-chat",
+    "kuaipao-openai-chat",
+    "kuaipao-openai-chat",
+    "kuaipao-openai-chat"
+  ],
+  "stages": [
+    {
+      "id": "audiorwkv-iclr-pyramid-stage",
+      "name": "AudioRWKV → ICLR",
+      "color": "rgb(140,197,223)",
+      "columnIds": [
+        "audiorwkv-iclr-pyramid-c-architect",
+        "audiorwkv-iclr-pyramid-c-figures",
+        "audiorwkv-iclr-pyramid-c-sections",
+        "audiorwkv-iclr-pyramid-c-body",
+        "audiorwkv-iclr-pyramid-c-merge",
+        "audiorwkv-iclr-pyramid-c-audit",
+        "audiorwkv-iclr-pyramid-c-gate",
+        "audiorwkv-iclr-pyramid-c-reviews",
+        "audiorwkv-iclr-pyramid-c-intersect",
+        "audiorwkv-iclr-pyramid-c-revise"
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "id": "audiorwkv-iclr-pyramid-c-architect",
+      "name": "Architect",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-plan",
+          "name": "plan",
+          "nodeIds": [
+            "architect-plan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-figures",
+      "name": "Figures",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-method",
+          "name": "method",
+          "nodeIds": [
+            "figure-prompt-1",
+            "figure-render-1"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-experiment",
+          "name": "experiment",
+          "nodeIds": [
+            "experiment-figure-prompt",
+            "experiment-figure-render"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-teaser",
+          "name": "teaser",
+          "nodeIds": [
+            "teaser-figure-prompt",
+            "teaser-figure-render"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-sections",
+      "name": "Parallel Sections",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-section-intro",
+          "name": "section-intro",
+          "nodeIds": [
+            "section-intro"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-section-related-work",
+          "name": "section-related-work",
+          "nodeIds": [
+            "section-related-work"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-section-methodology",
+          "name": "section-methodology",
+          "nodeIds": [
+            "section-methodology"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-section-experiments",
+          "name": "section-experiments",
+          "nodeIds": [
+            "section-experiments"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-section-conclusion",
+          "name": "section-conclusion",
+          "nodeIds": [
+            "section-conclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-body",
+      "name": "Body",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-body",
+          "name": "body-text",
+          "nodeIds": [
+            "body-text"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-merge",
+      "name": "Round 1",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-merge",
+          "name": "merge",
+          "nodeIds": [
+            "round1-merge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-audit",
+      "name": "Audit",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-layout",
+          "name": "layout",
+          "nodeIds": [
+            "layout-audit"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-length",
+          "name": "length",
+          "nodeIds": [
+            "length-audit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-gate",
+      "name": "Human Gate",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-gate",
+          "name": "gate",
+          "nodeIds": [
+            "submit-review-gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-reviews",
+      "name": "Peer Review",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-kiro-ds",
+          "name": "kiro-ds",
+          "nodeIds": [
+            "kiro-review-ds"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-kiro-mm",
+          "name": "kiro-mm",
+          "nodeIds": [
+            "kiro-review-mm"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-kiro-qwen",
+          "name": "kiro-qwen",
+          "nodeIds": [
+            "kiro-review-qwen"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-ds-pro",
+          "name": "deepseek-pro",
+          "nodeIds": [
+            "deepseek-pro-review"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-intersect",
+      "name": "Intersection",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-intersect",
+          "name": "intersect",
+          "nodeIds": [
+            "review-intersection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-c-revise",
+      "name": "Revision",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "lanes": [
+        {
+          "id": "audiorwkv-iclr-pyramid-l-rev-plan",
+          "name": "plan",
+          "nodeIds": [
+            "revision-plan"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-major",
+          "name": "major",
+          "nodeIds": [
+            "revision-major"
+          ]
+        },
+        {
+          "id": "audiorwkv-iclr-pyramid-l-final",
+          "name": "final",
+          "nodeIds": [
+            "final-pdf"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "architect-plan",
+      "name": "Architect Plan",
+      "kind": "plan",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-architect",
+      "laneId": "audiorwkv-iclr-pyramid-l-plan",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "custom-io-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "plan",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "promptTitle": "Architect Plan",
+      "promptPreview": "You are the lead architect converting the AudioRWKV PRL manuscript into an ICLR 2026 submission (IO Collaboration Planner with built-in author inquiry).\n\n**Built-in inquiry (two phases on this node):**\n1. **Phase 1** — Read audiorwkv/PRL/cas-dc-template.tex; use **workflow-web** MCP to skim official **ICLR 2026** author guidelines (page/section limits, template URL) so questions reflect real constraints. Write **arch-clarification-questions.md** with EXACTLY this structure and NOTHING more:\n   - **## Clarification questions** — EXACTLY 3 numbered questions (never more), each one sentence ending with `?`, no bullet sub-questions. Pick only the 3 highest-impact unknowns that block the paper architecture.\n   - **## Architecture for confirmation** — ONE concise proposed paper architecture (PRL→ICLR section map + figure plan) written as a short bulleted proposal, ending with a single yes/no confirmation question (`Confirm this architecture, or state changes?`).\n   - **## Execution summary** — ≤6 lines.\n   Do NOT exceed 3 clarification questions under any circumstance. Stop without IO JSON, venue-requirements.md, or iclr2026/ files. The workflow pauses for the author to reply.\n2. **Phase 2** — After author reply (in arch-inquiry-reply.md), only when the workflow resumes with an authorized UI reply:\n   - Use **workflow-web** MCP to fetch official **ICLR 2026** author guidelines. Write **venue-requirements.md** (planner-owned) with URLs and constraints.\n   - Download the official LaTeX kit from GitHub (ICLR/Master-Template, `iclr2026/` folder) via `webfetch` and save under `iclr2026/` without modifying .sty files:\n     - https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/iclr2026_conference.sty\n     - https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/iclr2026_conference.bst\n     - https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/natbib.sty\n     - https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/fancyhdr.sty\n     - https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/math_commands.tex\n     - (reference shell) https://raw.githubusercontent.com/ICLR/Master-Template/master/iclr2026/iclr2026_conference.tex\n   - Build `iclr2026/main.tex` with \\usepackage[submission]{iclr2026_conference}; reference the kit in journal-architecture.md.\n   - Emit the IO allocation JSON manifest and planner-owned architecture artifacts below.\n\nSource (read-only mount):\n- audiorwkv/PRL/cas-dc-template.tex (+ figures, bib as needed)\n\nTarget tree (write under run workspace):\n- iclr2026/ (ICLR style skeleton; section bodies come from downstream workers via flat→dest migration)\n\nICLR section structure (mandatory — exactly five section writers, no extra chapters):\n1. Introduction → flat `section-intro.md` → dest `iclr2026/sections/01-intro.tex` — producer: section-intro\n2. Related Work → `section-related-work.md` → `iclr2026/sections/02-related-work.tex` — producer: section-related-work\n3. Methodology → `section-methodology.md` → `iclr2026/sections/03-methodology.tex` — producer: section-methodology\n4. Experiments → `section-experiments.md` → `iclr2026/sections/04-experiments.tex` — producer: section-experiments\n5. Conclusion → `section-conclusion.md` → `iclr2026/sections/05-conclusion.tex` — producer: section-conclusion\n\nDo NOT create a standalone Pyramid / pyramid-framing section. Fold any PRL pyramid narrative into the five sections above per journal-architecture.md.\n\n**Planner ownership (critical):** Do **not** write prose or section bodies under `iclr2026/sections/*.tex` — those paths are owned by section-* workers (flat staging + runtime migration). You may create `iclr2026/main.tex`, `iclr2026/references.bib`, and markdown plans only where producer is architect-plan.\n\nYour FIRST output block must be the IO allocation JSON manifest. Example shape (producer ids must match exactly):\n```json\n{\n  \"writeRoot\": \".\",\n  \"folders\": [\"iclr2026/sections\"],\n  \"files\": [\n    { \"flat\": \"section-intro.md\", \"dest\": \"iclr2026/sections/01-intro.tex\", \"producer\": \"section-intro\", \"criticality\": \"critical\" },\n    { \"flat\": \"section-related-work.md\", \"dest\": \"iclr2026/sections/02-related-work.tex\", \"producer\": \"section-related-work\", \"criticality\": \"critical\" },\n    { \"flat\": \"section-methodology.md\", \"dest\": \"iclr2026/sections/03-methodology.tex\", \"producer\": \"section-methodology\", \"criticality\": \"critical\" },\n    { \"flat\": \"section-experiments.md\", \"dest\": \"iclr2026/sections/04-experiments.tex\", \"producer\": \"section-experiments\", \"criticality\": \"critical\" },\n    { \"flat\": \"section-conclusion.md\", \"dest\": \"iclr2026/sections/05-conclusion.tex\", \"producer\": \"section-conclusion\", \"criticality\": \"critical\" }\n  ]\n}\n```\nNever use producer names like \"architect\" or \"planner\" — only the five section node ids above plus planner-owned files (venue-requirements.md, journal-architecture.md, method-rewrite-notes.md, iclr2026/main.tex, iclr2026/references.bib) with producer \"architect-plan\".\n\nThen produce planner-owned artifacts:\n1. venue-requirements.md — ICLR 2026 official constraints from workflow-web research\n2. journal-architecture.md — **full paper architecture**: PRL → ICLR section map, **per-section outline** (5–15 bullet targets per section writer), notation table, **Figure LaTeX map** (fig1–fig3 → target section file, caption stub, width, \\label), page budget\n3. iclr2026/figures/fig1-summary.md — **method figure brief** (planner-owned): panel layout, key elements, labels, color notes; figure-prompt-1 expands this into draw.io spec\n4. iclr2026/figures/fig2-summary.md — **experiment figure brief** (planner-owned): main result / ablation layout; experiment-figure-prompt expands this\n5. iclr2026/figures/fig3-summary.md — **teaser figure brief** (planner-owned): one-panel graphical abstract / highlight reel; teaser-figure-prompt expands this\n6. iclr2026/main.tex — ICLR skeleton with \\input{} for the five section paths (no section prose)\n7. iclr2026/references.bib — adapted from PRL sources\n8. method-rewrite-notes.md — AudioRWKV framing notes for downstream writers\n\nDo **not** write iclr2026/figures/prompts/*.md or raster PNGs — those belong to figure-prompt / figure-render nodes.\n\nRead audiorwkv/PRL/cas-dc-template.tex first. Do not draft full section prose on this node.\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.",
+      "outputContract": "IO planner with built-in author inquiry",
+      "artifacts": [
+        {
+          "id": "arch-questions",
+          "label": "arch-clarification-questions.md",
+          "kind": "markdown",
+          "path": "arch-clarification-questions.md",
+          "href": ""
+        },
+        {
+          "id": "venue-requirements",
+          "label": "venue-requirements.md",
+          "kind": "markdown",
+          "path": "venue-requirements.md",
+          "href": ""
+        },
+        {
+          "id": "journal-architecture",
+          "label": "journal-architecture.md",
+          "kind": "markdown",
+          "path": "journal-architecture.md",
+          "href": ""
+        },
+        {
+          "id": "fig1-summary",
+          "label": "fig1-summary.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/fig1-summary.md",
+          "href": ""
+        },
+        {
+          "id": "fig2-summary",
+          "label": "fig2-summary.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/fig2-summary.md",
+          "href": ""
+        },
+        {
+          "id": "fig3-summary",
+          "label": "fig3-summary.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/fig3-summary.md",
+          "href": ""
+        },
+        {
+          "id": "method-notes",
+          "label": "method-rewrite-notes.md",
+          "kind": "markdown",
+          "path": "method-rewrite-notes.md",
+          "href": ""
+        }
+      ],
+      "x": 120,
+      "y": 240,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "architect-plan",
+        "turnOrder": 1
+      },
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "planner",
+        "maxIterations": 12,
+        "responseFormat": "markdown",
+        "timeoutMs": 900000,
+        "plannerInquiry": true,
+        "inquiryQuestionsFile": "arch-clarification-questions.md",
+        "inquiryReplyFile": "arch-inquiry-reply.md",
+        "model": "deepseek-v4-pro"
+      },
+      "executorId": "custom-io-planner",
+      "llmId": "deepseek-deepseek-v4-pro",
+      "strategyId": "plan"
+    },
+    {
+      "id": "figure-prompt-1",
+      "name": "Method Figure Prompt",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-method",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Method Figure Prompt",
+      "promptPreview": "Figure prompt engineer (#1).\n\nRole: AudioRWKV pipeline overview\n**Mandatory inputs (read from disk):** iclr2026/figures/fig1-summary.md (planner figure brief), journal-architecture.md, method-rewrite-notes.md.\n\nExpand the planner brief into iclr2026/figures/prompts/fig1-prompt.md using the **drawio-grid-figures** skill:\n- Grid-first draw.io / matplotlib SVG tile plan per skill references\n- Preserve planner panel layout and labels; tie visuals to AudioRWKV method story\n- Include alt text, color palette, target section file + \\label from journal-architecture **Figure LaTeX map**, and \\includegraphics path figures/fig1.png\n\nDo not render raster finals here; only prompt + composition spec.",
+      "outputContract": "Figure #1 prompt (drawio skill)",
+      "artifacts": [
+        {
+          "id": "fig1-prompt",
+          "label": "fig1-prompt.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/prompts/fig1-prompt.md",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 500,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "figure-prompt-1"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "drawio-grid-figures"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/figures/fig1-summary.md",
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-build",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "figure-render-1",
+      "name": "Method Figure Render",
+      "kind": "llm-step",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-method",
+      "agentId": "agent-kuaipao",
+      "executionMode": "llm-api",
+      "modality": "image",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Method Figure Render",
+      "promptPreview": "Generate publication figure 1 for ICLR.\n\nThe figure specification is prepended to this message by the workflow runner (pure API I/O — no filesystem access).\nProduce a single publication-quality image: no watermarks, readable labels, colorblind-safe palette.",
+      "outputContract": "GPT Image 2 figure render from upstream prompt.",
+      "artifacts": [
+        {
+          "id": "fig1-png",
+          "label": "fig1.png",
+          "kind": "image",
+          "path": "iclr2026/figures/fig1.png",
+          "href": ""
+        }
+      ],
+      "x": 660,
+      "y": 500,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "figure-render-1"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "media",
+        "responseFormat": "text",
+        "timeoutMs": 1800000,
+        "readRunFiles": [
+          "iclr2026/figures/prompts/fig1-prompt.md"
+        ],
+        "model": "gpt-image-2"
+      },
+      "executorId": "direct-api",
+      "llmId": "kuaipao-gpt-image-2"
+    },
+    {
+      "id": "experiment-figure-prompt",
+      "name": "Experiment Figure Prompt",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-experiment",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Experiment Figure Prompt",
+      "promptPreview": "Figure prompt engineer (#2).\n\nRole: Main result and ablation figure\n**Mandatory inputs (read from disk):** iclr2026/figures/fig2-summary.md (planner figure brief), journal-architecture.md, method-rewrite-notes.md.\n\nExpand the planner brief into iclr2026/figures/prompts/fig2-prompt.md using the **drawio-grid-figures** skill:\n- Grid-first draw.io / matplotlib SVG tile plan per skill references\n- Preserve planner panel layout and labels; tie visuals to AudioRWKV method story\n- Include alt text, color palette, target section file + \\label from journal-architecture **Figure LaTeX map**, and \\includegraphics path figures/fig2.png\n\nDo not render raster finals here; only prompt + composition spec.",
+      "outputContract": "Figure #2 prompt (drawio skill)",
+      "artifacts": [
+        {
+          "id": "fig2-prompt",
+          "label": "fig2-prompt.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/prompts/fig2-prompt.md",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 580,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "experiment-figure-prompt"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "drawio-grid-figures"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/figures/fig2-summary.md",
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-build",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "experiment-figure-render",
+      "name": "Experiment Figure Render",
+      "kind": "llm-step",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-experiment",
+      "agentId": "agent-kuaipao",
+      "executionMode": "llm-api",
+      "modality": "image",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Experiment Figure Render",
+      "promptPreview": "Generate publication figure 2 for ICLR.\n\nThe figure specification is prepended to this message by the workflow runner (pure API I/O — no filesystem access).\nProduce a single publication-quality image: no watermarks, readable labels, colorblind-safe palette.",
+      "outputContract": "GPT Image 2 figure render from upstream prompt.",
+      "artifacts": [
+        {
+          "id": "fig2-png",
+          "label": "fig2.png",
+          "kind": "image",
+          "path": "iclr2026/figures/fig2.png",
+          "href": ""
+        }
+      ],
+      "x": 660,
+      "y": 580,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "experiment-figure-render"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "media",
+        "responseFormat": "text",
+        "timeoutMs": 1800000,
+        "readRunFiles": [
+          "iclr2026/figures/prompts/fig2-prompt.md"
+        ],
+        "model": "gpt-image-2"
+      },
+      "executorId": "direct-api",
+      "llmId": "kuaipao-gpt-image-2"
+    },
+    {
+      "id": "teaser-figure-prompt",
+      "name": "Teaser Prompt",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-teaser",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-build",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Teaser Prompt",
+      "promptPreview": "Figure prompt engineer (#3).\n\nRole: Paper teaser / graphical abstract\n**Mandatory inputs (read from disk):** iclr2026/figures/fig3-summary.md (planner figure brief), journal-architecture.md, method-rewrite-notes.md.\n\nExpand the planner brief into iclr2026/figures/prompts/fig3-prompt.md using the **drawio-grid-figures** skill:\n- Grid-first draw.io / matplotlib SVG tile plan per skill references\n- Preserve planner panel layout and labels; tie visuals to AudioRWKV method story\n- Include alt text, color palette, target section file + \\label from journal-architecture **Figure LaTeX map**, and \\includegraphics path figures/fig3.png\n\nDo not render raster finals here; only prompt + composition spec.",
+      "outputContract": "Figure #3 prompt (drawio skill)",
+      "artifacts": [
+        {
+          "id": "fig3-prompt",
+          "label": "fig3-prompt.md",
+          "kind": "markdown",
+          "path": "iclr2026/figures/prompts/fig3-prompt.md",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 660,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "teaser-figure-prompt"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "drawio-grid-figures"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/figures/fig3-summary.md",
+          "journal-architecture.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-build",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "teaser-figure-render",
+      "name": "Teaser Render",
+      "kind": "llm-step",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-figures",
+      "laneId": "audiorwkv-iclr-pyramid-l-teaser",
+      "agentId": "agent-kuaipao",
+      "executionMode": "llm-api",
+      "modality": "image",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "promptTitle": "Teaser Render",
+      "promptPreview": "Generate publication figure 3 for ICLR.\n\nThe figure specification is prepended to this message by the workflow runner (pure API I/O — no filesystem access).\nProduce a single publication-quality image: no watermarks, readable labels, colorblind-safe palette.",
+      "outputContract": "GPT Image 2 figure render from upstream prompt.",
+      "artifacts": [
+        {
+          "id": "fig3-png",
+          "label": "fig3.png",
+          "kind": "image",
+          "path": "iclr2026/figures/fig3.png",
+          "href": ""
+        }
+      ],
+      "x": 660,
+      "y": 660,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "teaser-figure-render"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "media",
+        "responseFormat": "text",
+        "timeoutMs": 1800000,
+        "readRunFiles": [
+          "iclr2026/figures/prompts/fig3-prompt.md"
+        ],
+        "model": "gpt-image-2"
+      },
+      "executorId": "direct-api",
+      "llmId": "kuaipao-gpt-image-2"
+    },
+    {
+      "id": "section-intro",
+      "name": "Introduction",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-sections",
+      "laneId": "audiorwkv-iclr-pyramid-l-section-intro",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Introduction",
+      "promptPreview": "You are a section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Introduction\nPRL source mapping: Introduction\nFlat staging file (write HERE): section-intro.md\nRuntime migrates to: iclr2026/sections/01-intro.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md, venue-requirements.md, and method-rewrite-notes.md; read matching PRL content under audiorwkv/PRL/\n2. Draft LaTeX body into **section-intro.md** at workspace root only (\\input-friendly fragments, no \\documentclass). Do NOT write directly to iclr2026/sections/01-intro.tex.\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. Keep venue tone from venue-requirements.md; mark uncertain claims explicitly\n\nWrite LaTeX only to the flat staging file; short completion note in chat.",
+      "outputContract": "DeepSeek V4 section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-intro-tex",
+          "label": "iclr2026/sections/01-intro.tex",
+          "kind": "latex",
+          "path": "iclr2026/sections/01-intro.tex",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 60,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-intro",
+        "turnOrder": 3
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "section-related-work",
+      "name": "Related Work",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-sections",
+      "laneId": "audiorwkv-iclr-pyramid-l-section-related-work",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Related Work",
+      "promptPreview": "You are a section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Related Work\nPRL source mapping: Related Work\nFlat staging file (write HERE): section-related-work.md\nRuntime migrates to: iclr2026/sections/02-related-work.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md, venue-requirements.md, and method-rewrite-notes.md; read matching PRL content under audiorwkv/PRL/\n2. Draft LaTeX body into **section-related-work.md** at workspace root only (\\input-friendly fragments, no \\documentclass). Do NOT write directly to iclr2026/sections/02-related-work.tex.\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. Keep venue tone from venue-requirements.md; mark uncertain claims explicitly\n\nWrite LaTeX only to the flat staging file; short completion note in chat.",
+      "outputContract": "DeepSeek V4 section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-related-work-tex",
+          "label": "iclr2026/sections/02-related-work.tex",
+          "kind": "latex",
+          "path": "iclr2026/sections/02-related-work.tex",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 140,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-related-work",
+        "turnOrder": 4
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "section-methodology",
+      "name": "Methodology",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-sections",
+      "laneId": "audiorwkv-iclr-pyramid-l-section-methodology",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Methodology",
+      "promptPreview": "You are a section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Methodology\nPRL source mapping: Method / Methodology\nFlat staging file (write HERE): section-methodology.md\nRuntime migrates to: iclr2026/sections/03-methodology.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md, venue-requirements.md, and method-rewrite-notes.md; read matching PRL content under audiorwkv/PRL/\n2. Draft LaTeX body into **section-methodology.md** at workspace root only (\\input-friendly fragments, no \\documentclass). Do NOT write directly to iclr2026/sections/03-methodology.tex.\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. Keep venue tone from venue-requirements.md; mark uncertain claims explicitly\n\nWrite LaTeX only to the flat staging file; short completion note in chat.",
+      "outputContract": "DeepSeek V4 section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-methodology-tex",
+          "label": "iclr2026/sections/03-methodology.tex",
+          "kind": "latex",
+          "path": "iclr2026/sections/03-methodology.tex",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-methodology",
+        "turnOrder": 5
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "section-experiments",
+      "name": "Experiments",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-sections",
+      "laneId": "audiorwkv-iclr-pyramid-l-section-experiments",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Experiments",
+      "promptPreview": "You are a section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Experiments\nPRL source mapping: Results / Experiments\nFlat staging file (write HERE): section-experiments.md\nRuntime migrates to: iclr2026/sections/04-experiments.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md, venue-requirements.md, and method-rewrite-notes.md; read matching PRL content under audiorwkv/PRL/\n2. Draft LaTeX body into **section-experiments.md** at workspace root only (\\input-friendly fragments, no \\documentclass). Do NOT write directly to iclr2026/sections/04-experiments.tex.\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. Keep venue tone from venue-requirements.md; mark uncertain claims explicitly\n\nWrite LaTeX only to the flat staging file; short completion note in chat.",
+      "outputContract": "DeepSeek V4 section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-experiments-tex",
+          "label": "iclr2026/sections/04-experiments.tex",
+          "kind": "latex",
+          "path": "iclr2026/sections/04-experiments.tex",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-experiments",
+        "turnOrder": 6
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "section-conclusion",
+      "name": "Conclusion",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-sections",
+      "laneId": "audiorwkv-iclr-pyramid-l-section-conclusion",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Conclusion",
+      "promptPreview": "You are a section writer (isolated session — read plan files from disk, not chat history).\n\nSection: Conclusion\nPRL source mapping: Conclusion + Discussion\nFlat staging file (write HERE): section-conclusion.md\nRuntime migrates to: iclr2026/sections/05-conclusion.tex\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nSteps:\n1. Read journal-architecture.md, venue-requirements.md, and method-rewrite-notes.md; read matching PRL content under audiorwkv/PRL/\n2. Draft LaTeX body into **section-conclusion.md** at workspace root only (\\input-friendly fragments, no \\documentclass). Do NOT write directly to iclr2026/sections/05-conclusion.tex.\n3. Apply the **humanizer** skill to narrative prose (not equations)\n4. Keep venue tone from venue-requirements.md; mark uncertain claims explicitly\n\nWrite LaTeX only to the flat staging file; short completion note in chat.",
+      "outputContract": "DeepSeek V4 section writer + humanizer; fresh session reads plan files",
+      "artifacts": [
+        {
+          "id": "section-conclusion-tex",
+          "label": "iclr2026/sections/05-conclusion.tex",
+          "kind": "latex",
+          "path": "iclr2026/sections/05-conclusion.tex",
+          "href": ""
+        }
+      ],
+      "x": 480,
+      "y": 380,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "section-conclusion",
+        "turnOrder": 7
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "body-text",
+      "name": "Body Integration",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-body",
+      "laneId": "audiorwkv-iclr-pyramid-l-body",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Body Integration",
+      "promptPreview": "Body integration — merge gate after all five section writers (fresh session).\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\n1. Read all five flat staging files (section-intro.md … section-conclusion.md) plus journal-architecture.md and venue-requirements.md\n2. Verify terminology, notation, and cross-section references are consistent (no contradictory claims between sections)\n3. Write **iclr2026/build/body-text-check.md** with per-section pass/fail and any blocking issues\n4. Only patch a section flat file when fixing a **critical** inconsistency; log each edit in body-text-check.md\n\nDo not rewrite prose for style — that belongs to section writers and humanizer.",
+      "outputContract": "Cross-section consistency check after parallel sections",
+      "artifacts": [
+        {
+          "id": "body-text-check",
+          "label": "body-text-check.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/body-text-check.md",
+          "href": ""
+        }
+      ],
+      "x": 600,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "body-text"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "venue-requirements.md",
+          "method-rewrite-notes.md",
+          "section-intro.md",
+          "section-related-work.md",
+          "section-methodology.md",
+          "section-experiments.md",
+          "section-conclusion.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "round1-merge",
+      "name": "Round 1 Merge",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-merge",
+      "laneId": "audiorwkv-iclr-pyramid-l-merge",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Round 1 Merge",
+      "promptPreview": "Round-1 merge: wire **all section tex + all three figure PNGs** into LaTeX, then compile.\n\n**LaTeX figure wiring (all three PNGs — mandatory for every PDF compile):**\njournal-architecture.md must define a **Figure LaTeX map** (planner-owned). Default placement unless overridden:\n| File | Section tex | Float label | Typical width |\n| fig1.png | iclr2026/sections/03-methodology.tex | \\label{fig:method} | 0.95\\linewidth |\n| fig2.png | iclr2026/sections/04-experiments.tex | \\label{fig:results} | \\linewidth |\n| fig3.png | iclr2026/sections/01-intro.tex | \\label{fig:teaser} | 0.85\\linewidth |\n\nFor each PNG that exists under iclr2026/figures/, insert a proper float in the mapped section:\n\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=<width>]{figures/figN.png}\n  \\caption{<caption from journal-architecture or fig summary>}\n  \\label{fig:...}\n\\end{figure}\nUse paths relative to iclr2026/main.tex. Cross-ref with \\ref{fig:method}, \\ref{fig:results}, \\ref{fig:teaser} where the outline calls for it.\nAfter every latex_build, run **pdf_audit** and confirm all three figures render in the PDF (not just listed in tex).\n\n**Inputs (read from disk):**\n- iclr2026/build/body-text-check.md (sections consistent)\n- iclr2026/figures/fig1.png, iclr2026/figures/fig2.png, iclr2026/figures/fig3.png (skip wiring only if a PNG is genuinely missing — report path)\n- iclr2026/sections/*.tex, iclr2026/main.tex, iclr2026/references.bib\n\n**Merge steps:**\n1. Ensure section bodies are \\input{} from main.tex\n2. Insert \\begin{figure}…\\includegraphics…\\end{figure} for fig1, fig2, fig3 per Figure LaTeX map\n3. Resolve duplicate labels/refs across sections\n4. **latex_build** → iclr2026/build/round1.pdf; **pdf_audit** — checklist must show all three figures in PDF\n5. Write iclr2026/build/round1-merge.md: figure→section map, \\label list, page count, pdf_audit figure checklist",
+      "outputContract": "Merge tex + compile round1.pdf",
+      "artifacts": [
+        {
+          "id": "round1-pdf",
+          "label": "round1.pdf",
+          "kind": "pdf",
+          "path": "iclr2026/build/round1.pdf",
+          "href": ""
+        },
+        {
+          "id": "round1-merge-md",
+          "label": "round1-merge.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/round1-merge.md",
+          "href": ""
+        }
+      ],
+      "x": 1080,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "round1-merge"
+      },
+      "toolConstraints": {
+        "forcedTools": [
+          "latex_build",
+          "pdf_audit",
+          "shell_metadata"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "merger",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "iclr2026/build/body-text-check.md",
+          "iclr2026/main.tex",
+          "iclr2026/figures/fig1.png",
+          "iclr2026/figures/fig2.png",
+          "iclr2026/figures/fig3.png",
+          "iclr2026/sections/01-intro.tex",
+          "iclr2026/sections/02-related-work.tex",
+          "iclr2026/sections/03-methodology.tex",
+          "iclr2026/sections/04-experiments.tex",
+          "iclr2026/sections/05-conclusion.tex"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-compile",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "submit-review-gate",
+      "name": "Human Review — Submit?",
+      "kind": "condition",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-gate",
+      "laneId": "audiorwkv-iclr-pyramid-l-gate",
+      "agentId": "agent-editor",
+      "executionMode": "human-gate",
+      "promptTitle": "Human review gate",
+      "promptPreview": "Human review gate — submit for peer review?\n\nOpen **iclr2026/build/round1.pdf** in the artifacts panel (round-1 merged draft).\nWhen method wording, figures, and length look correct, click **Continue** to submit.\nThe workflow will run four parallel reviews (3× KIRO CLI + DeepSeek V4 Pro), intersect must-fix items, then one revision pass.",
+      "outputContract": "Pause until user continues to submit for peer review.",
+      "artifacts": [
+        {
+          "id": "round1-pdf",
+          "label": "Round 1 Manuscript PDF",
+          "kind": "pdf",
+          "path": "iclr2026/build/round1.pdf",
+          "href": ""
+        },
+        {
+          "id": "round1-merge-md",
+          "label": "Round 1 merge notes",
+          "kind": "markdown",
+          "path": "iclr2026/build/round1-merge.md",
+          "href": ""
+        }
+      ],
+      "x": 1400,
+      "y": 300,
+      "state": "waiting",
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "archetype": "gate",
+        "gateRequiredArtifacts": [
+          "iclr2026/build/round1.pdf",
+          "iclr2026/figures/fig1.png",
+          "iclr2026/figures/fig2.png",
+          "iclr2026/figures/fig3.png"
+        ]
+      }
+    },
+    {
+      "id": "layout-audit",
+      "name": "Layout Audit",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-audit",
+      "laneId": "audiorwkv-iclr-pyramid-l-layout",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Layout Audit",
+      "promptPreview": "Layout auditor: compile and audit **round-1 PDF with all figures** (fresh session).\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\n**LaTeX figure wiring (all three PNGs — mandatory for every PDF compile):**\njournal-architecture.md must define a **Figure LaTeX map** (planner-owned). Default placement unless overridden:\n| File | Section tex | Float label | Typical width |\n| fig1.png | iclr2026/sections/03-methodology.tex | \\label{fig:method} | 0.95\\linewidth |\n| fig2.png | iclr2026/sections/04-experiments.tex | \\label{fig:results} | \\linewidth |\n| fig3.png | iclr2026/sections/01-intro.tex | \\label{fig:teaser} | 0.85\\linewidth |\n\nFor each PNG that exists under iclr2026/figures/, insert a proper float in the mapped section:\n\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=<width>]{figures/figN.png}\n  \\caption{<caption from journal-architecture or fig summary>}\n  \\label{fig:...}\n\\end{figure}\nUse paths relative to iclr2026/main.tex. Cross-ref with \\ref{fig:method}, \\ref{fig:results}, \\ref{fig:teaser} where the outline calls for it.\nAfter every latex_build, run **pdf_audit** and confirm all three figures render in the PDF (not just listed in tex).\n\n1. Read iclr2026/build/round1.pdf (produced by round1-merge). If missing, read iclr2026/main.tex + sections and verify all three \\includegraphics blocks exist, then **latex_build** → iclr2026/build/round1.pdf\n2. Run **pdf_audit** on round1.pdf: overfull boxes, float placement, figure captions readable, no missing figure files\n3. Write iclr2026/build/layout-audit.md — per-figure status (fig1–fig3 visible in PDF?), overfull list, float issues\n4. Patch only critical LaTeX float/sizing errors in section tex, rebuild round1.pdf\n\nDo not compile a text-only draft that omits figures — all three PNGs must appear in the audited PDF.",
+      "outputContract": "Build draft PDF + layout audit",
+      "artifacts": [
+        {
+          "id": "layout-audit",
+          "label": "layout-audit.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/layout-audit.md",
+          "href": ""
+        },
+        {
+          "id": "round1-pdf-layout",
+          "label": "round1.pdf",
+          "kind": "pdf",
+          "path": "iclr2026/build/round1.pdf",
+          "href": ""
+        }
+      ],
+      "x": 840,
+      "y": 240,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "layout-audit"
+      },
+      "toolConstraints": {
+        "forcedTools": [
+          "latex_build",
+          "pdf_audit",
+          "shell_metadata"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf",
+          "iclr2026/build/round1-merge.md",
+          "iclr2026/main.tex",
+          "iclr2026/figures/fig1.png",
+          "iclr2026/figures/fig2.png",
+          "iclr2026/figures/fig3.png"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-compile",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "length-audit",
+      "name": "Length Audit",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-audit",
+      "laneId": "audiorwkv-iclr-pyramid-l-length",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Length Audit",
+      "promptPreview": "Length auditor for ICLR main text (~8–9 pages excluding references).\n\n**LaTeX figure wiring (all three PNGs — mandatory for every PDF compile):**\njournal-architecture.md must define a **Figure LaTeX map** (planner-owned). Default placement unless overridden:\n| File | Section tex | Float label | Typical width |\n| fig1.png | iclr2026/sections/03-methodology.tex | \\label{fig:method} | 0.95\\linewidth |\n| fig2.png | iclr2026/sections/04-experiments.tex | \\label{fig:results} | \\linewidth |\n| fig3.png | iclr2026/sections/01-intro.tex | \\label{fig:teaser} | 0.85\\linewidth |\n\nFor each PNG that exists under iclr2026/figures/, insert a proper float in the mapped section:\n\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=<width>]{figures/figN.png}\n  \\caption{<caption from journal-architecture or fig summary>}\n  \\label{fig:...}\n\\end{figure}\nUse paths relative to iclr2026/main.tex. Cross-ref with \\ref{fig:method}, \\ref{fig:results}, \\ref{fig:teaser} where the outline calls for it.\nAfter every latex_build, run **pdf_audit** and confirm all three figures render in the PDF (not just listed in tex).\n\n1. Read iclr2026/build/round1.pdf (must include fig1–fig3 in layout — rebuild via latex_build if figures missing from PDF)\n2. If body exceeds budget, trim redundancy in iclr2026/sections/*.tex (prose first, not equations); preserve figure floats\n3. Write iclr2026/build/length-audit.md with page count, cuts made, figure page share, remaining risks\n4. Rebuild round1.pdf after edits using latex_build + pdf_audit",
+      "outputContract": "Trim to ICLR page budget",
+      "artifacts": [
+        {
+          "id": "length-audit",
+          "label": "length-audit.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/length-audit.md",
+          "href": ""
+        }
+      ],
+      "x": 840,
+      "y": 360,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "length-audit"
+      },
+      "toolConstraints": {
+        "forcedTools": [
+          "latex_build",
+          "pdf_audit",
+          "shell_metadata"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf",
+          "iclr2026/build/layout-audit.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-compile",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "kiro-review-ds",
+      "name": "KIRO Review (DeepSeek)",
+      "kind": "verify",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-reviews",
+      "laneId": "audiorwkv-iclr-pyramid-l-kiro-ds",
+      "agentId": "agent-kiro-cli",
+      "executionMode": "cli",
+      "cliTemplateId": "kiro-cli",
+      "agentModeTemplateId": "kiro-cli-review",
+      "runtimeMode": "review",
+      "promptTitle": "KIRO Review (DeepSeek)",
+      "promptPreview": "Independent peer review (KIRO CLI / deepseek-3.2). **Fresh isolated session — file handoff only.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead iclr2026/build/round1.pdf only (use iclr2026/main.tex + sections only if PDF missing).\nWrite reviews/kiro-deepseek-review.md with sections: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nFocus on AudioRWKV novelty, empirical evidence, and clarity. Do not read other reviewers' notes.",
+      "outputContract": "KIRO CLI independent review (kiro_default), fresh session.",
+      "artifacts": [
+        {
+          "id": "kiro-ds-review",
+          "label": "kiro-deepseek-review.md",
+          "kind": "markdown",
+          "path": "reviews/kiro-deepseek-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1500,
+      "y": 80,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "kiro-review-ds"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "model": "deepseek-3.2",
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf"
+        ],
+        "customCommand": "kiro-cli",
+        "customArgs": [
+          "chat",
+          "--no-interactive",
+          "--wrap",
+          "never",
+          "--trust-tools=fs_read,fs_write",
+          "--agent",
+          "kiro_default",
+          "{{prompt}}"
+        ]
+      },
+      "executorId": "kiro-cli-review",
+      "strategyId": "review"
+    },
+    {
+      "id": "kiro-review-mm",
+      "name": "KIRO Review (MiniMax)",
+      "kind": "verify",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-reviews",
+      "laneId": "audiorwkv-iclr-pyramid-l-kiro-mm",
+      "agentId": "agent-kiro-cli",
+      "executionMode": "cli",
+      "cliTemplateId": "kiro-cli",
+      "agentModeTemplateId": "kiro-cli-review",
+      "runtimeMode": "review",
+      "promptTitle": "KIRO Review (MiniMax)",
+      "promptPreview": "Independent peer review (KIRO CLI / minimax-m2.5). **Fresh isolated session — file handoff only.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead iclr2026/build/round1.pdf only (use iclr2026/main.tex + sections only if PDF missing).\nWrite reviews/kiro-minimax-review.md with sections: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nFocus on AudioRWKV novelty, empirical evidence, and clarity. Do not read other reviewers' notes.",
+      "outputContract": "KIRO CLI independent review (kiro_default), fresh session.",
+      "artifacts": [
+        {
+          "id": "kiro-mm-review",
+          "label": "kiro-minimax-review.md",
+          "kind": "markdown",
+          "path": "reviews/kiro-minimax-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1500,
+      "y": 160,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "kiro-review-mm"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "model": "minimax-m2.5",
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf"
+        ],
+        "customCommand": "kiro-cli",
+        "customArgs": [
+          "chat",
+          "--no-interactive",
+          "--wrap",
+          "never",
+          "--trust-tools=fs_read,fs_write",
+          "--agent",
+          "kiro_default",
+          "{{prompt}}"
+        ]
+      },
+      "executorId": "kiro-cli-review",
+      "strategyId": "review"
+    },
+    {
+      "id": "kiro-review-qwen",
+      "name": "KIRO Review (Qwen)",
+      "kind": "verify",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-reviews",
+      "laneId": "audiorwkv-iclr-pyramid-l-kiro-qwen",
+      "agentId": "agent-kiro-cli",
+      "executionMode": "cli",
+      "cliTemplateId": "kiro-cli",
+      "agentModeTemplateId": "kiro-cli-review",
+      "runtimeMode": "review",
+      "promptTitle": "KIRO Review (Qwen)",
+      "promptPreview": "Independent peer review (KIRO CLI / qwen3-coder-next). **Fresh isolated session — file handoff only.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead iclr2026/build/round1.pdf only (use iclr2026/main.tex + sections only if PDF missing).\nWrite reviews/kiro-qwen-review.md with sections: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nFocus on AudioRWKV novelty, empirical evidence, and clarity. Do not read other reviewers' notes.",
+      "outputContract": "KIRO CLI independent review (kiro_default), fresh session.",
+      "artifacts": [
+        {
+          "id": "kiro-qwen-review",
+          "label": "kiro-qwen-review.md",
+          "kind": "markdown",
+          "path": "reviews/kiro-qwen-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1500,
+      "y": 240,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "kiro-review-qwen"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "model": "qwen3-coder-next",
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf"
+        ],
+        "customCommand": "kiro-cli",
+        "customArgs": [
+          "chat",
+          "--no-interactive",
+          "--wrap",
+          "never",
+          "--trust-tools=fs_read,fs_write",
+          "--agent",
+          "kiro_default",
+          "{{prompt}}"
+        ]
+      },
+      "executorId": "kiro-cli-review",
+      "strategyId": "review"
+    },
+    {
+      "id": "deepseek-pro-review",
+      "name": "DeepSeek Pro Review",
+      "kind": "verify",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-reviews",
+      "laneId": "audiorwkv-iclr-pyramid-l-ds-pro",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "review",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "promptTitle": "DeepSeek Pro Review",
+      "promptPreview": "Independent peer review (DeepSeek V4 Pro). **Fresh isolated session — file handoff only.**\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead **only** iclr2026/build/round1.pdf (manuscript under review). Do not read other reviewers' notes or bulk tex trees.\nWrite reviews/deepseek-pro-review.md with: Summary, Strengths, Weaknesses, Must-fix (numbered), Nice-to-have, Score 1-10.\nBe strict on empirical evidence, ablations, and reproducibility.",
+      "outputContract": "OpenCode objective reviewer + DeepSeek V4 Pro",
+      "artifacts": [
+        {
+          "id": "ds-pro-review",
+          "label": "deepseek-pro-review.md",
+          "kind": "markdown",
+          "path": "reviews/deepseek-pro-review.md",
+          "href": ""
+        }
+      ],
+      "x": 1500,
+      "y": 320,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "deepseek-pro-review"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "archetype": "reviewer",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/build/round1.pdf"
+        ],
+        "model": "deepseek-v4-pro"
+      },
+      "executorId": "opencode-paper-reviewer",
+      "llmId": "deepseek-deepseek-v4-pro",
+      "strategyId": "review"
+    },
+    {
+      "id": "review-intersection",
+      "name": "Review Intersection",
+      "kind": "verify",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-intersect",
+      "laneId": "audiorwkv-iclr-pyramid-l-intersect",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "agent",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Review Intersection",
+      "promptPreview": "Review intersection agent — **fresh context** (read files from disk only).\n\nRead:\n- reviews/kiro-deepseek-review.md\n- reviews/kiro-minimax-review.md\n- reviews/kiro-qwen-review.md\n- reviews/deepseek-pro-review.md\n\nWrite reviews/review-intersection.md containing ONLY items that appear as Must-fix (or equivalent severity) in **at least two** of the four reviews.\nFormat:\n## Consensus must-fix\n1. ...\n## Consensus themes (optional)\n- ...\n## Dropped (single-reviewer only)\n- ...\n\nAlso write reviews/review-intersection.json as { \"mustFix\": string[], \"themes\": string[] }",
+      "outputContract": "Consensus must-fix across four reviews",
+      "artifacts": [
+        {
+          "id": "intersection-md",
+          "label": "review-intersection.md",
+          "kind": "markdown",
+          "path": "reviews/review-intersection.md",
+          "href": ""
+        },
+        {
+          "id": "intersection-json",
+          "label": "review-intersection.json",
+          "kind": "json",
+          "path": "reviews/review-intersection.json",
+          "href": ""
+        }
+      ],
+      "x": 1740,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "review-intersection"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "merger",
+        "maxIterations": 4,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "reviews/kiro-deepseek-review.md",
+          "reviews/kiro-minimax-review.md",
+          "reviews/kiro-qwen-review.md",
+          "reviews/deepseek-pro-review.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-planner",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "agent"
+    },
+    {
+      "id": "revision-plan",
+      "name": "Revision Plan",
+      "kind": "plan",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-revise",
+      "laneId": "audiorwkv-iclr-pyramid-l-rev-plan",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-planner",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "plan",
+      "llmApiTemplateId": "deepseek-deepseek-v4-pro",
+      "promptTitle": "Revision Plan",
+      "promptPreview": "Revision planner — **fresh isolated context** (same constraints as section writers).\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead from disk:\n- journal-architecture.md\n- method-rewrite-notes.md\n- reviews/review-intersection.md\n- iclr2026/build/round1-merge.md\n- iclr2026/main.tex and section files under iclr2026/sections/\n\nWrite iclr2026/build/revision-plan.md:\n- Numbered edit tasks with target file paths\n- Map each task to consensus review items\n- Do not replan architecture; prepare executable LaTeX edits for the major revision pass",
+      "outputContract": "Fresh planner: draft + intersected reviews",
+      "artifacts": [
+        {
+          "id": "revision-plan",
+          "label": "revision-plan.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/revision-plan.md",
+          "href": ""
+        }
+      ],
+      "x": 1980,
+      "y": 180,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "revision-plan"
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "planner",
+        "maxIterations": 12,
+        "responseFormat": "markdown",
+        "timeoutMs": 900000,
+        "readRunFiles": [
+          "journal-architecture.md",
+          "method-rewrite-notes.md",
+          "reviews/review-intersection.md",
+          "iclr2026/build/round1-merge.md"
+        ],
+        "model": "deepseek-v4-pro"
+      },
+      "executorId": "opencode-paper-planner",
+      "llmId": "deepseek-deepseek-v4-pro",
+      "strategyId": "plan"
+    },
+    {
+      "id": "revision-major",
+      "name": "Major Revision",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-revise",
+      "laneId": "audiorwkv-iclr-pyramid-l-major",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-section",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Major Revision",
+      "promptPreview": "Major revision pass — **fresh context** + **humanizer** skill (same writer role as section nodes).\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\nRead iclr2026/build/revision-plan.md and execute every task once on LaTeX sources under iclr2026/.\nApply humanizer to narrative prose (not equations).\nWrite iclr2026/build/revision-major-log.md listing task → action taken.\nDo not start a second revision round.",
+      "outputContract": "Fresh major pass + humanizer",
+      "artifacts": [
+        {
+          "id": "revision-major-log",
+          "label": "revision-major-log.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/revision-major-log.md",
+          "href": ""
+        }
+      ],
+      "x": 1980,
+      "y": 300,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "revision-major"
+      },
+      "toolConstraints": {
+        "forcedSkills": [
+          "humanizer"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/build/revision-plan.md"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-section",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    },
+    {
+      "id": "final-pdf",
+      "name": "Final PDF",
+      "kind": "agent-mode",
+      "stageId": "audiorwkv-iclr-pyramid-stage",
+      "columnId": "audiorwkv-iclr-pyramid-c-revise",
+      "laneId": "audiorwkv-iclr-pyramid-l-final",
+      "agentId": "agent-paper",
+      "executionMode": "agent-mode",
+      "modality": "text",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "cliTemplateId": "opencode-cli",
+      "runtimeMode": "build",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Final PDF",
+      "promptPreview": "Final PDF build — **fresh isolated context**.\n\n**Output path rule (mandatory):** Write each deliverable ONLY to the exact path named in this prompt (`iclr2026/...`, `reviews/...`). Never write to the workspace root except flat planner staging files required by the IO manifest. Create parent directories if needed.\n\n**Workspace sandbox (mandatory):** Read and write ONLY inside the run workspace (workflow save directory) and mounted inputs (`audiorwkv/` read-only source tree). Never read C:\\\\, user home, or any path outside these roots. Use relative paths from cwd; do not glob the filesystem root.\n\n**LaTeX figure wiring (all three PNGs — mandatory for every PDF compile):**\njournal-architecture.md must define a **Figure LaTeX map** (planner-owned). Default placement unless overridden:\n| File | Section tex | Float label | Typical width |\n| fig1.png | iclr2026/sections/03-methodology.tex | \\label{fig:method} | 0.95\\linewidth |\n| fig2.png | iclr2026/sections/04-experiments.tex | \\label{fig:results} | \\linewidth |\n| fig3.png | iclr2026/sections/01-intro.tex | \\label{fig:teaser} | 0.85\\linewidth |\n\nFor each PNG that exists under iclr2026/figures/, insert a proper float in the mapped section:\n\\begin{figure}[t]\n  \\centering\n  \\includegraphics[width=<width>]{figures/figN.png}\n  \\caption{<caption from journal-architecture or fig summary>}\n  \\label{fig:...}\n\\end{figure}\nUse paths relative to iclr2026/main.tex. Cross-ref with \\ref{fig:method}, \\ref{fig:results}, \\ref{fig:teaser} where the outline calls for it.\nAfter every latex_build, run **pdf_audit** and confirm all three figures render in the PDF (not just listed in tex).\n\nCompile iclr2026/build/final.pdf from the current tex tree (all three figure floats must remain).\nWrite iclr2026/build/final-build.md with page count, missing refs, and **per-figure PDF checklist** (fig1–fig3 visible via pdf_audit).\nNo prose rewriting — build/audit only.",
+      "outputContract": "Fresh final PDF build",
+      "artifacts": [
+        {
+          "id": "final-pdf",
+          "label": "final.pdf",
+          "kind": "pdf",
+          "path": "iclr2026/build/final.pdf",
+          "href": ""
+        },
+        {
+          "id": "final-build",
+          "label": "final-build.md",
+          "kind": "markdown",
+          "path": "iclr2026/build/final-build.md",
+          "href": ""
+        }
+      ],
+      "x": 1980,
+      "y": 420,
+      "state": "waiting",
+      "session": {
+        "policy": "fresh",
+        "sessionKey": "final-pdf"
+      },
+      "toolConstraints": {
+        "forcedTools": [
+          "latex_build",
+          "pdf_audit",
+          "shell_metadata"
+        ]
+      },
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "archetype": "worker",
+        "maxIterations": 8,
+        "responseFormat": "markdown",
+        "timeoutMs": 600000,
+        "readRunFiles": [
+          "iclr2026/main.tex",
+          "iclr2026/figures/fig1.png",
+          "iclr2026/figures/fig2.png",
+          "iclr2026/figures/fig3.png"
+        ],
+        "model": "deepseek-v4-flash"
+      },
+      "executorId": "opencode-paper-compile",
+      "llmId": "deepseek-deepseek-v4-flash",
+      "strategyId": "build"
+    }
+  ],
+  "edges": [
+    {
+      "id": "audiorwkv-iclr-pyramid-e1",
+      "from": "architect-plan",
+      "to": "figure-prompt-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e2",
+      "from": "architect-plan",
+      "to": "experiment-figure-prompt",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e3",
+      "from": "architect-plan",
+      "to": "teaser-figure-prompt",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e4",
+      "from": "architect-plan",
+      "to": "section-intro",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e5",
+      "from": "architect-plan",
+      "to": "section-related-work",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e6",
+      "from": "architect-plan",
+      "to": "section-methodology",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e7",
+      "from": "architect-plan",
+      "to": "section-experiments",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e8",
+      "from": "architect-plan",
+      "to": "section-conclusion",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e9",
+      "from": "figure-prompt-1",
+      "to": "figure-render-1",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e10",
+      "from": "experiment-figure-prompt",
+      "to": "experiment-figure-render",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e11",
+      "from": "teaser-figure-prompt",
+      "to": "teaser-figure-render",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e12",
+      "from": "section-intro",
+      "to": "body-text",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e13",
+      "from": "section-related-work",
+      "to": "body-text",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e14",
+      "from": "section-methodology",
+      "to": "body-text",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e15",
+      "from": "section-experiments",
+      "to": "body-text",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e16",
+      "from": "section-conclusion",
+      "to": "body-text",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e17",
+      "from": "body-text",
+      "to": "round1-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e18",
+      "from": "figure-render-1",
+      "to": "round1-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e19",
+      "from": "experiment-figure-render",
+      "to": "round1-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e20",
+      "from": "teaser-figure-render",
+      "to": "round1-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e21",
+      "from": "round1-merge",
+      "to": "layout-audit",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e22",
+      "from": "layout-audit",
+      "to": "length-audit",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e23",
+      "from": "length-audit",
+      "to": "submit-review-gate",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e24",
+      "from": "submit-review-gate",
+      "to": "kiro-review-ds",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e25",
+      "from": "submit-review-gate",
+      "to": "kiro-review-mm",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e26",
+      "from": "submit-review-gate",
+      "to": "kiro-review-qwen",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e27",
+      "from": "submit-review-gate",
+      "to": "deepseek-pro-review",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e28",
+      "from": "kiro-review-ds",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e29",
+      "from": "kiro-review-mm",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e30",
+      "from": "kiro-review-qwen",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e31",
+      "from": "deepseek-pro-review",
+      "to": "review-intersection",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e32",
+      "from": "review-intersection",
+      "to": "revision-plan",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e33",
+      "from": "revision-plan",
+      "to": "revision-major",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-e34",
+      "from": "revision-major",
+      "to": "final-pdf",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    }
+  ],
+  "loopEdges": [],
+  "branchGroups": [
+    {
+      "id": "audiorwkv-iclr-pyramid-b-figures",
+      "from": "architect-plan",
+      "to": [
+        "figure-prompt-1",
+        "experiment-figure-prompt",
+        "teaser-figure-prompt"
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-b-sections",
+      "from": "architect-plan",
+      "to": [
+        "section-intro",
+        "section-related-work",
+        "section-methodology",
+        "section-experiments",
+        "section-conclusion"
+      ]
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-b-reviews",
+      "from": "submit-review-gate",
+      "to": [
+        "kiro-review-ds",
+        "kiro-review-mm",
+        "kiro-review-qwen",
+        "deepseek-pro-review"
+      ]
+    }
+  ],
+  "mergeGroups": [
+    {
+      "id": "audiorwkv-iclr-pyramid-m-sections",
+      "from": [
+        "section-intro",
+        "section-related-work",
+        "section-methodology",
+        "section-experiments",
+        "section-conclusion"
+      ],
+      "to": "body-text"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-m-round1",
+      "from": [
+        "body-text",
+        "figure-render-1",
+        "experiment-figure-render",
+        "teaser-figure-render"
+      ],
+      "to": "round1-merge"
+    },
+    {
+      "id": "audiorwkv-iclr-pyramid-m-reviews",
+      "from": [
+        "kiro-review-ds",
+        "kiro-review-mm",
+        "kiro-review-qwen",
+        "deepseek-pro-review"
+      ],
+      "to": "review-intersection"
+    }
+  ],
+  "sharedSessions": [],
+  "sessionGroups": {},
+  "inputMounts": [
+    {
+      "name": "audiorwkv",
+      "path": "audiorwkv"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "name": "Fork Two Agents – Compare Diffs",
+  "description": "Forks an upstream session into two parallel downstream nodes and compares their outputs.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "spec",
+        "label": "Write Spec",
+        "config": {
+          "provider": "opencode",
+          "mode": "plan",
+          "cwd": "/path/to/project",
+          "prompt": "Design a caching layer for our API. Specify the interface, cache invalidation strategy, and data structures.",
+          "contextMode": "fresh",
+          "maxIterations": 5,
+          "timeoutMs": 120000,
+          "allowFileWrites": false
+        }
+      },
+      {
+        "id": "impl-a",
+        "label": "Implementation A (Redis)",
+        "config": {
+          "provider": "opencode",
+          "mode": "build",
+          "cwd": "/path/to/project",
+          "prompt": "Implement the caching layer using Redis as the backend.",
+          "contextMode": "summary",
+          "maxIterations": 15,
+          "timeoutMs": 600000,
+          "allowFileWrites": true
+        }
+      },
+      {
+        "id": "impl-b",
+        "label": "Implementation B (In-Memory)",
+        "config": {
+          "provider": "opencode",
+          "mode": "build",
+          "cwd": "/path/to/project",
+          "prompt": "Implement the caching layer using an in-memory Map with TTL.",
+          "contextMode": "summary",
+          "maxIterations": 15,
+          "timeoutMs": 600000,
+          "allowFileWrites": true
+        }
+      },
+      {
+        "id": "compare",
+        "label": "Compare & Recommend",
+        "config": {
+          "provider": "opencode",
+          "mode": "review",
+          "cwd": "/path/to/project",
+          "prompt": "Compare the two implementations and recommend which one to use. Consider performance, scalability, complexity, and maintenance.",
+          "contextMode": "summary",
+          "maxIterations": 8,
+          "timeoutMs": 300000,
+          "allowFileWrites": false
+        }
+      }
+    ],
+    "edges": [
+      { "from": "spec", "to": "impl-a", "contextMode": "summary" },
+      { "from": "spec", "to": "impl-b", "contextMode": "summary" },
+      { "from": "impl-a", "to": "compare", "contextMode": "summary" },
+      { "from": "impl-b", "to": "compare", "contextMode": "summary" }
+    ]
+  }
+}

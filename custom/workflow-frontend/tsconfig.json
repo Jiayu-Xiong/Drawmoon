@@ -1,0 +1,14 @@
+{
+  "extends": "../../backend/opencode/vendor/opencode/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "outDir": "dist",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "rootDir": "src",
+    "paths": {
+      "@opencode-ai/backend-opencode/*": ["../../backend/opencode/src/*"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,79 @@
+.entity-list {
+  display: grid;
+  gap: 18px;
+}
+
+.entity-card {
+  position: relative;
+}
+
+.entity-card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.entity-card-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+
+.entity-card-top strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.entity-numbers {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--yuzu-muted);
+}
+
+.entity-open-button {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  color: rgba(111, 78, 24, 0.82);
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+}
+
+.entity-summary {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--yuzu-line);
+  border-radius: 18px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.entity-summary strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.wf-item {
+  position: relative;
+}
+
+.wf-item-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}

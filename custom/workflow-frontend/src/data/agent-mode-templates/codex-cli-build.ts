@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const codexCliBuildTemplate = new PlainAgentModeTemplate({
+  id: "codex-cli-build",
+  name: "Codex Build",
+  description: "Default Codex CLI build strategy; quota and model from local codex config.",
+  provider: "codex",
+  cliTemplateId: "codex-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "build",
+  model: "codex/configured",
+  contextMode: "inherit",
+  defaultSystemPromptFile: "codex://configured-default",
+  defaultSystemPrompt: "",
+  allowSystemPromptOverride: true,
+  allowedTools: ["codex_exec", "read_file", "edit_file"],
+  outputKinds: ["markdown", "json", "directory"],
+  maxIterations: 25,
+  timeoutMs: 900_000,
+  allowFileWrites: true,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: false },
+})

@@ -1,0 +1,55 @@
+﻿.budget-warning-banner {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(220, 120, 80, 0.45);
+  background: rgba(255, 220, 200, 0.35);
+  font-size: 12px;
+}
+
+.budget-policy-row {
+  display: grid;
+  gap: 6px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 960px) {
+  .home-side-nav-btn .nav-btn-face--pill span,
+  .home-side-nav-btn.nav-right .nav-btn-face--pill > span:first-child {
+    display: none;
+  }
+}
+
+@media (max-width: 1180px) {
+  .home-main-glass {
+    width: min(var(--home-panel-width), calc(100vw - 120px));
+  }
+
+  .home-task-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-cli-status {
+    max-width: 100%;
+  }
+
+  .home-task-meta {
+    justify-content: flex-start;
+  }
+}
+
+.console-shell.is-ultrawide .home-main-glass {
+  width: min(var(--home-panel-width), 50vw);
+}
+
+.console-shell.is-compact-height .home-main-glass {
+  top: 112px;
+  min-height: min(var(--home-panel-height), 520px);
+}
+
+.console-shell.is-compact-height .home-main-content {
+  gap: 16px;
+  padding-top: 32px;
+}
+

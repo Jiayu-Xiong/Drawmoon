@@ -1,0 +1,246 @@
+﻿.workflow-output-node-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.workflow-output-node-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid rgba(145, 116, 64, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.workflow-output-node-tabs button.active {
+  background: rgba(246, 205, 115, 0.36);
+}
+
+.workflow-output-artifacts {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.workflow-output-artifacts a,
+.workflow-output-preview-links a {
+  color: var(--yuzu-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.workflow-output-preview-links {
+  display: flex;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.workflow-output-preview-frame {
+  width: 100%;
+  min-height: 280px;
+  border: 1px solid rgba(145, 116, 64, 0.18);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.workflow-output-empty {
+  margin: 0;
+  color: var(--yuzu-muted);
+  font-size: 13px;
+}
+
+.home-slide-panel--detail .workflow-run-outputs {
+  flex: 0 0 auto;
+}
+
+.runtime-output-card {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.runtime-output-card--hero {
+  border: 1px solid rgba(233, 191, 85, 0.45);
+  background: linear-gradient(180deg, rgba(255, 247, 218, 0.35), rgba(255, 255, 255, 0.12));
+}
+
+.document-viewer {
+  display: grid;
+  gap: 8px;
+  min-height: 120px;
+}
+
+.document-viewer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: var(--yuzu-muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.document-viewer-frame {
+  width: 100%;
+  min-height: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.document-viewer-frame--html,
+.document-viewer-frame--pdf {
+  min-height: min(72vh, 760px);
+}
+
+.document-viewer--embed .document-viewer-frame {
+  min-height: 200px;
+  max-height: min(52vh, 520px);
+}
+
+.document-viewer--embed .document-viewer-frame--html,
+.document-viewer--embed .document-viewer-frame--pdf,
+.document-viewer--embed .pdf-embed-host,
+.document-viewer--embed .pdf-embed-host iframe {
+  min-height: 240px;
+  max-height: min(52vh, 520px);
+}
+
+.pdf-embed-host {
+  display: block;
+  width: 100%;
+  min-height: inherit;
+}
+
+.pdf-embed-host iframe {
+  display: block;
+  width: 100%;
+  min-height: inherit;
+  border: 0;
+}
+
+.document-viewer--embed .document-viewer-markdown {
+  max-height: min(52vh, 520px);
+  overflow: auto;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.document-viewer-status {
+  margin: 0;
+  padding: 16px 12px;
+  color: var(--yuzu-muted);
+  font-size: 12px;
+}
+
+.wf-output-preview--empty {
+  min-height: 48px;
+}
+
+.wf-output-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  isolation: isolate;
+}
+
+.wf-output-preview__text {
+  min-height: 0;
+  max-height: min(36vh, 360px);
+  overflow: auto;
+}
+
+.wf-io-pane__body--output {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  max-height: min(52vh, 520px);
+  overflow: auto;
+}
+
+.wf-io-pane__body--output .wf-output-preview,
+.wf-io-pane__body--output .document-viewer,
+.wf-io-pane__body--output .workflow-output-image-preview {
+  min-height: 0;
+}
+
+.wf-io-pane__body--output .workflow-output-image-preview--large img {
+  max-height: min(48vh, 480px);
+}
+
+.workflow-output-image-preview img.is-broken {
+  min-height: 120px;
+  object-fit: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%) 0 0 / 16px 16px,
+    linear-gradient(225deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%) 0 0 / 16px 16px,
+    rgba(240, 230, 210, 0.5);
+}
+
+.workflow-output-image-preview {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+}
+
+.workflow-output-image-preview img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border: 1px solid rgba(145, 116, 64, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.workflow-output-image-preview figcaption {
+  color: var(--yuzu-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.runtime-output-card pre {
+  max-height: 280px;
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--yuzu-ink);
+  font: 12px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.runtime-io-block {
+  display: grid;
+  gap: 6px;
+}
+
+.runtime-io-block b {
+  color: var(--yuzu-muted);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.workflow-output-streaming-hint {
+  margin: 6px 0 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--yuzu-muted);
+  opacity: 0.85;
+}
+
+.workflow-output-image-preview--large img {
+  max-height: min(52vh, 480px);
+}

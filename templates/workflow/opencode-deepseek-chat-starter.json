@@ -1,0 +1,190 @@
+{
+  "id": "opencode-deepseek-chat-starter",
+  "name": "OpenCode + DeepSeek Chat (starter)",
+  "description": "Two-node OpenCode chat workflow with a shared session. Import agent-mode and llm-api starters first.",
+  "workingDirectory": ".",
+  "defaultAgentId": "agent-paper",
+  "defaultAgentModeTemplateId": "opencode-chat-starter",
+  "defaultLlmApiTemplateId": "deepseek-v4-flash-starter",
+  "agentModeTemplateIds": [
+    "opencode-chat-starter",
+    "opencode-chat"
+  ],
+  "llmApiTemplateIds": [
+    "deepseek-v4-flash-starter"
+  ],
+  "stages": [
+    {
+      "id": "opencode-deepseek-chat-starter-stage",
+      "name": "Chat",
+      "color": "rgb(140,197,223)",
+      "columnIds": [
+        "opencode-deepseek-chat-starter-c1",
+        "opencode-deepseek-chat-starter-c1b",
+        "opencode-deepseek-chat-starter-c2"
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "id": "opencode-deepseek-chat-starter-c1",
+      "name": "Greet",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "lanes": [
+        {
+          "id": "opencode-deepseek-chat-starter-l1",
+          "name": "belt",
+          "nodeIds": [
+            "greet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opencode-deepseek-chat-starter-c1b",
+      "name": "Clarify",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "lanes": [
+        {
+          "id": "opencode-deepseek-chat-starter-l1b",
+          "name": "inquiry",
+          "nodeIds": [
+            "clarify-intent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "opencode-deepseek-chat-starter-c2",
+      "name": "Follow-up",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "lanes": [
+        {
+          "id": "opencode-deepseek-chat-starter-l2",
+          "name": "exit",
+          "nodeIds": [
+            "follow-up"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "greet",
+      "name": "Greet",
+      "kind": "run-cli",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "columnId": "opencode-deepseek-chat-starter-c1",
+      "laneId": "opencode-deepseek-chat-starter-l1",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-chat-starter",
+      "llmApiTemplateId": "deepseek-v4-flash-starter",
+      "promptTitle": "Greet",
+      "promptPreview": "Say hello in one short sentence.",
+      "outputContract": "One-line greeting.",
+      "x": 320,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "shared",
+        "sessionKey": "opencode-deepseek-chat-starter-session",
+        "turnOrder": 1
+      },
+      "runtimeOverrides": {
+        "contextMode": "inherit",
+        "maxIterations": 2,
+        "workingDirectory": ".",
+        "intent": "continue"
+      }
+    },
+    {
+      "id": "clarify-intent",
+      "name": "Clarify intent",
+      "kind": "condition",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "columnId": "opencode-deepseek-chat-starter-c1b",
+      "laneId": "opencode-deepseek-chat-starter-l1b",
+      "agentId": "agent-paper",
+      "executionMode": "inquiry",
+      "promptTitle": "Clarify intent",
+      "promptPreview": "Review the greeting output. Reply with any clarifications before the follow-up continuity check.",
+      "outputContract": "User clarification injected into follow-up context.",
+      "x": 500,
+      "y": 220,
+      "state": "waiting",
+      "runtimeOverrides": {
+        "contextMode": "inherit",
+        "workingDirectory": ".",
+        "archetype": "gate",
+        "intent": "continue"
+      }
+    },
+    {
+      "id": "follow-up",
+      "name": "Follow-up",
+      "kind": "run-cli",
+      "stageId": "opencode-deepseek-chat-starter-stage",
+      "columnId": "opencode-deepseek-chat-starter-c2",
+      "laneId": "opencode-deepseek-chat-starter-l2",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-chat-starter",
+      "llmApiTemplateId": "deepseek-v4-flash-starter",
+      "promptTitle": "Follow-up",
+      "promptPreview": "Based on this OpenCode session only: what was my first message? Reply with that sentence only.",
+      "outputContract": "Session continuity check.",
+      "x": 680,
+      "y": 220,
+      "state": "waiting",
+      "session": {
+        "policy": "shared",
+        "sessionKey": "opencode-deepseek-chat-starter-session",
+        "bindsToNodeId": "greet",
+        "turnOrder": 2
+      },
+      "runtimeOverrides": {
+        "contextMode": "inherit",
+        "maxIterations": 2,
+        "workingDirectory": ".",
+        "intent": "continue"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "opencode-deepseek-chat-starter-e1",
+      "from": "greet",
+      "to": "clarify-intent",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "inherit",
+      "contextMode": "inherit"
+    },
+    {
+      "id": "opencode-deepseek-chat-starter-e1b",
+      "from": "clarify-intent",
+      "to": "follow-up",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "inherit",
+      "contextMode": "inherit"
+    }
+  ],
+  "loopEdges": [],
+  "branchGroups": [],
+  "mergeGroups": [],
+  "sharedSessions": [
+    {
+      "key": "opencode-deepseek-chat-starter-session",
+      "label": "Greet",
+      "anchorNodeId": "greet",
+      "nodeIds": [
+        "greet",
+        "follow-up"
+      ]
+    }
+  ],
+  "sessionGroups": {}
+}

@@ -1,0 +1,49 @@
+.wf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px solid var(--yuzu-line);
+  border-radius: 999px;
+  color: var(--yuzu-ink);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 22px rgba(145, 101, 42, 0.08);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.wf-button:hover,
+.component-tile:hover,
+.entity-summary:hover,
+.side-workflow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(145, 101, 42, 0.14);
+}
+
+.wf-button:active {
+  transform: translateY(0);
+}
+
+.wf-button--primary {
+  color: #3f2b00;
+  background: linear-gradient(135deg, #ffe8a5, #ffd39d);
+}
+
+.wf-button--danger {
+  color: #7d1f26;
+  background: rgba(255, 220, 222, 0.78);
+}
+
+.wf-button--soft {
+  /* default variant — class kept for explicit markup */
+}
+
+.wf-button.is-active {
+  outline: 2px solid rgba(233, 191, 85, 0.55);
+}
+
+.editor-form .wf-button {
+  min-height: 36px;
+}

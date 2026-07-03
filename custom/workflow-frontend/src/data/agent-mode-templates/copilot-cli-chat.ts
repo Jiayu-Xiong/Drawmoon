@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const copilotCliChatTemplate = new PlainAgentModeTemplate({
+  id: "copilot-cli-chat",
+  name: "Copilot Chat",
+  description: "Default GitHub Copilot CLI chat strategy; model and quota from local Copilot binding.",
+  provider: "copilot",
+  cliTemplateId: "copilot-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "chat",
+  model: "copilot/selected-model",
+  contextMode: "fresh",
+  defaultSystemPromptFile: "copilot://default-chat",
+  defaultSystemPrompt: "Use the local Copilot CLI for conversational tasks.",
+  allowSystemPromptOverride: true,
+  allowedTools: ["copilot_chat"],
+  outputKinds: ["markdown", "json"],
+  maxIterations: 1,
+  timeoutMs: 600_000,
+  allowFileWrites: false,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: true },
+})

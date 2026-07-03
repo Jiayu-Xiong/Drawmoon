@@ -1,0 +1,23 @@
+{
+  "id": "deepseek-v4-flash-starter",
+  "name": "DeepSeek / deepseek-v4-flash",
+  "description": "Starter DeepSeek chat binding for OpenCode workflow nodes. Set DEEPSEEK_API_KEY in your environment.",
+  "provider": "custom",
+  "endpoint": "https://api.deepseek.com/v1",
+  "protocol": "openai-compatible",
+  "wireProtocol": "deepseek-chat",
+  "model": "deepseek-v4-flash",
+  "contextWindow": 128000,
+  "responseFormat": "markdown",
+  "modalities": ["text"],
+  "defaultSystemPrompt": "",
+  "allowSystemPromptOverride": true,
+  "allowUserPromptBias": false,
+  "apiKeyEnv": "DEEPSEEK_API_KEY",
+  "timeoutMs": 300000,
+  "retryPolicy": {
+    "attempts": 1,
+    "backoffMs": 0,
+    "continueOnPartialFailure": false
+  }
+}

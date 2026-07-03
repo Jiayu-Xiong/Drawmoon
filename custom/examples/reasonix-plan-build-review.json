@@ -1,0 +1,55 @@
+{
+  "name": "Plan → Build → Review Pipeline",
+  "description": "A three-node workflow that plans a feature, builds it, then reviews the output.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "plan",
+        "label": "Plan",
+        "config": {
+          "provider": "opencode",
+          "mode": "plan",
+          "cwd": "/path/to/project",
+          "prompt": "Plan the implementation of a rate-limiting middleware for our Express API. Consider token bucket algorithm, Redis storage, configurable limits per route.",
+          "contextMode": "fresh",
+          "maxIterations": 5,
+          "timeoutMs": 120000,
+          "allowFileWrites": false
+        }
+      },
+      {
+        "id": "build",
+        "label": "Build",
+        "config": {
+          "provider": "opencode",
+          "mode": "build",
+          "cwd": "/path/to/project",
+          "prompt": "Implement the rate-limiting middleware as planned above.",
+          "contextMode": "summary",
+          "systemPromptFile": "./prompts/system.md",
+          "maxIterations": 20,
+          "timeoutMs": 600000,
+          "allowFileWrites": true
+        }
+      },
+      {
+        "id": "review",
+        "label": "Review",
+        "config": {
+          "provider": "opencode",
+          "mode": "review",
+          "cwd": "/path/to/project",
+          "prompt": "Review the implemented rate-limiting middleware for security, performance, and correctness issues.",
+          "contextMode": "summary",
+          "maxIterations": 5,
+          "timeoutMs": 120000,
+          "allowFileWrites": false
+        }
+      }
+    ],
+    "edges": [
+      { "from": "plan", "to": "build", "contextMode": "summary" },
+      { "from": "build", "to": "review", "contextMode": "summary" }
+    ]
+  }
+}

@@ -1,0 +1,3106 @@
+{
+  "id": "paper-journal-default",
+  "name": "Paper Journal Default",
+  "description": "Default paper pipeline: intake → requirements gate → LaTeX scaffold → parallel front/method → body + figure specs → parallel render/layout → humanizer → 2×(5 reviewers → merge → revision) → final PDF.",
+  "workingDirectory": "paper",
+  "readDirectory": "paper",
+  "inputMounts": [
+    {
+      "name": "idea",
+      "path": "inputs/idea.md"
+    },
+    {
+      "name": "experiments",
+      "path": "inputs/experiments.md"
+    },
+    {
+      "name": "journal",
+      "path": "inputs/journal-target.md"
+    }
+  ],
+  "defaultAgentId": "agent-paper",
+  "defaultAgentModeTemplateId": "custom-io-planner",
+  "defaultLlmApiTemplateId": "deepseek-deepseek-v4-flash",
+  "agentModeTemplateIds": [
+    "custom-io-planner",
+    "opencode-paper-section",
+    "opencode-paper-reviewer",
+    "opencode-paper-compile"
+  ],
+  "llmApiTemplateIds": [
+    "deepseek-deepseek-v4-flash",
+    "kuaipao-gpt-image-2"
+  ],
+  "stages": [
+    {
+      "id": "paper-journal-default-stage",
+      "name": "Paper pipeline",
+      "color": "rgb(140,197,223)",
+      "columnIds": [
+        "paper-journal-default-c1",
+        "paper-journal-default-c2",
+        "paper-journal-default-c3",
+        "paper-journal-default-c4",
+        "paper-journal-default-c5",
+        "paper-journal-default-c6",
+        "paper-journal-default-c7",
+        "paper-journal-default-c8",
+        "paper-journal-default-c9",
+        "paper-journal-default-c10",
+        "paper-journal-default-c11",
+        "paper-journal-default-c12",
+        "paper-journal-default-c13",
+        "paper-journal-default-c14",
+        "paper-journal-default-c15",
+        "paper-journal-default-c16"
+      ]
+    }
+  ],
+  "columns": [
+    {
+      "id": "paper-journal-default-c1",
+      "name": "Intake",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c1-main",
+          "name": "main",
+          "nodeIds": [
+            "intake"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c2",
+      "name": "Requirements",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c2-main",
+          "name": "main",
+          "nodeIds": [
+            "requirements"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c3",
+      "name": "Confirm",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c3-main",
+          "name": "main",
+          "nodeIds": [
+            "req-gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c4",
+      "name": "Scaffold",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c4-main",
+          "name": "main",
+          "nodeIds": [
+            "latex-scaffold"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c5",
+      "name": "Parallel front / method",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c5-survey",
+          "name": "survey",
+          "nodeIds": [
+            "lit-survey",
+            "front-matter",
+            "teaser-figure-spec"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c5-method",
+          "name": "method",
+          "nodeIds": [
+            "methodology",
+            "method-figure-spec"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c6",
+      "name": "Body sections",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c6-main",
+          "name": "main",
+          "nodeIds": [
+            "experiments",
+            "conclusion",
+            "limitations",
+            "exp-figure-spec"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c7",
+      "name": "Figures & layout",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c7-teaser",
+          "name": "teaser",
+          "nodeIds": [
+            "render-teaser"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c7-method",
+          "name": "method-fig",
+          "nodeIds": [
+            "render-method-fig"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c7-exp1",
+          "name": "exp1",
+          "nodeIds": [
+            "render-exp-fig-1"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c7-exp2",
+          "name": "exp2",
+          "nodeIds": [
+            "render-exp-fig-2"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c7-layout",
+          "name": "layout",
+          "nodeIds": [
+            "layout-audit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c8",
+      "name": "Humanize",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c8-main",
+          "name": "main",
+          "nodeIds": [
+            "humanizer-merge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c9",
+      "name": "Polish gate",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c9-main",
+          "name": "main",
+          "nodeIds": [
+            "polish-gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c10",
+      "name": "Review R1",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c10-r1",
+          "name": "r1-1",
+          "nodeIds": [
+            "reviewer-r1-1"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c10-r2",
+          "name": "r1-2",
+          "nodeIds": [
+            "reviewer-r1-2"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c10-r3",
+          "name": "r1-3",
+          "nodeIds": [
+            "reviewer-r1-3"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c10-r4",
+          "name": "r1-4",
+          "nodeIds": [
+            "reviewer-r1-4"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c10-r5",
+          "name": "r1-5",
+          "nodeIds": [
+            "reviewer-r1-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c11",
+      "name": "Merge R1",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c11-main",
+          "name": "main",
+          "nodeIds": [
+            "review-merge-r1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c12",
+      "name": "Revision R1",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c12-main",
+          "name": "main",
+          "nodeIds": [
+            "revision-r1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c13",
+      "name": "Review R2",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c13-r1",
+          "name": "r2-1",
+          "nodeIds": [
+            "reviewer-r2-1"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c13-r2",
+          "name": "r2-2",
+          "nodeIds": [
+            "reviewer-r2-2"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c13-r3",
+          "name": "r2-3",
+          "nodeIds": [
+            "reviewer-r2-3"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c13-r4",
+          "name": "r2-4",
+          "nodeIds": [
+            "reviewer-r2-4"
+          ]
+        },
+        {
+          "id": "paper-journal-default-c13-r5",
+          "name": "r2-5",
+          "nodeIds": [
+            "reviewer-r2-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c14",
+      "name": "Merge R2",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c14-main",
+          "name": "main",
+          "nodeIds": [
+            "review-merge-r2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c15",
+      "name": "Revision R2",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c15-main",
+          "name": "main",
+          "nodeIds": [
+            "revision-r2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper-journal-default-c16",
+      "name": "Final",
+      "stageId": "paper-journal-default-stage",
+      "lanes": [
+        {
+          "id": "paper-journal-default-c16-main",
+          "name": "main",
+          "nodeIds": [
+            "final-deliver"
+          ]
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "intake",
+      "name": "Intake",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c1",
+      "laneId": "paper-journal-default-c1-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "custom-io-planner",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Intake",
+      "promptPreview": "Collect user idea, experiment results, and target journal from inputs/idea.md, inputs/experiments.md, inputs/journal-target.md. Write paper/intake-summary.md with structured bullets. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/intake-summary.md",
+      "x": 80,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "intake-md",
+          "label": "intake-summary.md",
+          "kind": "markdown",
+          "path": "paper/intake-summary.md",
+          "href": ""
+        },
+        {
+          "id": "idea-in",
+          "label": "idea.md",
+          "kind": "markdown",
+          "path": "inputs/idea.md",
+          "href": ""
+        },
+        {
+          "id": "exp-in",
+          "label": "experiments.md",
+          "kind": "markdown",
+          "path": "inputs/experiments.md",
+          "href": ""
+        },
+        {
+          "id": "journal-in",
+          "label": "journal-target.md",
+          "kind": "markdown",
+          "path": "inputs/journal-target.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "planner",
+        "contract": {
+          "transport": "inter",
+          "outputs": [
+            {
+              "key": "intake-md",
+              "path": "paper/intake-summary.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "idea-in",
+              "path": "inputs/idea.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "exp-in",
+              "path": "inputs/experiments.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "journal-in",
+              "path": "inputs/journal-target.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "requirements",
+      "name": "Requirements analysis",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c2",
+      "laneId": "paper-journal-default-c2-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "custom-io-planner",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Requirements analysis",
+      "promptPreview": "Produce requirements and section map for the target journal. Write paper/requirements.md and paper/journal-architecture.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/requirements.md, paper/journal-architecture.md",
+      "x": 440,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "req-md",
+          "label": "requirements.md",
+          "kind": "markdown",
+          "path": "paper/requirements.md",
+          "href": ""
+        },
+        {
+          "id": "arch-md",
+          "label": "journal-architecture.md",
+          "kind": "markdown",
+          "path": "paper/journal-architecture.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "planner",
+        "readRunFiles": [
+          "paper/intake-summary.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-intake-summary-md",
+              "from": "requirements:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "req-md",
+              "path": "paper/requirements.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "arch-md",
+              "path": "paper/journal-architecture.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "req-gate",
+      "name": "Clarify requirements",
+      "kind": "condition",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c3",
+      "laneId": "paper-journal-default-c3-main",
+      "agentId": "agent-editor",
+      "executionMode": "inquiry",
+      "promptTitle": "Clarify requirements",
+      "promptPreview": "Review requirements.md and journal-architecture.md. Reply with any clarifications or corrections for the LLM before LaTeX scaffold.",
+      "outputContract": "User clarification injected into downstream context.",
+      "x": 800,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "req-gate",
+          "label": "requirements.md",
+          "kind": "markdown",
+          "path": "paper/requirements.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "inherit",
+        "workingDirectory": "paper",
+        "archetype": "gate"
+      }
+    },
+    {
+      "id": "latex-scaffold",
+      "name": "LaTeX scaffold",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c4",
+      "laneId": "paper-journal-default-c4-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "custom-io-planner",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "LaTeX scaffold",
+      "promptPreview": "Create paper/main.tex and empty section shells under paper/sections/*.tex per architecture. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/main.tex + section shells",
+      "x": 1160,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "main-tex",
+          "label": "main.tex",
+          "kind": "latex",
+          "path": "paper/main.tex",
+          "href": ""
+        },
+        {
+          "id": "sections-dir",
+          "label": "sections/",
+          "kind": "markdown",
+          "path": "paper/sections/README.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "planner",
+        "readRunFiles": [
+          "paper/journal-architecture.md",
+          "paper/requirements.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-journal-architecture-md",
+              "from": "latex-scaffold:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-requirements-md",
+              "from": "latex-scaffold:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "main-tex",
+              "path": "paper/main.tex",
+              "criticality": "isolated"
+            },
+            {
+              "key": "sections-dir",
+              "path": "paper/sections/README.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "lit-survey",
+      "name": "Literature survey",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c5",
+      "laneId": "paper-journal-default-c5-survey",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Literature survey",
+      "promptPreview": "Research survey for related work. Write paper/build/lit-survey.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/build/lit-survey.md",
+      "x": 1520,
+      "y": 80,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "lit",
+          "label": "lit-survey.md",
+          "kind": "markdown",
+          "path": "paper/build/lit-survey.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/journal-architecture.md",
+          "paper/requirements.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-journal-architecture-md",
+              "from": "lit-survey:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-requirements-md",
+              "from": "lit-survey:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "lit",
+              "path": "paper/build/lit-survey.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "front-matter",
+      "name": "Abstract & intro & related",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c5",
+      "laneId": "paper-journal-default-c5-survey",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Abstract & intro & related",
+      "promptPreview": "Draft abstract, introduction, related work into paper/sections/01-front.tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/sections/01-front.tex",
+      "x": 1880,
+      "y": 80,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "front",
+          "label": "01-front.tex",
+          "kind": "latex",
+          "path": "paper/sections/01-front.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/build/lit-survey.md",
+          "paper/journal-architecture.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-lit-survey-md",
+              "from": "front-matter:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-journal-architecture-md",
+              "from": "front-matter:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "front",
+              "path": "paper/sections/01-front.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "teaser-figure-spec",
+      "name": "Teaser figure spec",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c5",
+      "laneId": "paper-journal-default-c5-survey",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Teaser figure spec",
+      "promptPreview": "Write teaser figure prompt paper/figures/teaser-prompt.md and insert LaTeX placeholder with fixed width/height in 01-front.tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "teaser-prompt.md + placeholder in tex",
+      "x": 2240,
+      "y": 80,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "teaser-p",
+          "label": "teaser-prompt.md",
+          "kind": "markdown",
+          "path": "paper/figures/teaser-prompt.md",
+          "href": ""
+        },
+        {
+          "id": "front-tex",
+          "label": "01-front.tex",
+          "kind": "latex",
+          "path": "paper/sections/01-front.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/01-front.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-01-front-tex",
+              "from": "teaser-figure-spec:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "teaser-p",
+              "path": "paper/figures/teaser-prompt.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "front-tex",
+              "path": "paper/sections/01-front.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "methodology",
+      "name": "Methodology",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c5",
+      "laneId": "paper-journal-default-c5-method",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Methodology",
+      "promptPreview": "Write methodology section paper/sections/02-methodology.tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/sections/02-methodology.tex",
+      "x": 1520,
+      "y": 360,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "method-tex",
+          "label": "02-methodology.tex",
+          "kind": "latex",
+          "path": "paper/sections/02-methodology.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/journal-architecture.md",
+          "paper/requirements.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-journal-architecture-md",
+              "from": "methodology:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-requirements-md",
+              "from": "methodology:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "method-tex",
+              "path": "paper/sections/02-methodology.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "method-figure-spec",
+      "name": "Method figure spec",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c5",
+      "laneId": "paper-journal-default-c5-method",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Method figure spec",
+      "promptPreview": "Write method figure prompt paper/figures/method-prompt.md and insert placeholder with size in methodology tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "method-prompt.md + placeholder",
+      "x": 1880,
+      "y": 360,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "method-p",
+          "label": "method-prompt.md",
+          "kind": "markdown",
+          "path": "paper/figures/method-prompt.md",
+          "href": ""
+        },
+        {
+          "id": "method-tex2",
+          "label": "02-methodology.tex",
+          "kind": "latex",
+          "path": "paper/sections/02-methodology.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/02-methodology.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-02-methodology-tex",
+              "from": "method-figure-spec:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "method-p",
+              "path": "paper/figures/method-prompt.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "method-tex2",
+              "path": "paper/sections/02-methodology.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "experiments",
+      "name": "Experiments",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c6",
+      "laneId": "paper-journal-default-c6-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Experiments",
+      "promptPreview": "Write experiments section paper/sections/03-experiments.tex from experiment inputs. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/sections/03-experiments.tex",
+      "x": 2600,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "exp-tex",
+          "label": "03-experiments.tex",
+          "kind": "latex",
+          "path": "paper/sections/03-experiments.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/01-front.tex",
+          "paper/sections/02-methodology.tex",
+          "inputs/experiments.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-01-front-tex",
+              "from": "experiments:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-sections-02-methodology-tex",
+              "from": "experiments:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "inputs-experiments-md",
+              "from": "experiments:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "exp-tex",
+              "path": "paper/sections/03-experiments.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "conclusion",
+      "name": "Conclusion",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c6",
+      "laneId": "paper-journal-default-c6-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Conclusion",
+      "promptPreview": "Write conclusion paper/sections/04-conclusion.tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/sections/04-conclusion.tex",
+      "x": 2960,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "concl-tex",
+          "label": "04-conclusion.tex",
+          "kind": "latex",
+          "path": "paper/sections/04-conclusion.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/03-experiments.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-03-experiments-tex",
+              "from": "conclusion:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "concl-tex",
+              "path": "paper/sections/04-conclusion.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "limitations",
+      "name": "Limitations",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c6",
+      "laneId": "paper-journal-default-c6-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Limitations",
+      "promptPreview": "Write limitations paper/sections/05-limitations.tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/sections/05-limitations.tex",
+      "x": 3320,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "lim-tex",
+          "label": "05-limitations.tex",
+          "kind": "latex",
+          "path": "paper/sections/05-limitations.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/04-conclusion.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-04-conclusion-tex",
+              "from": "limitations:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "lim-tex",
+              "path": "paper/sections/05-limitations.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "exp-figure-spec",
+      "name": "Experiment figure specs",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c6",
+      "laneId": "paper-journal-default-c6-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Experiment figure specs",
+      "promptPreview": "Write experiment figure prompts paper/figures/exp-fig-1-prompt.md and exp-fig-2-prompt.md; insert sized placeholders in experiments tex. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "exp figure prompts + placeholders",
+      "x": 3680,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "exp-p1",
+          "label": "exp-fig-1-prompt.md",
+          "kind": "markdown",
+          "path": "paper/figures/exp-fig-1-prompt.md",
+          "href": ""
+        },
+        {
+          "id": "exp-p2",
+          "label": "exp-fig-2-prompt.md",
+          "kind": "markdown",
+          "path": "paper/figures/exp-fig-2-prompt.md",
+          "href": ""
+        },
+        {
+          "id": "exp-tex2",
+          "label": "03-experiments.tex",
+          "kind": "latex",
+          "path": "paper/sections/03-experiments.tex",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "worker",
+        "readRunFiles": [
+          "paper/sections/03-experiments.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-sections-03-experiments-tex",
+              "from": "exp-figure-spec:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "exp-p1",
+              "path": "paper/figures/exp-fig-1-prompt.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "exp-p2",
+              "path": "paper/figures/exp-fig-2-prompt.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "exp-tex2",
+              "path": "paper/sections/03-experiments.tex",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "render-teaser",
+      "name": "Render teaser",
+      "kind": "run-api",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c7",
+      "laneId": "paper-journal-default-c7-teaser",
+      "agentId": "agent-paper",
+      "executionMode": "llm-api",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "modality": "image",
+      "promptTitle": "Render teaser",
+      "promptPreview": "Generate teaser figure from paper/figures/teaser-prompt.md. Save PNG to paper/figures/teaser.png.",
+      "outputContract": "paper/figures/teaser.png",
+      "x": 4040,
+      "y": 40,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "teaser-img",
+          "label": "teaser.png",
+          "kind": "image",
+          "path": "paper/figures/teaser.png",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "maxIterations": 2,
+        "workingDirectory": "paper",
+        "archetype": "media",
+        "readRunFiles": [
+          "paper/figures/teaser-prompt.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-figures-teaser-prompt-md",
+              "from": "render-teaser:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "teaser-img",
+              "path": "paper/figures/teaser.png",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "render-method-fig",
+      "name": "Render method figure",
+      "kind": "run-api",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c7",
+      "laneId": "paper-journal-default-c7-method",
+      "agentId": "agent-paper",
+      "executionMode": "llm-api",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "modality": "image",
+      "promptTitle": "Render method figure",
+      "promptPreview": "Generate method figure from paper/figures/method-prompt.md. Save to paper/figures/method.png.",
+      "outputContract": "paper/figures/method.png",
+      "x": 4040,
+      "y": 160,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "method-img",
+          "label": "method.png",
+          "kind": "image",
+          "path": "paper/figures/method.png",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "maxIterations": 2,
+        "workingDirectory": "paper",
+        "archetype": "media",
+        "readRunFiles": [
+          "paper/figures/method-prompt.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-figures-method-prompt-md",
+              "from": "render-method-fig:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "method-img",
+              "path": "paper/figures/method.png",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "render-exp-fig-1",
+      "name": "Render exp fig 1",
+      "kind": "run-api",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c7",
+      "laneId": "paper-journal-default-c7-exp1",
+      "agentId": "agent-paper",
+      "executionMode": "llm-api",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "modality": "image",
+      "promptTitle": "Render exp fig 1",
+      "promptPreview": "Generate experiment figure 1 from paper/figures/exp-fig-1-prompt.md. Save to paper/figures/exp-fig-1.png.",
+      "outputContract": "paper/figures/exp-fig-1.png",
+      "x": 4040,
+      "y": 280,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "exp1-img",
+          "label": "exp-fig-1.png",
+          "kind": "image",
+          "path": "paper/figures/exp-fig-1.png",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "maxIterations": 2,
+        "workingDirectory": "paper",
+        "archetype": "media",
+        "readRunFiles": [
+          "paper/figures/exp-fig-1-prompt.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-figures-exp-fig-1-prompt-md",
+              "from": "render-exp-fig-1:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "exp1-img",
+              "path": "paper/figures/exp-fig-1.png",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "render-exp-fig-2",
+      "name": "Render exp fig 2",
+      "kind": "run-api",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c7",
+      "laneId": "paper-journal-default-c7-exp2",
+      "agentId": "agent-paper",
+      "executionMode": "llm-api",
+      "agentModeTemplateId": "direct-api",
+      "cliTemplateId": "direct-api-cli",
+      "llmApiTemplateId": "kuaipao-gpt-image-2",
+      "modality": "image",
+      "promptTitle": "Render exp fig 2",
+      "promptPreview": "Generate experiment figure 2 from paper/figures/exp-fig-2-prompt.md. Save to paper/figures/exp-fig-2.png.",
+      "outputContract": "paper/figures/exp-fig-2.png",
+      "x": 4040,
+      "y": 400,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "exp2-img",
+          "label": "exp-fig-2.png",
+          "kind": "image",
+          "path": "paper/figures/exp-fig-2.png",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "maxIterations": 2,
+        "workingDirectory": "paper",
+        "archetype": "media",
+        "readRunFiles": [
+          "paper/figures/exp-fig-2-prompt.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-figures-exp-fig-2-prompt-md",
+              "from": "render-exp-fig-2:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "exp2-img",
+              "path": "paper/figures/exp-fig-2.png",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "layout-audit",
+      "name": "Layout audit",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c7",
+      "laneId": "paper-journal-default-c7-layout",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Layout audit",
+      "promptPreview": "Compile LaTeX draft and write paper/build/layout-audit.md with overfull boxes and figure placement issues. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/build/layout-audit.md, draft PDF",
+      "x": 4040,
+      "y": 520,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "layout-md",
+          "label": "layout-audit.md",
+          "kind": "markdown",
+          "path": "paper/build/layout-audit.md",
+          "href": ""
+        },
+        {
+          "id": "draft-pdf",
+          "label": "draft.pdf",
+          "kind": "pdf",
+          "path": "paper/build/draft.pdf",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-main-tex",
+              "from": "layout-audit:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "layout-md",
+              "path": "paper/build/layout-audit.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "draft-pdf",
+              "path": "paper/build/draft.pdf",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "humanizer-merge",
+      "name": "Humanizer merge",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c8",
+      "laneId": "paper-journal-default-c8-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Humanizer merge",
+      "promptPreview": "Apply humanizer skill to prose sections; ensure figure paths resolve. Write paper/build/humanized-merge.md log. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "Humanized manuscript + merge log",
+      "x": 4400,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "hum-log",
+          "label": "humanized-merge.md",
+          "kind": "markdown",
+          "path": "paper/build/humanized-merge.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "merger",
+        "readRunFiles": [
+          "paper/main.tex",
+          "paper/build/layout-audit.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-main-tex",
+              "from": "humanizer-merge:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-build-layout-audit-md",
+              "from": "humanizer-merge:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "hum-log",
+              "path": "paper/build/humanized-merge.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "polish-gate",
+      "name": "User polish confirm",
+      "kind": "condition",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c9",
+      "laneId": "paper-journal-default-c9-main",
+      "agentId": "agent-editor",
+      "executionMode": "human-gate",
+      "promptTitle": "User polish confirm",
+      "promptPreview": "Review humanized draft and figures. Continue to peer review round 1 after user approval.",
+      "outputContract": "Human approval before review loop.",
+      "x": 4760,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "polish-pdf",
+          "label": "draft.pdf",
+          "kind": "pdf",
+          "path": "paper/build/draft.pdf",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "inherit",
+        "workingDirectory": "paper",
+        "archetype": "gate"
+      }
+    },
+    {
+      "id": "reviewer-r1-1",
+      "name": "Reviewer R1 #1",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c10",
+      "laneId": "paper-journal-default-c10-r1",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R1 #1",
+      "promptPreview": "Independent objective review #1. Write paper/reviews/round1-reviewer-1.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-reviewer-1.md",
+      "x": 5120,
+      "y": 40,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-1",
+          "label": "round1-reviewer-1.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-reviewer-1.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/draft.pdf",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-draft-pdf",
+              "from": "reviewer-r1-1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r1-1:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-1",
+              "path": "paper/reviews/round1-reviewer-1.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r1-2",
+      "name": "Reviewer R1 #2",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c10",
+      "laneId": "paper-journal-default-c10-r2",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R1 #2",
+      "promptPreview": "Independent objective review #2. Write paper/reviews/round1-reviewer-2.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-reviewer-2.md",
+      "x": 5120,
+      "y": 140,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-2",
+          "label": "round1-reviewer-2.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-reviewer-2.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/draft.pdf",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-draft-pdf",
+              "from": "reviewer-r1-2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r1-2:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-2",
+              "path": "paper/reviews/round1-reviewer-2.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r1-3",
+      "name": "Reviewer R1 #3",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c10",
+      "laneId": "paper-journal-default-c10-r3",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R1 #3",
+      "promptPreview": "Independent objective review #3. Write paper/reviews/round1-reviewer-3.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-reviewer-3.md",
+      "x": 5120,
+      "y": 240,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-3",
+          "label": "round1-reviewer-3.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-reviewer-3.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/draft.pdf",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-draft-pdf",
+              "from": "reviewer-r1-3:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r1-3:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-3",
+              "path": "paper/reviews/round1-reviewer-3.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r1-4",
+      "name": "Reviewer R1 #4",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c10",
+      "laneId": "paper-journal-default-c10-r4",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R1 #4",
+      "promptPreview": "Independent objective review #4. Write paper/reviews/round1-reviewer-4.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-reviewer-4.md",
+      "x": 5120,
+      "y": 340,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-4",
+          "label": "round1-reviewer-4.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-reviewer-4.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/draft.pdf",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-draft-pdf",
+              "from": "reviewer-r1-4:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r1-4:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-4",
+              "path": "paper/reviews/round1-reviewer-4.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r1-5",
+      "name": "Reviewer R1 #5",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c10",
+      "laneId": "paper-journal-default-c10-r5",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R1 #5",
+      "promptPreview": "Independent objective review #5. Write paper/reviews/round1-reviewer-5.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-reviewer-5.md",
+      "x": 5120,
+      "y": 440,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-5",
+          "label": "round1-reviewer-5.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-reviewer-5.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/draft.pdf",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-draft-pdf",
+              "from": "reviewer-r1-5:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r1-5:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-5",
+              "path": "paper/reviews/round1-reviewer-5.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "review-merge-r1",
+      "name": "Review union R1",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c11",
+      "laneId": "paper-journal-default-c11-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "custom-io-planner",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Review union R1",
+      "promptPreview": "Merge five R1 reviews into objective union paper/reviews/round1-union.md and actionable list JSON. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round1-union.md",
+      "x": 5480,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r1-union",
+          "label": "round1-union.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round1-union.md",
+          "href": ""
+        },
+        {
+          "id": "r1-json",
+          "label": "round1-union.json",
+          "kind": "json",
+          "path": "paper/reviews/round1-union.json",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "merger",
+        "readRunFiles": [
+          "paper/reviews/round1-reviewer-1.md",
+          "paper/reviews/round1-reviewer-2.md",
+          "paper/reviews/round1-reviewer-3.md",
+          "paper/reviews/round1-reviewer-4.md",
+          "paper/reviews/round1-reviewer-5.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-reviews-round1-reviewer-1-md",
+              "from": "review-merge-r1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round1-reviewer-2-md",
+              "from": "review-merge-r1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round1-reviewer-3-md",
+              "from": "review-merge-r1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round1-reviewer-4-md",
+              "from": "review-merge-r1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round1-reviewer-5-md",
+              "from": "review-merge-r1:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r1-union",
+              "path": "paper/reviews/round1-union.md",
+              "criticality": "isolated"
+            },
+            {
+              "key": "r1-json",
+              "path": "paper/reviews/round1-union.json",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "revision-r1",
+      "name": "Revision R1",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c12",
+      "laneId": "paper-journal-default-c12-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Revision R1",
+      "promptPreview": "Apply review union objectively to tex sections. Log paper/build/revision-r1.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "Revised manuscript after R1",
+      "x": 5840,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "rev-r1",
+          "label": "revision-r1.md",
+          "kind": "markdown",
+          "path": "paper/build/revision-r1.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "continue",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviser",
+        "readRunFiles": [
+          "paper/reviews/round1-union.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-reviews-round1-union-md",
+              "from": "revision-r1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "revision-r1:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "rev-r1",
+              "path": "paper/build/revision-r1.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r2-1",
+      "name": "Reviewer R2 #1",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c13",
+      "laneId": "paper-journal-default-c13-r1",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R2 #1",
+      "promptPreview": "Second-round independent review #1. Write paper/reviews/round2-reviewer-1.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-reviewer-1.md",
+      "x": 6200,
+      "y": 40,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-1",
+          "label": "round2-reviewer-1.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-reviewer-1.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/revision-r1.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-revision-r1-md",
+              "from": "reviewer-r2-1:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r2-1:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-1",
+              "path": "paper/reviews/round2-reviewer-1.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r2-2",
+      "name": "Reviewer R2 #2",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c13",
+      "laneId": "paper-journal-default-c13-r2",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R2 #2",
+      "promptPreview": "Second-round independent review #2. Write paper/reviews/round2-reviewer-2.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-reviewer-2.md",
+      "x": 6200,
+      "y": 140,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-2",
+          "label": "round2-reviewer-2.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-reviewer-2.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/revision-r1.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-revision-r1-md",
+              "from": "reviewer-r2-2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r2-2:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-2",
+              "path": "paper/reviews/round2-reviewer-2.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r2-3",
+      "name": "Reviewer R2 #3",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c13",
+      "laneId": "paper-journal-default-c13-r3",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R2 #3",
+      "promptPreview": "Second-round independent review #3. Write paper/reviews/round2-reviewer-3.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-reviewer-3.md",
+      "x": 6200,
+      "y": 240,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-3",
+          "label": "round2-reviewer-3.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-reviewer-3.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/revision-r1.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-revision-r1-md",
+              "from": "reviewer-r2-3:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r2-3:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-3",
+              "path": "paper/reviews/round2-reviewer-3.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r2-4",
+      "name": "Reviewer R2 #4",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c13",
+      "laneId": "paper-journal-default-c13-r4",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R2 #4",
+      "promptPreview": "Second-round independent review #4. Write paper/reviews/round2-reviewer-4.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-reviewer-4.md",
+      "x": 6200,
+      "y": 340,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-4",
+          "label": "round2-reviewer-4.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-reviewer-4.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/revision-r1.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-revision-r1-md",
+              "from": "reviewer-r2-4:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r2-4:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-4",
+              "path": "paper/reviews/round2-reviewer-4.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reviewer-r2-5",
+      "name": "Reviewer R2 #5",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c13",
+      "laneId": "paper-journal-default-c13-r5",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-reviewer",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Reviewer R2 #5",
+      "promptPreview": "Second-round independent review #5. Write paper/reviews/round2-reviewer-5.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-reviewer-5.md",
+      "x": 6200,
+      "y": 440,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-5",
+          "label": "round2-reviewer-5.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-reviewer-5.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "fresh",
+        "intent": "review",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviewer",
+        "readRunFiles": [
+          "paper/build/revision-r1.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-build-revision-r1-md",
+              "from": "reviewer-r2-5:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "reviewer-r2-5:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-5",
+              "path": "paper/reviews/round2-reviewer-5.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "review-merge-r2",
+      "name": "Review union R2",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c14",
+      "laneId": "paper-journal-default-c14-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "custom-io-planner",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Review union R2",
+      "promptPreview": "Merge five R2 reviews into paper/reviews/round2-union.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/reviews/round2-union.md",
+      "x": 6560,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "r2-union",
+          "label": "round2-union.md",
+          "kind": "markdown",
+          "path": "paper/reviews/round2-union.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "merger",
+        "readRunFiles": [
+          "paper/reviews/round2-reviewer-1.md",
+          "paper/reviews/round2-reviewer-2.md",
+          "paper/reviews/round2-reviewer-3.md",
+          "paper/reviews/round2-reviewer-4.md",
+          "paper/reviews/round2-reviewer-5.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-reviews-round2-reviewer-1-md",
+              "from": "review-merge-r2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round2-reviewer-2-md",
+              "from": "review-merge-r2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round2-reviewer-3-md",
+              "from": "review-merge-r2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round2-reviewer-4-md",
+              "from": "review-merge-r2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-reviews-round2-reviewer-5-md",
+              "from": "review-merge-r2:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "r2-union",
+              "path": "paper/reviews/round2-union.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "revision-r2",
+      "name": "Revision R2",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c15",
+      "laneId": "paper-journal-default-c15-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-section",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Revision R2",
+      "promptPreview": "Final objective revision pass. Log paper/build/revision-r2.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "Final revised manuscript",
+      "x": 6920,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "rev-r2",
+          "label": "revision-r2.md",
+          "kind": "markdown",
+          "path": "paper/build/revision-r2.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "continue",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "reviser",
+        "readRunFiles": [
+          "paper/reviews/round2-union.md",
+          "paper/main.tex"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-reviews-round2-union-md",
+              "from": "revision-r2:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-main-tex",
+              "from": "revision-r2:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "rev-r2",
+              "path": "paper/build/revision-r2.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "final-deliver",
+      "name": "Final deliverable",
+      "kind": "run-cli",
+      "stageId": "paper-journal-default-stage",
+      "columnId": "paper-journal-default-c16",
+      "laneId": "paper-journal-default-c16-main",
+      "agentId": "agent-paper",
+      "executionMode": "cli",
+      "agentModeTemplateId": "opencode-paper-compile",
+      "llmApiTemplateId": "deepseek-deepseek-v4-flash",
+      "promptTitle": "Final deliverable",
+      "promptPreview": "Build final PDF paper/build/final.pdf and summary paper/build/final-deliverable.md. Read/write ONLY under paper/. Use exact artifact paths; never write to workspace root.",
+      "outputContract": "paper/build/final.pdf",
+      "x": 7280,
+      "y": 220,
+      "state": "waiting",
+      "artifacts": [
+        {
+          "id": "final-pdf",
+          "label": "final.pdf",
+          "kind": "pdf",
+          "path": "paper/build/final.pdf",
+          "href": ""
+        },
+        {
+          "id": "final-md",
+          "label": "final-deliverable.md",
+          "kind": "markdown",
+          "path": "paper/build/final-deliverable.md",
+          "href": ""
+        }
+      ],
+      "runtimeOverrides": {
+        "contextMode": "artifacts",
+        "intent": "handoff",
+        "maxIterations": 8,
+        "workingDirectory": "paper",
+        "archetype": "finalizer",
+        "readRunFiles": [
+          "paper/main.tex",
+          "paper/build/revision-r2.md"
+        ],
+        "contract": {
+          "transport": "inter",
+          "inputs": [
+            {
+              "key": "paper-main-tex",
+              "from": "final-deliver:ref",
+              "mode": "reference",
+              "required": true
+            },
+            {
+              "key": "paper-build-revision-r2-md",
+              "from": "final-deliver:ref",
+              "mode": "reference",
+              "required": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "final-pdf",
+              "path": "paper/build/final.pdf",
+              "criticality": "isolated"
+            },
+            {
+              "key": "final-md",
+              "path": "paper/build/final-deliverable.md",
+              "criticality": "isolated"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "paper-journal-default-e1",
+      "from": "intake",
+      "to": "requirements",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e2",
+      "from": "requirements",
+      "to": "req-gate",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e3",
+      "from": "req-gate",
+      "to": "latex-scaffold",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e4",
+      "from": "latex-scaffold",
+      "to": "lit-survey",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e5",
+      "from": "latex-scaffold",
+      "to": "methodology",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e6",
+      "from": "lit-survey",
+      "to": "front-matter",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e7",
+      "from": "front-matter",
+      "to": "teaser-figure-spec",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e8",
+      "from": "methodology",
+      "to": "method-figure-spec",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e9",
+      "from": "teaser-figure-spec",
+      "to": "experiments",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e10",
+      "from": "method-figure-spec",
+      "to": "experiments",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e11",
+      "from": "experiments",
+      "to": "conclusion",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e12",
+      "from": "conclusion",
+      "to": "limitations",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e13",
+      "from": "limitations",
+      "to": "exp-figure-spec",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e14",
+      "from": "exp-figure-spec",
+      "to": "render-teaser",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e15",
+      "from": "exp-figure-spec",
+      "to": "render-method-fig",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e16",
+      "from": "exp-figure-spec",
+      "to": "render-exp-fig-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e17",
+      "from": "exp-figure-spec",
+      "to": "render-exp-fig-2",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e18",
+      "from": "exp-figure-spec",
+      "to": "layout-audit",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e19",
+      "from": "render-teaser",
+      "to": "humanizer-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e20",
+      "from": "render-method-fig",
+      "to": "humanizer-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e21",
+      "from": "render-exp-fig-1",
+      "to": "humanizer-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e22",
+      "from": "render-exp-fig-2",
+      "to": "humanizer-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e23",
+      "from": "layout-audit",
+      "to": "humanizer-merge",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e24",
+      "from": "humanizer-merge",
+      "to": "polish-gate",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-polish-r1-1",
+      "from": "polish-gate",
+      "to": "reviewer-r1-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-polish-r1-2",
+      "from": "polish-gate",
+      "to": "reviewer-r1-2",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-polish-r1-3",
+      "from": "polish-gate",
+      "to": "reviewer-r1-3",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-polish-r1-4",
+      "from": "polish-gate",
+      "to": "reviewer-r1-4",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-polish-r1-5",
+      "from": "polish-gate",
+      "to": "reviewer-r1-5",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r1-merge-1",
+      "from": "reviewer-r1-1",
+      "to": "review-merge-r1",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r1-merge-2",
+      "from": "reviewer-r1-2",
+      "to": "review-merge-r1",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r1-merge-3",
+      "from": "reviewer-r1-3",
+      "to": "review-merge-r1",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r1-merge-4",
+      "from": "reviewer-r1-4",
+      "to": "review-merge-r1",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r1-merge-5",
+      "from": "reviewer-r1-5",
+      "to": "review-merge-r1",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e25",
+      "from": "review-merge-r1",
+      "to": "revision-r1",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-rev1-r2-1",
+      "from": "revision-r1",
+      "to": "reviewer-r2-1",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-rev1-r2-2",
+      "from": "revision-r1",
+      "to": "reviewer-r2-2",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-rev1-r2-3",
+      "from": "revision-r1",
+      "to": "reviewer-r2-3",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-rev1-r2-4",
+      "from": "revision-r1",
+      "to": "reviewer-r2-4",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-rev1-r2-5",
+      "from": "revision-r1",
+      "to": "reviewer-r2-5",
+      "kind": "branch",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r2-merge-1",
+      "from": "reviewer-r2-1",
+      "to": "review-merge-r2",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r2-merge-2",
+      "from": "reviewer-r2-2",
+      "to": "review-merge-r2",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r2-merge-3",
+      "from": "reviewer-r2-3",
+      "to": "review-merge-r2",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r2-merge-4",
+      "from": "reviewer-r2-4",
+      "to": "review-merge-r2",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e-r2-merge-5",
+      "from": "reviewer-r2-5",
+      "to": "review-merge-r2",
+      "kind": "merge",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e26",
+      "from": "review-merge-r2",
+      "to": "revision-r2",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    },
+    {
+      "id": "paper-journal-default-e27",
+      "from": "revision-r2",
+      "to": "final-deliver",
+      "kind": "normal",
+      "color": "rgb(140,197,223)",
+      "annotation": "artifacts",
+      "contextMode": "artifacts"
+    }
+  ],
+  "loopEdges": [],
+  "branchGroups": [
+    {
+      "id": "paper-journal-default-b-front-method",
+      "from": "latex-scaffold",
+      "to": [
+        "lit-survey",
+        "methodology"
+      ]
+    },
+    {
+      "id": "paper-journal-default-b-figures",
+      "from": "exp-figure-spec",
+      "to": [
+        "render-teaser",
+        "render-method-fig",
+        "render-exp-fig-1",
+        "render-exp-fig-2",
+        "layout-audit"
+      ]
+    },
+    {
+      "id": "paper-journal-default-b-r1",
+      "from": "polish-gate",
+      "to": [
+        "reviewer-r1-1",
+        "reviewer-r1-2",
+        "reviewer-r1-3",
+        "reviewer-r1-4",
+        "reviewer-r1-5"
+      ]
+    },
+    {
+      "id": "paper-journal-default-b-r2",
+      "from": "revision-r1",
+      "to": [
+        "reviewer-r2-1",
+        "reviewer-r2-2",
+        "reviewer-r2-3",
+        "reviewer-r2-4",
+        "reviewer-r2-5"
+      ]
+    }
+  ],
+  "mergeGroups": [
+    {
+      "id": "paper-journal-default-m-body",
+      "from": [
+        "teaser-figure-spec",
+        "method-figure-spec"
+      ],
+      "to": "experiments"
+    },
+    {
+      "id": "paper-journal-default-m-figures",
+      "from": [
+        "render-teaser",
+        "render-method-fig",
+        "render-exp-fig-1",
+        "render-exp-fig-2",
+        "layout-audit"
+      ],
+      "to": "humanizer-merge"
+    },
+    {
+      "id": "paper-journal-default-m-r1",
+      "from": [
+        "reviewer-r1-1",
+        "reviewer-r1-2",
+        "reviewer-r1-3",
+        "reviewer-r1-4",
+        "reviewer-r1-5"
+      ],
+      "to": "review-merge-r1"
+    },
+    {
+      "id": "paper-journal-default-m-r2",
+      "from": [
+        "reviewer-r2-1",
+        "reviewer-r2-2",
+        "reviewer-r2-3",
+        "reviewer-r2-4",
+        "reviewer-r2-5"
+      ],
+      "to": "review-merge-r2"
+    }
+  ],
+  "sharedSessions": [],
+  "sessionGroups": {}
+}

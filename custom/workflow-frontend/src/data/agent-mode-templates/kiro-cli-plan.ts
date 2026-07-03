@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const kiroCliPlanTemplate = new PlainAgentModeTemplate({
+  id: "kiro-cli-plan",
+  name: "KIRO Planner CLI",
+  description: "KIRO kiro_planner agent for structured planning via kiro-cli chat.",
+  provider: "kiro",
+  cliTemplateId: "kiro-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "plan",
+  model: "kiro/kiro_planner",
+  contextMode: "fresh",
+  defaultSystemPromptFile: "kiro://kiro_planner",
+  defaultSystemPrompt: "",
+  allowSystemPromptOverride: false,
+  allowedTools: [],
+  outputKinds: ["markdown"],
+  maxIterations: 1,
+  timeoutMs: 240000,
+  allowFileWrites: false,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: true },
+})

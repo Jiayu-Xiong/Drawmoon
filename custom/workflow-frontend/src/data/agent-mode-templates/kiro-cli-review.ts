@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const kiroCliReviewTemplate = new PlainAgentModeTemplate({
+  id: "kiro-cli-review",
+  name: "KIRO Review CLI",
+  description: "KIRO kiro_default agent for consistency and logic review.",
+  provider: "kiro",
+  cliTemplateId: "kiro-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "review",
+  model: "kiro/kiro_default",
+  contextMode: "inherit",
+  defaultSystemPromptFile: "kiro://review",
+  defaultSystemPrompt: "",
+  allowSystemPromptOverride: false,
+  allowedTools: [],
+  outputKinds: ["markdown"],
+  maxIterations: 1,
+  timeoutMs: 180000,
+  allowFileWrites: false,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: true },
+})

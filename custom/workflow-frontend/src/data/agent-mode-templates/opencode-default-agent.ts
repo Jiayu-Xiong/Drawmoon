@@ -1,0 +1,27 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const opencodeDefaultAgentTemplate = new PlainAgentModeTemplate({
+  id: "opencode-default-agent",
+  name: "opencode Default Agent",
+  description: "Default opencode-compatible agent mode imported from the local runtime provider capabilities.",
+  provider: "opencode",
+  cliTemplateId: "opencode-cli",
+  strategyKind: "backend",
+  controlSurface: "customizable",
+  importedFromBackend: true,
+  origin: "custom",
+  mode: "agent",
+  model: "workflow-selected",
+  contextMode: "inherit",
+  defaultSystemPromptFile: "opencode://default-agent",
+  defaultSystemPrompt: "Use the opencode configured system prompt and provider defaults.",
+  allowSystemPromptOverride: true,
+  allowedTools: ["read_file", "write_file", "edit_file", "shell_metadata", "latex_patch", "artifact_link"],
+  outputKinds: ["markdown", "latex", "json", "pdf", "image", "directory"],
+  maxIterations: 25,
+  timeoutMs: 900000,
+  allowFileWrites: true,
+  cacheFiles: ["paper/**/*.tex", "paper/**/*.bib", "figures/prompts/**/*.md"],
+  contextFiles: ["inputs/idea.md", "inputs/experiments/**/*", "inputs/target-journal.md"],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: false },
+})

@@ -1,0 +1,7 @@
+export * from "./unified/types.js"
+export * from "./unified/protocol.js"
+export { getLlmWireAdapter, listLlmWireAdapters, LLM_PROTOCOL_CATALOG, templateProtocolForWire } from "./adapters/registry.js"
+export { unifiedChatCompletion, unifiedChatCompletionStream } from "./client.js"
+export { buildCopilotKuaipaoBind, buildCopilotKuaipaoBindSync, type CopilotBindResult, type LlmApiTemplateSpec } from "./copilot-bind.js"
+export { fetchKuaipaoModels, type KuaipaoModelsResult } from "./kuaipao-models.js"
+export { loadKuaipaoConfig, type KuaipaoApiConfig } from "./kuaipao-config.js"

@@ -1,0 +1,28 @@
+{
+  "name": "Single Node – Custom Command",
+  "description": "A simple workflow with one node that runs cmd.exe to echo the prompt.",
+  "workflow": {
+    "nodes": [
+      {
+        "id": "node-1",
+        "label": "Echo Prompt",
+        "config": {
+          "provider": "custom",
+          "mode": "chat",
+          "cwd": ".",
+          "prompt": "hello from workflow node",
+          "contextMode": "fresh",
+          "customCommand": "cmd.exe",
+          "customArgs": ["/c", "echo %AGENT_PROMPT%"],
+          "timeoutMs": 10000,
+          "maxIterations": 1,
+          "allowFileWrites": false
+        }
+      }
+    ],
+    "edges": []
+  },
+  "expected_events": ["start", "cache", "stdout", "complete"],
+  "expected_stdout_contains": "hello from workflow node",
+  "notes": "On Unix, change customCommand to 'sh' and customArgs to ['-c', 'echo $AGENT_PROMPT']."
+}

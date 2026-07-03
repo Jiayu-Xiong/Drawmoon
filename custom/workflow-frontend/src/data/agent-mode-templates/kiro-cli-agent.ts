@@ -1,0 +1,26 @@
+import { PlainAgentModeTemplate } from "../template-registry"
+
+export const kiroCliAgentTemplate = new PlainAgentModeTemplate({
+  id: "kiro-cli-agent",
+  name: "KIRO Default Agent CLI",
+  description: "KIRO kiro_default agent for generation tasks via kiro-cli chat.",
+  provider: "kiro",
+  cliTemplateId: "kiro-cli",
+  strategyKind: "cli",
+  controlSurface: "cli-owned",
+  origin: "native-cli",
+  mode: "agent",
+  model: "kiro/kiro_default",
+  contextMode: "inherit",
+  defaultSystemPromptFile: "kiro://kiro_default",
+  defaultSystemPrompt: "",
+  allowSystemPromptOverride: false,
+  allowedTools: [],
+  outputKinds: ["markdown"],
+  maxIterations: 1,
+  timeoutMs: 240000,
+  allowFileWrites: false,
+  cacheFiles: [],
+  contextFiles: [],
+  retryPolicy: { attempts: 1, backoffMs: 0, continueOnPartialFailure: true },
+})

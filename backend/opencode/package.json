@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@opencode-ai/backend-opencode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsgo --noEmit",
+    "test": "bun test",
+    "smoke:tool-isolation": "bun run scripts/tool-isolation-smoke.ts",
+    "smoke:tool-isolation:config": "bun run scripts/tool-isolation-smoke.ts --config-only",
+    "install:paper-skills": "bun run scripts/install-paper-skills.ts",
+    "install:vendor-opencode": "bun run scripts/install-vendor-opencode.ts",
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./schema/types": "./src/schema/types.ts",
+    "./drawmoon/migrate-template-intents": "./src/drawmoon/migrate-template-intents.ts",
+    "./lib/product-paths": "./src/lib/product-paths.ts",
+    "./llm-api": "./src/llm-api/index.ts"
+  },
+  "dependencies": {
+    "@lydell/node-pty": "1.2.0-beta.12",
+    "effect": "4.0.0-beta.74",
+    "glob": "^11.0.0",
+    "hono": "4.10.7",
+    "smol-toml": "^1.4.0",
+    "ulid": "3.0.1",
+    "zod": "4.1.8"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "1.0.9",
+    "@types/node": "24.12.2",
+    "fflate": "^0.8.3",
+    "typescript": "5.8.2"
+  }
+}

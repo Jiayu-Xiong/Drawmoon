@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@opencode-ai/custom-workflow-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsgo --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": "workspace:*",
+    "@opencode-ai/sdk": "workspace:*",
+    "zod": "4.1.8"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "1.0.9",
+    "@types/node": "24.12.2",
+    "typescript": "5.8.2"
+  }
+}
