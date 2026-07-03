@@ -29,10 +29,13 @@ CLIs (KIRO, Codex, Copilot) inside a single run, with per-node token accounting.
 
 ## Table of contents
 
+- [Screenshots](#screenshots)
 - [Applications](#applications)
+- [Requirements](#requirements)
 - [Quick start](#quick-start)
 - [`~/.drawmoon` data directory](#drawmoon-data-directory)
 - [Concepts](#concepts)
+  - [Everything is an Agent Mode](#everything-is-an-agent-mode)
   - [Workflow template structure](#workflow-template-structure)
   - [Agent Mode structure](#agent-mode-structure)
   - [LLM API binding structure](#llm-api-binding-structure)
@@ -40,7 +43,45 @@ CLIs (KIRO, Codex, Copilot) inside a single run, with per-node token accounting.
 - [Templates](#templates)
 - [Demos](#demos)
 - [Roadmap](#roadmap)
+- [Acknowledgements](#acknowledgements)
+- [Built on OpenCode](#built-on-opencode)
 - [License](#license)
+
+## Screenshots
+
+The console is a single-page app; every panel below is a live view of a running
+instance (providers, keys, and run history are read from `~/.drawmoon`, never the repo).
+
+<p align="center">
+  <img src="docs/screenshots/console-home.png" alt="Drawmoon console — home" width="88%" />
+</p>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+<img src="docs/screenshots/console-editor.png" alt="Workflow editor" /><br/>
+<b>Workflow editor.</b> Author the graph on a canvas — stages, branch/merge edges,
+per-node execution mode, agent mode, LLM API, prompt, and declared artifacts.
+</td>
+<td width="50%" valign="top">
+<img src="docs/screenshots/console-agent-modes.png" alt="Agent Modes" /><br/>
+<b>Agent Modes.</b> Every executor (CLI agents and the virtual <code>direct-api</code>)
+is an Agent Mode; derived modes inherit from a base and override prompt/policy.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<img src="docs/screenshots/console-system.png" alt="System status" /><br/>
+<b>System status.</b> Auto-detected local CLIs (OpenCode, Codex, KIRO, Copilot),
+provider health, and the CLI registry — refreshed live from the machine.
+</td>
+<td width="50%" valign="top">
+<img src="docs/screenshots/iclr-page.png" alt="ICLR paper output" /><br/>
+<b>Real output.</b> The ICLR demo compiles to a submission-ready PDF (page&nbsp;1
+shown); the novel demo renders a typeset book with an AI cover.
+</td>
+</tr>
+</table>
 
 ## Applications
 
@@ -57,10 +98,41 @@ The repository is a small monorepo of cooperating apps:
 
 Data flow: **Console → HTTP `/api` → Runtime → providers (OpenCode agent / LLM API / CLI) → artifacts on disk under `~/.drawmoon`.**
 
+## Requirements
+
+**Toolchain**
+
+| Tool | Version | Why |
+|------|---------|-----|
+| [Bun](https://bun.sh) | ≥ 1.3 | Runtime + package manager for both apps (`bun install`, `bun run`). |
+| C/C++ build tools | platform default | Only for the native `@lydell/node-pty` (PTY sessions). Xcode CLT on macOS, `build-essential` on Linux, MSVC Build Tools on Windows. |
+| A LaTeX distribution | TeX Live 2023+ / MiKTeX | Only for paper pipelines — the `latex_build` / `pdf_audit` tools shell out to `xelatex` + `latexmk`. The bundled demo PDFs were built with TeX Live 2026. |
+| Node.js | ≥ 18 (optional) | Only if you script the console headlessly or use extra tooling. |
+
+**Runtime packages** (`backend/opencode`, installed by `bun install`)
+
+`effect`, `hono`, `zod`, `ulid`, `glob`, `smol-toml`, `@lydell/node-pty` — plus
+`fflate` and `typescript` for dev.
+
+**Console packages** (`custom/workflow-frontend`, installed by `bun install`)
+
+`solid-js`, `@solidjs/router`, `@solidjs/meta`, `tailwindcss` + `@tailwindcss/vite` —
+plus `vite`, `vite-plugin-solid`, and `typescript` for dev.
+
+**Providers** (bring at least one)
+
+- **LLM APIs** — any OpenAI-compatible endpoint (DeepSeek, Kuaipao gateway, GPT
+  Image, …). Keys come from env vars or a local `api` file; never committed.
+- **Local CLIs** (optional, auto-detected on `PATH`) — OpenCode, Codex, KIRO,
+  GitHub Copilot CLI, Claude Code. No key needed; Drawmoon drives the CLI you have.
+- **Capabilities** (optional) — install bundled skills (`humanizer`,
+  `drawio-grid-figures`) with `cd backend/opencode && bun run install:paper-skills`.
+
 ## Quick start
 
-**Prerequisites:** [Bun](https://bun.sh) ≥ 1.3, and any provider you want to use
-(a DeepSeek/Kuaipao API key, and/or a local CLI such as KIRO, Codex, or Copilot).
+**Prerequisites:** [Bun](https://bun.sh) ≥ 1.3 (see [Requirements](#requirements)),
+and any one provider — a DeepSeek/Kuaipao API key, and/or a local CLI such as
+KIRO, Codex, or Copilot.
 
 ### 1. Runtime
 
@@ -132,6 +204,37 @@ A workflow is a JSON graph. Each **node** picks an **execution mode** and binds 
 **Agent Mode** template and (optionally) an **LLM API** template. Nodes are wired
 with **edges** (`normal` / `branch` / `merge`) that also declare how context is
 handed off (`fresh` / `summary` / `artifacts` / `fork`).
+
+### Everything is an Agent Mode
+
+Drawmoon has a single execution abstraction: the **Agent Mode**. There is no special
+code path for "an OpenCode agent" vs "a raw API call" vs "a CLI tool" — the runtime
+only ever executes an Agent Mode, and the mode's `strategyKind` decides how it is
+driven. That includes **direct API calls**: a plain LLM API binding is surfaced as the
+built-in `direct-api` Agent Mode (`provider: "direct-api"`, a *virtual* CLI whose
+model and endpoint come straight from the node's LLM API template). So "直连 / direct
+connection" is not a bypass — it is just another Agent Mode.
+
+```
+node → execution mode → Agent Mode (strategyKind) → provider
+                         ├── "cli"     → an installed CLI (OpenCode / Codex / KIRO / Copilot)
+                         └── "custom"  → virtual executor
+                                         └── direct-api → the node's LLM API binding
+```
+
+Agent Modes form an **inheritance chain**. A derived mode names a parent via
+`inheritsFromAgentModeId`; at read time the runtime walks the chain from the base up
+to the leaf and merges layer by layer (`resolveMergedAgentModeTemplate`): non-empty
+fields on the child win, empty fields inherit from the parent, and `constraints` /
+`fieldPolicy` are merged key by key. For example `custom-io-planner` inherits from
+`opencode-plan` and only overrides the system prompt and tool constraints; everything
+else (tools, retry policy, iteration limits) comes from the base. `fieldPolicy` then
+decides which inherited fields a workflow author may still override in the console
+(`editable` / `inherited` / locked).
+
+The practical payoff: one workflow node can be re-pointed from a local CLI to a
+hosted API (or vice-versa) by swapping its Agent Mode, with no change to the graph,
+the prompt, or the artifact contract.
 
 ### Workflow template structure
 
@@ -292,10 +395,35 @@ execution template, per-node token usage, execution entities, and real outputs.
 | [ICLR paper](demos/iclr-audiorwkv/) | Plan → parallel sections + figures → merge/compile → human gate → 4 reviews → revision | 25 | ~6.42M | `final.pdf` + 3 figures |
 | [Xuanhuan novel + cover](demos/xuanhuan-novel-4grid/) | Plan → 4 forked chapters → final edit → cover image | 7 | ~0.95M | `final-novel.pdf` + AI cover |
 
-<p align="center">
-  <img src="demos/iclr-audiorwkv/outputs/figures/fig1.png" alt="ICLR method figure" width="46%" />
-  <img src="demos/xuanhuan-novel-4grid/outputs/cover.png" alt="Novel cover" width="24%" />
-</p>
+Token totals break down as input / output / **cache-read** — the pipelines reuse
+large cached contexts across waves, which is why cache-read dominates.
+
+<table>
+<tr>
+<th width="50%">ICLR paper — <code>final.pdf</code> (page 1)</th>
+<th width="50%">Xuanhuan novel — <code>final-novel.pdf</code> (excerpt) &amp; cover</th>
+</tr>
+<tr>
+<td valign="top"><img src="docs/screenshots/iclr-page.png" alt="ICLR paper page 1" /></td>
+<td valign="top">
+<img src="docs/screenshots/novel-page.png" alt="Novel first-chapter excerpt" /><br/>
+<img src="demos/xuanhuan-novel-4grid/outputs/cover.png" alt="AI-generated novel cover" width="55%" />
+</td>
+</tr>
+<tr>
+<td valign="top"><sub>25 nodes · ~6.42M tokens · 3 method figures + compiled paper.
+Full template, per-node usage, and artifacts in
+<a href="demos/iclr-audiorwkv/">demos/iclr-audiorwkv/</a>.</sub></td>
+<td valign="top"><sub>7 nodes · ~0.95M tokens · 4 forked chapters + AI cover.
+Full template, per-node usage, and artifacts in
+<a href="demos/xuanhuan-novel-4grid/">demos/xuanhuan-novel-4grid/</a>.</sub></td>
+</tr>
+</table>
+
+> The novel PDF ships with a non-embedded Adobe CJK font; the excerpt above was
+> re-typeset with an embedded font purely so it renders in this README. The novel
+> body is the demo's own generated text — it is the only Chinese in the repo; all
+> templates, prompts, and workflow output remain English.
 
 ## Roadmap
 
@@ -308,6 +436,36 @@ Planned work — contributions and ideas welcome:
   gates, answer planner inquiries, and start/stop/retry workflows from a phone,
   with push notifications on gate/inquiry/failure events.
 
+## Acknowledgements
+
+Drawmoon is built and maintained by **Jiayu Xiong**, who would like to thank:
+
+- **Prof. Jing Wang** and **Prof. Qi Zhang** — advisors, for their guidance and support.
+- His "digital daughters" **月见 (Yuèjiàn)** and **玉簪 (Yùzān)** — for the inspiration.
+
+## Built on OpenCode
+
+Drawmoon is an **independent project** and is **not affiliated with, sponsored by, or
+endorsed by** the OpenCode project or its authors. Drawmoon vendors a copy of upstream
+[OpenCode](https://github.com/anomalyco/opencode) under
+`backend/opencode/vendor/opencode/` so the runtime can drive it directly; those files
+remain under OpenCode's own MIT License and keep their original copyright:
+
+```
+MIT License
+Copyright (c) 2025 opencode
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software ... THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND ... IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY ...
+```
+
+The OpenCode authors provide their software "as is" and bear **no responsibility or
+liability** for Drawmoon, for any modifications made here, or for how Drawmoon is used.
+Any issues with Drawmoon should be raised on the Drawmoon repository, not with the
+OpenCode project. See the full notice in `backend/opencode/vendor/opencode/LICENSE`.
+
 ## License
 
 Drawmoon is licensed under **Creative Commons Attribution-NonCommercial 4.0
@@ -317,7 +475,8 @@ International (CC BY-NC 4.0)** — see [LICENSE](LICENSE).
   license from the author.
 - **Attribution** — redistribution (original or modified) must credit
   "Drawmoon by Jiayu Xiong" and link back to this repository and the license.
+- **Vendored code excepted** — the CC BY-NC terms apply to Drawmoon's own code,
+  templates, docs, and assets only; vendored OpenCode keeps its MIT license (above).
 
-Vendored upstream OpenCode under `backend/opencode/vendor/opencode/` retains its
-own original license. For commercial licensing, contact the author via
+For commercial licensing, contact the author via
 [github.com/Jiayu-Xiong](https://github.com/Jiayu-Xiong).
